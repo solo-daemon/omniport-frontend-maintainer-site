@@ -1,0 +1,8 @@
+{
+  	"nomenclature": {
+    		"name": "maintainer_site",
+    		"verboseName": "maintainer_site"
+  	},
+	"baseUrl": "/maintainer_site",
+	"source": "maintainer_site/src/index"
+}
