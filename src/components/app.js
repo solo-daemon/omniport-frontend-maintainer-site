@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { Container } from 'semantic-ui-react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { AppHeader, AppFooter, AppMain } from 'formula_one'
+import Team from './team'
 
 import main from 'formula_one/src/css/app.css'
 import blocks from '../css/app.css'
@@ -28,22 +30,13 @@ class App extends Component {
           appLink={`http://${window.location.host}${match.path}`}
         />
         <AppMain>
-          <div styleName='main.app-main'>
-            <div styleName='blocks.content-div'>
-              <h1>Congratulations!</h1>
-              <p>
-                You have successfully initiated <em>maintainer_site</em> and taken
-                the first step to building your <strong>Omniport</strong> app.
-              </p>
-              <p>
-                Edit <code>./src/components/app.js</code> and make this app do
-                magical things. We can't wait to see what you make.
-              </p>
-              <p>
-                Greetings,<br />
-                Team Omniport
-              </p>
-            </div>
+        <div styleName='main.app-main'>
+        <Container styleName='blocks.content-div'>
+          <Switch>
+              {/* <Route exact path={`${match.path}`} component={Team} /> */}
+              <Route path={`${match.path}team/`} component={Team} />
+          </Switch>
+          </Container>
           </div>
         </AppMain>
         <AppFooter creators={creators} />
