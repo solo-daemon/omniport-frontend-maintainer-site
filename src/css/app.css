@@ -8,3 +8,13 @@
     margin-right: auto !important;
     text-align: center;
 }
+.app{
+    display: flex;
+    flex-direction: column;
+    min-height: 100%
+}
+.app-main{
+    display: flex;
+    margin: 0;
+    flex-grow: 1
+}
