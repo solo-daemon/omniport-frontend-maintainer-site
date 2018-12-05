@@ -195,13 +195,13 @@ class Team extends Component {
     ];
     return (
       <Container>
-        <div>
+      
           <Card.Group itemsPerRow={4} stackable>
             {maintainers.map(info => (
               <TeamMember info={info} />
             ))}
           </Card.Group>
-        </div>
+        
       </Container>
     );
   }
