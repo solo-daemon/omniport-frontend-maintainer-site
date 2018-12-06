@@ -10,6 +10,11 @@ import Blogs from "./blog";
 
 import main from "formula_one/src/css/app.css";
 import blocks from "../css/app.css";
+<<<<<<< 9c56500686ff4217e6ce6729e21fdbb2685473e5
+=======
+import Background from "./background";
+import Projects from "./projects";
+>>>>>>> Add Projects component with pagination
 
 class App extends Component {
   render() {
@@ -42,6 +47,11 @@ class App extends Component {
               <Route exact path={`${match.path}`} component={MainPage} />
               <Route path={`${match.path}team/`} component={Team} />
               <Route path={`${match.path}blog/`} component={Blogs} />
+<<<<<<< 9c56500686ff4217e6ce6729e21fdbb2685473e5
+=======
+              <Route path={`${match.path}back/`} component={Background} />
+              <Route path={`${match.path}projects/`} component={Projects} />
+>>>>>>> Add Projects component with pagination
             </Switch>
           </Container>
         </div>
