@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
-import ProjectSection from './project-section'
+import ProjectSection from "./project-section"
 
 class MainPage extends Component {
     render() {
@@ -8,7 +8,7 @@ class MainPage extends Component {
             <div>
                 <ProjectSection />
             </div>
-        )        
+        )
     }
 }
 
