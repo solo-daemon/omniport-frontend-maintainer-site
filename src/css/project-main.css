@@ -1,0 +1,26 @@
+.container {
+    background-color: #ebebeb;
+    z-index: -1000000;
+}
+
+.element {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    text-align: right;
+    width: 10vw;
+    height: 150px;
+    position: relative;
+}
+
+.background {
+    position: absolute;
+    transform: translateY(50%);
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: 20%;
+    color: #f8d16c;
+    font-size: 180px;
+}
