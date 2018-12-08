@@ -10,14 +10,14 @@ const BlogSection = () => (
     <div styleName="styles.container">
         <Container textAlign="center">
             <h1>Blogs</h1>
-            <Grid>
-                <Grid.Column width={8}>
+            <Grid verticalAlign="middle" centered stackable>
+                <Grid.Column width={6}>
                     <Image
                         src="http://img.channeli.in/static/images/img_website/landing/Blogs.png"
                         size="medium"
                     />
                 </Grid.Column>
-                <Grid.Column width={8} styleName="styles.text">
+                <Grid.Column width={6} styleName="styles.text">
                     <p>{blog1}</p>
                     <p>{blog2}</p>
                 </Grid.Column>
