@@ -204,7 +204,7 @@ class Team extends Component {
             },
         ]
         return (
-            <Container>
+            <Container textAlign="center">
                 <Card.Group itemsPerRow={4} stackable>
                     {maintainers.map(info => (
                         <TeamMember info={info} />

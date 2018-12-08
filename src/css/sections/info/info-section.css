@@ -1,0 +1,34 @@
+.container {
+    background-color: #293b52;
+    text-align: left;
+    width: 100vw;
+}
+.footer-text-content {
+    color: #ddd;
+    line-height: 1.7;
+}
+.footer-text {
+    font-size: 24px;
+    line-height: 2;
+    font-family: "TypoPRO Bebas Neue";
+    color: #fff;
+    padding-top: 28px;
+}
+.f-link {
+    margin-left: 12px;
+    color: #f8d16c;
+}
+
+.social-links {
+    color: #ffffff;
+}
+
+.social-links:hover {
+    color: #f8d16c;
+}
+
+h5 {
+    font-size: 1.64rem;
+    line-height: 110%;
+    margin: 0.82rem 0 0.656rem 0;
+}
