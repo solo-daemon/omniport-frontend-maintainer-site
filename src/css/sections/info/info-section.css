@@ -8,7 +8,7 @@
     line-height: 1.7;
 }
 .footer-text {
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 2;
     font-family: "TypoPRO Bebas Neue";
     color: #fff;
@@ -21,6 +21,7 @@
 
 .social-links {
     color: #ffffff;
+    margin-right: 1.3em;
 }
 
 .social-links:hover {

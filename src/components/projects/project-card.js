@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Card, Image, CardContent } from "semantic-ui-react"
+import { Card, Image } from "semantic-ui-react"
 
 const ProjectDetail = ({ info }) => {
     return (
