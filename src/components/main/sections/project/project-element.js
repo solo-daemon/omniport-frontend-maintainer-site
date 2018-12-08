@@ -1,7 +1,7 @@
 import React from "react"
 import { Grid, Segment } from "semantic-ui-react"
 
-import styles from "../css/project-main.css"
+import styles from "../../../../css/sections/project/project-element.css"
 
 const ProjectElement = ({ number, name, description }) => (
     <Grid.Column styleName="styles.element" mobile={16} tablet={8} computer={4}>

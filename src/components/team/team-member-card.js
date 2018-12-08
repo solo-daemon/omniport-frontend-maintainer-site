@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Card, Icon, Image } from "semantic-ui-react"
-import styles from "../css/team-member"
+import styles from "../../css/team/team-member.css"
 const TeamMember = ({ info }) => {
     return (
         <Card raised>

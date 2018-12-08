@@ -1,0 +1,10 @@
+.image {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8d16c;
+}

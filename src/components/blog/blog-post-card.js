@@ -1,7 +1,7 @@
 import React from "react"
 import moment from "moment"
 import { Card, Image, Grid } from "semantic-ui-react"
-import styles from "../css/blog.css"
+import styles from "../../css/blog/blog.css"
 
 const MEDIUM_URL = "https://medium.com/"
 const MEDIUM_PUBLICATION = "img-iit-roorkee"

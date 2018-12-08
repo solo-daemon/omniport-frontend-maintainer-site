@@ -1,0 +1,12 @@
+.container {
+    background-color: #ebebeb;
+    width: 100%;
+}
+
+.text {
+    display: flex;
+    text-align: left;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 20px;
+}
