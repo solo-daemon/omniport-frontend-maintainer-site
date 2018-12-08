@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, Container } from "semantic-ui-react"
 
-import TeamMember from "./team-member"
+import TeamMember from "./team-member-card"
 
-import styles from "../css/team.css"
+import styles from "../../css/team/team.css"
 
 class Team extends Component {
     constructor(props) {

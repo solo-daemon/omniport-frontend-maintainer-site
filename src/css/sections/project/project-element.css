@@ -1,0 +1,15 @@
+.element {
+    margin-bottom: 1em;
+}
+
+.background {
+    position: absolute;
+    transform: translateY(50%);
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: 20%;
+    color: #f8d16c;
+    font-size: 15em;
+    font-family: "TypoPRO Bebas Neue";
+}

@@ -3,7 +3,7 @@ import { Container, Image, Grid, Button, Segment } from "semantic-ui-react"
 
 import ProjectElement from "./project-element"
 
-import styles from "../css/project-main.css"
+import styles from "../../../../css/sections/project/project-main.css"
 
 class ProjectSection extends Component {
     render() {
@@ -34,8 +34,8 @@ class ProjectSection extends Component {
             },
         ]
         return (
-            <Container styleName="styles.container" fluid>
-                <Container>
+            <div styleName="styles.container">
+                <Container textAlign="center">
                     <h1>Projects</h1>
                     <Image
                         src="http://img.channeli.in/static/images/img_website/landing/Projects.png"
@@ -57,7 +57,7 @@ class ProjectSection extends Component {
                         </Button>
                     </Segment>
                 </Container>
-            </Container>
+            </div>
         )
     }
 }

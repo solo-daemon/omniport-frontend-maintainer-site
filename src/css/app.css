@@ -1,20 +1,20 @@
-.content-div{
-    flex-grow: 1;
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:700");
+@import url("https://cdn.jsdelivr.net/npm/@typopro/web-bebas-neue@3.7.5/TypoPRO-BebasNeue.css");
+
+.content-div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center;
+    width: 100%;
 }
-.app{
+
+.app {
     display: flex;
     flex-direction: column;
-    min-height: 100%
+    min-height: 100%;
 }
-.app-main{
+
+.app-main {
     display: flex;
     margin: 0;
-    flex-grow: 1
+    flex-grow: 1;
 }

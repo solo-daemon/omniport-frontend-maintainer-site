@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import axios from "axios"
 import { Card, Container, Segment, Icon } from "semantic-ui-react"
-import BlogDetail from "./blog-detail"
+import BlogDetail from "./blog-post-card"
 
 const MEDIUM_URL = "https://medium.com/"
 const MEDIUM_PUBLICATION = "img-iit-roorkee"

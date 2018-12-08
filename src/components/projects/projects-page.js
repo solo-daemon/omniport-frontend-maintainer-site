@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Card, Container, Segment, Menu, Icon } from "semantic-ui-react"
-import ProjectDetail from "./project-detail"
+import ProjectDetail from "./project-card"
 import axios from "axios"
 
 class Projects extends Component {
@@ -63,13 +63,13 @@ class Projects extends Component {
         }
 
         return (
-            <Container>
+            <Container textAlign="center">
                 <Card.Group itemsPerRow={3} stackable doubling>
                     {this.state.projects.map(info => (
                         <ProjectDetail info={info} />
                     ))}
                 </Card.Group>
-                <Segment padded basic>
+                <Segment padded basic compact>
                     <Menu pagination>
                         <Menu.Item
                             onClick={() => {
