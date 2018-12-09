@@ -1,0 +1,26 @@
+.header {
+    border-bottom: 0.2em #f8d16c solid;
+    display: inline-block;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    padding-bottom: 0.3em;
+    margin-bottom: 2em;
+    margin-top: 2em !important; /*  Added important because Semantic-UI gives margin-top as 0 for header */
+}
+
+.button {
+    background-color: transparent;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-family: "TypoPRO Bebas Neue";
+    font-size: 1.5rem;
+    border: 2px solid #263146;
+    color: #263146;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #f8d16c !important;
+}

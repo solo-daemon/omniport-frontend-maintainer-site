@@ -33,7 +33,7 @@ const BlogDetail = ({ info }) => (
             <div styleName="styles.blogDetails">
                 <div>{`${moment(info.createdAt).format(
                     "MMM Do, 'YY"
-                )} · ${parseInt(info.readingTime)} min`}</div>
+                )} · ${Math.ceil(info.readingTime)} min`}</div>
             </div>
         </Card.Content>
     </Card>

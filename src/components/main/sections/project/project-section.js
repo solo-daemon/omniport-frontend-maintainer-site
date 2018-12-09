@@ -1,9 +1,11 @@
 import React, { Component } from "react"
+import { Link } from "react-router-dom"
 import { Container, Image, Grid, Button, Segment } from "semantic-ui-react"
 
 import ProjectElement from "./project-element"
 
 import styles from "../../../../css/sections/project/project-main.css"
+import common from "../../../../css/sections/common-styles.css"
 
 class ProjectSection extends Component {
     render() {
@@ -36,10 +38,11 @@ class ProjectSection extends Component {
         return (
             <div styleName="styles.container">
                 <Container textAlign="center">
-                    <h1>Projects</h1>
+                    <h1 styleName="common.header">Projects</h1>
                     <Image
                         src="http://img.channeli.in/static/images/img_website/landing/Projects.png"
                         size="medium"
+                        styleName="styles.image"
                         centered
                     />
                     <Grid padded>
@@ -52,9 +55,9 @@ class ProjectSection extends Component {
                         ))}
                     </Grid>
                     <Segment clearing padded basic>
-                        <Button basic color="black">
-                            VIEW MORE
-                        </Button>
+                        <Link to="./projects">
+                            <div styleName="common.button">View more</div>
+                        </Link>
                     </Segment>
                 </Container>
             </div>
