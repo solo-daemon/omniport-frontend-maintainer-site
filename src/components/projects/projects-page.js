@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Card, Container, Segment, Menu, Icon } from "semantic-ui-react"
+import { Card, Container, Segment, Menu, Icon, Loader } from "semantic-ui-react"
 import ProjectDetail from "./project-card"
 import axios from "axios"
 
+import styles from "../../css/insert-it.css"
 class Projects extends Component {
     constructor(props) {
         super(props)
@@ -10,6 +11,7 @@ class Projects extends Component {
             projects: [],
             current: 1,
             total: 0,
+            loading: false,
         }
     }
 
@@ -25,6 +27,7 @@ class Projects extends Component {
                 {
                     projects: res.data.results,
                     total: Math.ceil(res.data.count / 12),
+                    loading: false,
                 },
                 () => {}
             )
@@ -61,37 +64,45 @@ class Projects extends Component {
                 </Menu.Item>
             )
         }
-
-        return (
-            <Container textAlign="center">
-                <Card.Group itemsPerRow={3} stackable doubling>
-                    {this.state.projects.map(info => (
-                        <ProjectDetail info={info} />
-                    ))}
-                </Card.Group>
-                <Segment padded basic compact>
-                    <Menu pagination>
-                        <Menu.Item
-                            onClick={() => {
-                                this.leftClick()
-                            }}
-                            icon
-                        >
-                            <Icon name="chevron left" />
-                        </Menu.Item>
-                        {menu}
-                        <Menu.Item
-                            onClick={() => {
-                                this.rightClick()
-                            }}
-                            icon
-                        >
-                            <Icon name="chevron right" />
-                        </Menu.Item>
-                    </Menu>
-                </Segment>
-            </Container>
-        )
+        if (this.state.loading) {
+            return <Loader active />
+        } else {
+            return (
+                <Container textAlign="center">
+                    <Card.Group
+                        itemsPerRow={3}
+                        stackable
+                        doubling
+                        styleName="styles.insert-it"
+                    >
+                        {this.state.projects.map(info => (
+                            <ProjectDetail info={info} />
+                        ))}
+                    </Card.Group>
+                    <Segment padded basic textAlign="center">
+                        <Menu pagination>
+                            <Menu.Item
+                                onClick={() => {
+                                    this.leftClick()
+                                }}
+                                icon
+                            >
+                                <Icon name="chevron left" />
+                            </Menu.Item>
+                            {menu}
+                            <Menu.Item
+                                onClick={() => {
+                                    this.rightClick()
+                                }}
+                                icon
+                            >
+                                <Icon name="chevron right" />
+                            </Menu.Item>
+                        </Menu>
+                    </Segment>
+                </Container>
+            )
+        }
     }
 }
 export default Projects
