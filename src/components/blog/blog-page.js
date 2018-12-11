@@ -48,7 +48,7 @@ class Blogs extends Component {
                 </Container>
             )
         } else {
-            return <Loader active />
+            return <Loader active size="large" />
         }
     }
 }
