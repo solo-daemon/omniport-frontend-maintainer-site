@@ -7,11 +7,11 @@ import {
 } from "react-router-dom"
 import { connect } from "react-redux"
 
-import MainPage from "./main/main-page"
+import MainPage from "../containers/main/mainPageLoader"
 import Team from "./team/team-page"
 import TeamIndividualView from "./team/team-individual-view"
-import Blogs from "./blog/blog-page"
-import Projects from "./projects/projects-page"
+import Blogs from "../containers/blog/blogPageLoader"
+import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
 import blocks from "../css/app.css"
 

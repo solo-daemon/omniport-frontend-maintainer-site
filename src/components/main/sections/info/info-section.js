@@ -1,48 +1,8 @@
 import React, { Component } from "react"
 import { Grid, Container, Icon } from "semantic-ui-react"
 import styles from "../../../../css/sections/info/info-section.css"
-import axios from "axios"
 
 class InfoSection extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            location: {},
-            social: {},
-            contact: {},
-        }
-    }
-
-    componentDidMount() {
-        const URL1 = "/api/maintainer_site/location"
-        axios.get(URL1).then(res => {
-            this.setState(
-                {
-                    location: res.data,
-                },
-                () => {}
-            )
-        })
-        const URL2 = "/api/maintainer_site/social"
-        axios.get(URL2).then(res => {
-            this.setState(
-                {
-                    social: res.data,
-                },
-                () => {}
-            )
-        })
-        const URL3 = "/api/maintainer_site/contact"
-        axios.get(URL3).then(res => {
-            this.setState(
-                {
-                    contact: res.data,
-                },
-                () => {}
-            )
-        })
-    }
-
     render() {
         return (
             <div styleName="styles.container">
@@ -61,32 +21,32 @@ class InfoSection extends Component {
                                     </div>
                                 </h5>
                                 <p styleName="styles.footer-text-content">
-                                    {this.state.location.address}
+                                    {this.props.location.address}
                                     <br />
-                                    {this.state.location.city},
+                                    {this.props.location.city},
                                     <br />
-                                    {this.state.location.state},{" "}
-                                    {this.state.location.country &&
-                                        this.state.location.country.name}
-                                    - {this.state.location.postalCode}
+                                    {this.props.location.state},{" "}
+                                    {this.props.location.country &&
+                                        this.props.location.country.name}
+                                    - {this.props.location.postalCode}
                                 </p>
                             </div>
                             <br />
                             <p>
                                 <Icon inverted name="phone" />
                                 <span styleName="styles.f-link">
-                                    {this.state.contact.primaryPhoneNumber}
+                                    {this.props.contact.primaryPhoneNumber}
                                 </span>
                             </p>
                             <p>
                                 <Icon inverted name="envelope" />
                                 <span styleName="styles.f-link">
-                                    {this.state.contact.emailAddress}
+                                    {this.props.contact.emailAddress}
                                 </span>
                             </p>
                             <div>
-                                {this.state.social.links &&
-                                    this.state.social.links.map(profile => (
+                                {this.props.social.links &&
+                                    this.props.social.links.map(profile => (
                                         <span styleName="styles.social-links">
                                             <Icon
                                                 fitted

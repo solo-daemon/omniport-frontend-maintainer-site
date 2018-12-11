@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import axios from "axios"
 import { Card, Container, Segment, Icon, Loader } from "semantic-ui-react"
 import BlogDetail from "./blog-post-card"
 
@@ -11,32 +10,16 @@ const MEDIUM_PUBLICATION = "img-iit-roorkee"
 class Blogs extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            blogs: [],
-            loading: false,
-        }
     }
 
     componentDidMount() {
-        this.setState({
-            loading: true,
-        })
-        const URL = "/api/maintainer_site/blogs"
-        axios.get(URL).then(res => {
-            this.setState(
-                {
-                    blogs: res.data,
-                    loading: false,
-                },
-                () => {}
-            )
-        })
+        const URL = "blogs"
+        this.props.requestData(URL)
     }
 
     render() {
-        if (this.state.loading) {
-            return <Loader active={this.state.loading} />
-        } else {
+        console.log(this.props.apiData)
+        if (this.props.apiData.loaded) {
             return (
                 <Container>
                     <Card.Group
@@ -45,8 +28,8 @@ class Blogs extends Component {
                         doubling
                         styleName="styles.insert-it"
                     >
-                        {this.state.blogs.map(info => (
-                            <BlogDetail info={info} />
+                        {this.props.apiData.data.map(info => (
+                            <BlogDetail info={info} key={info.id} />
                         ))}
                     </Card.Group>
                     <Segment basic padded textAlign="center">
@@ -64,6 +47,8 @@ class Blogs extends Component {
                     </Segment>
                 </Container>
             )
+        } else {
+            return <Loader active />
         }
     }
 }

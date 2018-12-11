@@ -1,38 +1,26 @@
 import React, { Component } from "react"
 import { Card, Container, Segment, Menu, Icon, Loader } from "semantic-ui-react"
 import ProjectDetail from "./project-card"
-import axios from "axios"
 
 import styles from "../../css/insert-it.css"
 class Projects extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            projects: [],
             current: 1,
             total: 0,
-            loading: false,
         }
     }
 
-    componentDidMount() {
-        this.paginating(1)
+    async componentDidMount() {
+        await this.paginating(1)
     }
 
     paginating = a => {
-        const URL = "/api/maintainer_site/projects/?page=" + a
-        this.setState({ current: a })
-        axios.get(URL).then(res => {
-            this.setState(
-                {
-                    projects: res.data.results,
-                    total: Math.ceil(res.data.count / 12),
-                    loading: false,
-                },
-                () => {}
-            )
-        })
+        const URL = "projects/?page=" + a
+        this.props.requestData(URL)
     }
+
     leftClick = () => {
         if (this.state.current > 1) {
             let change = this.state.current
@@ -64,9 +52,8 @@ class Projects extends Component {
                 </Menu.Item>
             )
         }
-        if (this.state.loading) {
-            return <Loader active />
-        } else {
+        if (this.props.apiData.loaded) {
+            console.log(this.props.apiData.data)
             return (
                 <Container textAlign="center">
                     <Card.Group
@@ -75,8 +62,8 @@ class Projects extends Component {
                         doubling
                         styleName="styles.insert-it"
                     >
-                        {this.state.projects.map(info => (
-                            <ProjectDetail info={info} />
+                        {this.props.apiData.data.results.map(info => (
+                            <ProjectDetail info={info} key={info.id} />
                         ))}
                     </Card.Group>
                     <Segment padded basic textAlign="center">
@@ -102,6 +89,8 @@ class Projects extends Component {
                     </Segment>
                 </Container>
             )
+        } else {
+            return <Loader active />
         }
     }
 }
