@@ -9,6 +9,7 @@ import { connect } from "react-redux"
 
 import MainPage from "./main/main-page"
 import Team from "./team/team-page"
+import TeamIndividualView from "./team/team-individual-view"
 import Blogs from "./blog/blog-page"
 import Projects from "./projects/projects-page"
 import ProjectDetailView from "./projects/project-detail-view"
@@ -52,6 +53,10 @@ class App extends Component {
                         exact
                         path={`${match.path}projects/:slug`}
                         component={ProjectDetailView}
+                    />
+                    <Route
+                        path={`${match.path}dhruv`}
+                        component={TeamIndividualView}
                     />
                 </Switch>
             </div>

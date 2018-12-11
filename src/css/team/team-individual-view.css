@@ -1,0 +1,13 @@
+.f-link {
+    transition: color 0.3s;
+    font-size: 17px;
+    margin-right: 0.6em;
+}
+.f-link:hover {
+    color: #f8d16c;
+}
+.pro-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

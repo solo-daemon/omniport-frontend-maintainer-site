@@ -1,0 +1,17 @@
+.visible {
+    height: 100%;
+    min-height: 15em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    position: relative;
+}
+.revealHeight {
+    height: 100%;
+}
