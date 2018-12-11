@@ -1,20 +1,20 @@
 import {
-    REQUEST_SOCIAL_DATA,
-    RECEIVE_SOCIAL_DATA,
+    REQUEST_BLOG_DATA,
+    RECEIVE_BLOG_DATA,
     ERROR_OCCURED,
-} from "../actions/apiSocialCall"
+} from "../actions/apiBlogCall"
 
-const apiSocialData = (
+const apiBlogData = (
     state = { data: null, loaded: false, url: "" },
     action
 ) => {
     switch (action.type) {
-        case REQUEST_SOCIAL_DATA:
+        case REQUEST_BLOG_DATA:
             return {
                 ...state,
                 url: action.url,
             }
-        case RECEIVE_SOCIAL_DATA:
+        case RECEIVE_BLOG_DATA:
             return {
                 ...state,
                 data: action.data,
@@ -32,4 +32,4 @@ const apiSocialData = (
     }
 }
 
-export default apiSocialData
+export default apiBlogData

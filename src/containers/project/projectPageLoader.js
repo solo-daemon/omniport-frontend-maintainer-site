@@ -1,18 +1,18 @@
 import { connect } from "react-redux"
-import { requestData } from "../../actions/apiCalls"
+import { requestProjectData } from "../../actions/apiProjectCall"
 
 import Project from "../../components/projects/projects-page"
 
 const mapStateToProps = state => {
     return {
-        apiData: state.apiData,
+        apiProjectData: state.apiProjectData,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        requestData: url => {
-            dispatch(requestData(url))
+        requestProjectData: url => {
+            dispatch(requestProjectData(url))
         },
     }
 }

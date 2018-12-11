@@ -21,43 +21,50 @@ class InfoSection extends Component {
                                     </div>
                                 </h5>
                                 <p styleName="styles.footer-text-content">
-                                    {this.props.location.address}
+                                    {this.props.info.locationData.address}
                                     <br />
-                                    {this.props.location.city},
+                                    {this.props.info.locationData.city},
                                     <br />
-                                    {this.props.location.state},{" "}
-                                    {this.props.location.country &&
-                                        this.props.location.country.name}
-                                    - {this.props.location.postalCode}
+                                    {this.props.info.locationData.state},{" "}
+                                    {this.props.info.locationData.country &&
+                                        this.props.info.locationData.country
+                                            .name}
+                                    - {this.props.info.locationData.postalCode}
                                 </p>
                             </div>
                             <br />
                             <p>
                                 <Icon inverted name="phone" />
                                 <span styleName="styles.f-link">
-                                    {this.props.contact.primaryPhoneNumber}
+                                    {
+                                        this.props.info.contactData
+                                            .primaryPhoneNumber
+                                    }
                                 </span>
                             </p>
                             <p>
                                 <Icon inverted name="envelope" />
                                 <span styleName="styles.f-link">
-                                    {this.props.contact.emailAddress}
+                                    {this.props.info.contactData.emailAddress}
                                 </span>
                             </p>
                             <div>
-                                {this.props.social.links &&
-                                    this.props.social.links.map(profile => (
-                                        <span styleName="styles.social-links">
-                                            <Icon
-                                                fitted
-                                                title={profile.url}
-                                                name={profile.siteLogo}
-                                                onClick={() =>
-                                                    window.open(profile.url)
-                                                }
-                                            />
-                                        </span>
-                                    ))}
+                                {this.props.info.socialData.links &&
+                                    this.props.info.socialData.links.map(
+                                        profile => (
+                                            <span styleName="styles.social-links">
+                                                <Icon
+                                                    fitted
+                                                    title={profile.url}
+                                                    name={profile.siteLogo}
+                                                    onClick={() =>
+                                                        window.open(profile.url)
+                                                    }
+                                                    key={profile.siteName}
+                                                />
+                                            </span>
+                                        )
+                                    )}
                             </div>
                         </Grid.Column>
                         <Grid.Column>
