@@ -1,14 +1,12 @@
 import { combineReducers } from "redux"
-import apiData from "./apiData"
-import apiLocationData from "./apiLocationData"
-import apiContactData from "./apiContactData"
-import apiSocialData from "./apiSocialData"
+import apiBlogData from "./apiBlogData"
+import apiProjectData from "./apiProjectData"
+import apiInfoData from "./apiInfoData"
 
 const rootReducers = combineReducers({
-    apiData,
-    apiLocationData,
-    apiContactData,
-    apiSocialData,
+    apiBlogData,
+    apiProjectData,
+    apiInfoData,
 })
 
 export default rootReducers

@@ -14,12 +14,12 @@ class Blogs extends Component {
 
     componentDidMount() {
         const URL = "blogs"
-        this.props.requestData(URL)
+        this.props.requestBlogData(URL)
     }
 
     render() {
-        console.log(this.props.apiData)
-        if (this.props.apiData.loaded) {
+        console.log(this.props.apiBlogData)
+        if (this.props.apiBlogData.loaded) {
             return (
                 <Container>
                     <Card.Group
@@ -28,8 +28,8 @@ class Blogs extends Component {
                         doubling
                         styleName="styles.insert-it"
                     >
-                        {this.props.apiData.data.map(info => (
-                            <BlogDetail info={info} key={info.id} />
+                        {this.props.apiBlogData.data.map(info => (
+                            <BlogDetail info={info} />
                         ))}
                     </Card.Group>
                     <Segment basic padded textAlign="center">

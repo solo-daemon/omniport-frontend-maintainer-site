@@ -51,6 +51,7 @@ class ProjectSection extends Component {
                                 name={info.name}
                                 number={info.number}
                                 description={info.description}
+                                key={info.number}
                             />
                         ))}
                     </Grid>

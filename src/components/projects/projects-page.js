@@ -18,7 +18,7 @@ class Projects extends Component {
 
     paginating = a => {
         const URL = "projects/?page=" + a
-        this.props.requestData(URL)
+        this.props.requestProjectData(URL)
     }
 
     leftClick = () => {
@@ -52,8 +52,8 @@ class Projects extends Component {
                 </Menu.Item>
             )
         }
-        if (this.props.apiData.loaded) {
-            console.log(this.props.apiData.data)
+        if (this.props.apiProjectData.loaded) {
+            console.log(this.props.apiProjectData.data)
             return (
                 <Container textAlign="center">
                     <Card.Group
@@ -62,8 +62,8 @@ class Projects extends Component {
                         doubling
                         styleName="styles.insert-it"
                     >
-                        {this.props.apiData.data.results.map(info => (
-                            <ProjectDetail info={info} key={info.id} />
+                        {this.props.apiProjectData.data.results.map(info => (
+                            <ProjectDetail info={info} key={info.slug} />
                         ))}
                     </Card.Group>
                     <Segment padded basic textAlign="center">

@@ -1,18 +1,18 @@
 import { connect } from "react-redux"
-import { requestData } from "../../actions/apiCalls"
+import { requestBlogData } from "../../actions/apiBlogCall"
 
 import Blog from "../../components/blog/blog-page"
 
 const mapStateToProps = state => {
     return {
-        apiData: state.apiData,
+        apiBlogData: state.apiBlogData,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        requestData: url => {
-            dispatch(requestData(url))
+        requestBlogData: url => {
+            dispatch(requestBlogData(url))
         },
     }
 }

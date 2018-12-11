@@ -16,32 +16,22 @@ class MainPage extends Component {
         const URL1 = "location"
         const URL2 = "contact"
         const URL3 = "social"
-        this.props.requestSocialData(URL3)
-        this.props.requestLocationData(URL1)
-        this.props.requestContactData(URL2)
+        this.props.requestInfoData(URL1, URL2, URL3)
     }
 
     render() {
-        console.log(this.props.apiLocationData)
+        console.log(this.props.apiInfoData)
         if (
-            this.props.apiLocationData.loaded &&
-            this.props.apiContactData.loaded &&
-            this.props.apiSocialData.loaded
+            this.props.apiInfoData.locationLoaded &&
+            this.props.apiInfoData.contactLoaded &&
+            this.props.apiInfoData.socialLoaded
         ) {
             return (
                 <div>
                     <MainSection />
                     <ProjectSection />
                     <BlogSection />
-                    {this.props.apiLocationData &&
-                        this.props.apiContactData &&
-                        this.props.apiSocialData && (
-                            <InfoSection
-                                location={this.props.apiLocationData.data}
-                                contact={this.props.apiContactData.data}
-                                social={this.props.apiSocialData.data}
-                            />
-                        )}
+                    <InfoSection info={this.props.apiInfoData} />
                     <FooterSection />
                 </div>
             )
