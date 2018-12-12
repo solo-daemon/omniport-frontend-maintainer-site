@@ -4,19 +4,22 @@ import styles from "../../css/team/team-member.css"
 const TeamMember = ({ info }) => {
     return (
         <Card raised>
-            <Image src={info.image} />
+            <Image src={info.normieImage} />
             <Card.Content>
-                <Card.Header>{info.name}</Card.Header>
+                <Card.Header>{info.fullName.fullName}</Card.Header>
                 <br />
                 <Card.Description>
-                    {info.social.map(profile => (
-                        <Icon
-                            name={profile.name.toLowerCase()}
-                            size="large"
-                            link
-                            onClick={() => window.open(profile.url, "__blank")}
-                        />
-                    ))}
+                    {info.socialInformation.map(profile =>
+                        profile.links.map(link => (
+                            <Icon
+                                name={link.siteName.toLowerCase()}
+                                size="large"
+                                link
+                                onClick={() => window.open(link.url, "__blank")}
+                                key={link.siteName}
+                            />
+                        ))
+                    )}
                 </Card.Description>
             </Card.Content>
         </Card>

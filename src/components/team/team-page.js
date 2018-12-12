@@ -1,223 +1,31 @@
 import React, { Component } from "react"
-import { Card, Container } from "semantic-ui-react"
+import { Card, Container, Loader } from "semantic-ui-react"
 
 import TeamMember from "./team-member-card"
 
 import styles from "../../css/team/team.css"
 
 class Team extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            maintainers: [],
-        }
-    }
     componentDidMount() {
-        const URL = "/api/maintainer_site/maintainer_info"
+        const URL = "active_maintainer_info"
+        this.props.requestTeamData(URL)
     }
 
     render() {
-        const maintainers = [
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-            {
-                name: "Aman Sharma",
-                image:
-                    "https://react.semantic-ui.com/images/avatar/large/matthew.png",
-                social: [
-                    {
-                        name: "GitHub",
-                        url: "https://github.com/algomaster99",
-                    },
-                    {
-                        name: "Facebook",
-                        url: "#",
-                    },
-                    {
-                        name: "dribbble",
-                        url: "#",
-                    },
-                ],
-            },
-        ]
-        return (
-            <Container textAlign="center">
-                <Card.Group itemsPerRow={4} stackable>
-                    {maintainers.map(info => (
-                        <TeamMember info={info} />
-                    ))}
-                </Card.Group>
-            </Container>
-        )
+        console.log(this.props.apiTeamData)
+        if (this.props.apiTeamData.loaded) {
+            return (
+                <Container textAlign="center">
+                    <Card.Group itemsPerRow={4} stackable>
+                        {this.props.apiTeamData.data.map(info => (
+                            <TeamMember info={info} key={info.handle} />
+                        ))}
+                    </Card.Group>
+                </Container>
+            )
+        } else {
+            return <Loader active size="large" />
+        }
     }
 }
 

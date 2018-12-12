@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux"
 
 import MainPage from "../containers/main/mainPageLoader"
-import Team from "./team/team-page"
+import Team from "../containers/team/teamPageLoader"
 import TeamIndividualView from "./team/team-individual-view"
 import Blogs from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
