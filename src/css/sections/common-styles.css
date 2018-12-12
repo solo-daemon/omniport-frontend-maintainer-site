@@ -4,7 +4,7 @@
     padding-left: 0.8em;
     padding-right: 0.8em;
     padding-bottom: 0.3em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     margin-top: 2em !important; /*  Added important because Semantic-UI gives margin-top as 0 for header */
 }
 

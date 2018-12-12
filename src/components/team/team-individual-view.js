@@ -11,7 +11,10 @@ import {
     Grid,
     Reveal,
 } from "semantic-ui-react"
+
 import styles from "../../css/team/team-individual-view.css"
+import common from "../../css/sections/common-styles.css"
+
 import HobbiesCard from "./hobbies-card"
 class TeamIndividualView extends Component {
     constructor(props) {
@@ -87,14 +90,18 @@ class TeamIndividualView extends Component {
                                     </Reveal.Content>
                                 </Reveal>
                             </div>
-                            <Header as="h1">{member.name}</Header>
+                            <h1 styleName="common.header">{member.name}</h1>
                             <p>
-                                {member.role},{member.designation}
+                                {member.role}, {member.designation}
                             </p>
+                        </Grid.Column>
+                        <Grid.Column verticalAlign="middle">
+                            <p>{member.shortBio}</p>
                             <p>
                                 {member.social.map(profile => (
                                     <span styleName="styles.f-link">
                                         <Icon
+                                            fitted
                                             title={profile.url}
                                             size="large"
                                             name={profile.name.toLowerCase()}
@@ -105,9 +112,6 @@ class TeamIndividualView extends Component {
                                     </span>
                                 ))}
                             </p>
-                        </Grid.Column>
-                        <Grid.Column verticalAlign="middle">
-                            <p>{member.shortBio}</p>
                         </Grid.Column>
                     </Grid>
                     <Divider section />
@@ -140,7 +144,7 @@ class TeamIndividualView extends Component {
                         <HobbiesCard
                             coverIcon="game"
                             array={member.videoGames}
-                            message="Favourite VideoGames"
+                            message="Favourite Games"
                         />
                     </Card.Group>
                 </Container>

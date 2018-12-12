@@ -1,10 +1,15 @@
 .f-link {
-    transition: color 0.3s;
+    transition: all 0.3s;
     font-size: 17px;
     margin-right: 0.6em;
+    display: inline-block;
+    padding: 0.5em;
+    border-radius: 2px;
 }
+
 .f-link:hover {
     color: #f8d16c;
+    background-color: #293b52;
 }
 .pro-image {
     display: flex;

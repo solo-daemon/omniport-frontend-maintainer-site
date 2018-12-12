@@ -8,6 +8,12 @@ import styles from "../../css/team/team.css"
 class Team extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            maintainers: [],
+        }
+    }
+    componentDidMount() {
+        const URL = "/api/maintainer_site/maintainer_info"
     }
 
     render() {
