@@ -1,21 +1,21 @@
 import axios from "axios"
 
-export const RECEIVE_BLOG_DATA = "RECEIVE_BLOG_DATA"
+export const RECEIVE_TEAM_DATA = "RECEIVE_TEAM_DATA"
 export const ERROR_OCCURED = "ERROR_OCCURED"
 
-const requestBlogData = url => {
+const requestTeamData = url => {
     return dispatch => {
         axios
             .get(`/api/maintainer_site/${url}`)
             .then(
-                response => dispatch(receiveBlogData(url, response)),
+                response => dispatch(receiveTeamData(url, response)),
                 error => dispatch(errorOccured(url, error))
             )
     }
 }
 
-const receiveBlogData = (url, json) => ({
-    type: RECEIVE_BLOG_DATA,
+const receiveTeamData = (url, json) => ({
+    type: RECEIVE_TEAM_DATA,
     data: json.data,
     url,
 })
@@ -26,4 +26,4 @@ const errorOccured = (url, error) => ({
     error,
 })
 
-export { requestBlogData }
+export { requestTeamData }

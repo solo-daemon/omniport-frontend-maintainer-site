@@ -1,11 +1,11 @@
-import { RECEIVE_BLOG_DATA, ERROR_OCCURED } from "../actions/apiBlogCall"
+import { RECEIVE_TEAM_DATA, ERROR_OCCURED } from "../actions/apiTeamCall"
 
-const apiBlogData = (
+const apiTeamData = (
     state = { data: null, loaded: false, url: "" },
     action
 ) => {
     switch (action.type) {
-        case RECEIVE_BLOG_DATA:
+        case RECEIVE_TEAM_DATA:
             return {
                 ...state,
                 data: action.data,
@@ -23,4 +23,4 @@ const apiBlogData = (
     }
 }
 
-export default apiBlogData
+export default apiTeamData

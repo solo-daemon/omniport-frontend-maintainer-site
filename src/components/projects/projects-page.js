@@ -8,17 +8,20 @@ class Projects extends Component {
         super(props)
         this.state = {
             current: 1,
-            total: 0,
         }
+        this.paginating = this.paginating.bind(this)
     }
 
-    async componentDidMount() {
-        await this.paginating(1)
+    componentDidMount() {
+        this.paginating(1)
     }
 
-    paginating = a => {
+    paginating(a) {
         const URL = "projects/?page=" + a
         this.props.requestProjectData(URL)
+        this.setState({
+            current: a,
+        })
     }
 
     leftClick = () => {
@@ -30,7 +33,7 @@ class Projects extends Component {
         }
     }
     rightClick = () => {
-        if (this.state.current < this.state.total) {
+        if (this.state.current < this.props.apiProjectData.count) {
             let change = this.state.current
             this.setState({ current: change + 1 }, () => {
                 this.paginating(this.state.current)
@@ -40,7 +43,7 @@ class Projects extends Component {
 
     render() {
         let menu = []
-        for (let index = 1; index <= this.state.total; index++) {
+        for (let index = 1; index <= this.props.apiProjectData.count; index++) {
             menu[index] = (
                 <Menu.Item
                     active={this.state.current == index}
@@ -54,6 +57,7 @@ class Projects extends Component {
         }
         if (this.props.apiProjectData.loaded) {
             console.log(this.props.apiProjectData.data)
+            console.log(this.props.apiProjectData.count)
             return (
                 <Container textAlign="center">
                     <Card.Group

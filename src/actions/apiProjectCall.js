@@ -1,6 +1,5 @@
 import axios from "axios"
 
-export const REQUEST_PROJECT_DATA = "REQUEST_PROJECT_DATA"
 export const RECEIVE_PROJECT_DATA = "RECEIVE_PROJECT_DATA"
 export const ERROR_OCCURED = "ERROR_OCCURED"
 
