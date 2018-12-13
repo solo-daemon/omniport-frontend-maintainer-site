@@ -1,7 +1,7 @@
 import React from "react"
 import { Segment, Container } from "semantic-ui-react"
 
-import styles from "../../../../css/sections/footer/footer-section.css"
+import styles from "../../css/footer/app-footer.css"
 
 const FooterSection = () => (
     <div styleName="styles.container">

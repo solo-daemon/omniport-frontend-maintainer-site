@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Grid } from "semantic-ui-react"
 import { isBrowser } from "react-device-detect"
 import MainText from "./main-section-text"
 import MainImage from "./main-section-image"

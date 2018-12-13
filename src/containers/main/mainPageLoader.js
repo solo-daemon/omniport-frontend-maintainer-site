@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import { requestInfoData } from "../../actions/apiInfoCall"
 
-import Main from "../../components/main/main-page"
+import App from "../../components/app"
 
 const mapStateToProps = state => {
     return {
@@ -11,8 +11,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        requestInfoData: (locationUrl, socialUrl, contactUrl) => {
-            dispatch(requestInfoData(locationUrl, socialUrl, contactUrl))
+        requestInfoData: (locationUrl, socialUrl, contactUrl, footerUrl) => {
+            dispatch(
+                requestInfoData(locationUrl, socialUrl, contactUrl, footerUrl)
+            )
         },
     }
 }
@@ -20,4 +22,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Main)
+)(App)

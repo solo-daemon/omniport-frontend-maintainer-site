@@ -2,6 +2,7 @@ import {
     RECEIVE_INFO_LOCATION_DATA,
     RECEIVE_INFO_CONTACT_DATA,
     RECEIVE_INFO_SOCIAL_DATA,
+    RECEIVE_FOOTER_DATA,
     ERROR_OCCURED,
 } from "../actions/apiInfoCall"
 
@@ -10,12 +11,15 @@ const apiInfoData = (
         locationData: null,
         socialData: null,
         contactData: null,
+        footerData: null,
         locationUrl: "",
         socialUrl: "",
         contactUrl: "",
+        footerUrl: "",
         locationLoaded: false,
         socialLoaded: false,
         contactLoaded: false,
+        footerLoaded: false,
     },
     action
 ) => {
@@ -40,6 +44,13 @@ const apiInfoData = (
                 socialData: action.socialData,
                 socialUrl: action.socialUrl,
                 socialLoaded: true,
+            }
+        case RECEIVE_FOOTER_DATA:
+            return {
+                ...state,
+                footerData: action.footerData,
+                footerUrl: action.footerUrl,
+                footerLoaded: true,
             }
         case ERROR_OCCURED:
             return {

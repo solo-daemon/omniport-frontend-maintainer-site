@@ -3,6 +3,7 @@ import axios from "axios"
 export const RECEIVE_INFO_LOCATION_DATA = "RECEIVE_INFO_LOCATION_DATA"
 export const RECEIVE_INFO_CONTACT_DATA = "RECEIVE_INFO_CONTACT_DATA"
 export const RECEIVE_INFO_SOCIAL_DATA = "RECEIVE_INFO_SOCIAL_DATA"
+export const RECEIVE_FOOTER_DATA = "RECEIVE_FOOTER_DATA"
 
 export const ERROR_OCCURED = "ERROR_OCCURED"
 
@@ -15,23 +16,31 @@ const requestInfoData = (locationUrl, contactUrl, socialUrl) => {
                 axios.get(`${API_URL}${locationUrl}`),
                 axios.get(`${API_URL}${contactUrl}`),
                 axios.get(`${API_URL}${socialUrl}`),
+                axios.get(`${API_URL}${footerUrl}`),
             ])
             .then(
-                axios.spread((locationRes, contactRes, socialRes, error) => {
-                    dispatch(receiveInfoLocationData(locationUrl, locationRes)),
+                axios.spread(
+                    (locationRes, contactRes, socialRes, footerRes, error) => {
                         dispatch(
-                            receiveInfoContactData(contactUrl, contactRes)
+                            receiveInfoLocationData(locationUrl, locationRes)
                         ),
-                        dispatch(receiveInfoSocialData(socialUrl, socialRes)),
-                        dispatch(
-                            errorOccured(
-                                error,
-                                locationUrl,
-                                contactUrl,
-                                socialUrl
+                            dispatch(
+                                receiveInfoContactData(contactUrl, contactRes)
+                            ),
+                            dispatch(
+                                receiveInfoSocialData(socialUrl, socialRes)
+                            ),
+                            dispatch(receiveFooterData(footerUrl, footerRes)),
+                            dispatch(
+                                errorOccured(
+                                    error,
+                                    locationUrl,
+                                    contactUrl,
+                                    socialUrl
+                                )
                             )
-                        )
-                })
+                    }
+                )
             )
     }
 }
@@ -52,6 +61,12 @@ const receiveInfoContactData = (contactUrl, contactJson) => ({
     type: RECEIVE_INFO_CONTACT_DATA,
     contactData: contactJson.data,
     contactUrl,
+})
+
+const receiveFooterData = (footerUrl, footerJson) => ({
+    type: RECEIVE_INFO_CONTACT_DATA,
+    footerData: footerJson.data,
+    footerUrl,
 })
 
 const errorOccured = (error, locactionUrl, contactUrl, socialUrl) => ({

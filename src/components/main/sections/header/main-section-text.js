@@ -1,6 +1,6 @@
 import React from "react"
 import { isBrowser } from "react-device-detect"
-import { Segment } from "semantic-ui-react"
+import { Container } from "semantic-ui-react"
 
 import styles from "../../../../css/sections/main/main-section-text.css"
 
