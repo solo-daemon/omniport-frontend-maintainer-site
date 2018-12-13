@@ -1,14 +1,13 @@
-.text {
-    flex-grow: 1;
-    flex-basis: 0;
-    height: 100%;
+.container {
+    background-image: url("../../../static/background.svg");
+    background-size: cover;
+    background-position: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #293b52;
-    color: #f8d16c;
-    padding-left: 1em;
+    width: 100%;
+    height: 100%;
 }
 
 .site-title {
@@ -33,4 +32,8 @@
     font-size: 1.2em;
     line-height: 2;
     margin-top: 1em;
+}
+
+.image {
+    float: right;
 }

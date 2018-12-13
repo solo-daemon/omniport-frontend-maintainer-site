@@ -3,35 +3,64 @@ import axios from "axios"
 export const RECEIVE_INFO_LOCATION_DATA = "RECEIVE_INFO_LOCATION_DATA"
 export const RECEIVE_INFO_CONTACT_DATA = "RECEIVE_INFO_CONTACT_DATA"
 export const RECEIVE_INFO_SOCIAL_DATA = "RECEIVE_INFO_SOCIAL_DATA"
+export const RECEIVE_FOOTER_DATA = "RECEIVE_FOOTER_DATA"
+export const RECEIVE_PROJECT_SECTION_DATA = "RECEIVE_PROJECT_SECTION_DATA"
 
 export const ERROR_OCCURED = "ERROR_OCCURED"
 
 const API_URL = "/api/maintainer_site/"
 
-const requestInfoData = (locationUrl, contactUrl, socialUrl) => {
+const requestInfoData = (
+    locationUrl,
+    contactUrl,
+    socialUrl,
+    footerUrl,
+    projectUrl
+) => {
     return dispatch => {
         axios
             .all([
                 axios.get(`${API_URL}${locationUrl}`),
                 axios.get(`${API_URL}${contactUrl}`),
                 axios.get(`${API_URL}${socialUrl}`),
+                axios.get(`${API_URL}${footerUrl}`),
+                axios.get(`${API_URL}${projectUrl}`),
             ])
             .then(
-                axios.spread((locationRes, contactRes, socialRes, error) => {
-                    dispatch(receiveInfoLocationData(locationUrl, locationRes)),
+                axios.spread(
+                    (
+                        locationRes,
+                        contactRes,
+                        socialRes,
+                        footerRes,
+                        projectRes,
+                        error
+                    ) => {
                         dispatch(
-                            receiveInfoContactData(contactUrl, contactRes)
+                            receiveInfoLocationData(locationUrl, locationRes)
                         ),
-                        dispatch(receiveInfoSocialData(socialUrl, socialRes)),
-                        dispatch(
-                            errorOccured(
-                                error,
-                                locationUrl,
-                                contactUrl,
-                                socialUrl
+                            dispatch(
+                                receiveInfoContactData(contactUrl, contactRes)
+                            ),
+                            dispatch(
+                                receiveInfoSocialData(socialUrl, socialRes)
+                            ),
+                            dispatch(receiveFooterData(footerUrl, footerRes)),
+                            dispatch(
+                                receiveProjectData(projectUrl, projectRes)
+                            ),
+                            dispatch(
+                                errorOccured(
+                                    error,
+                                    locationUrl,
+                                    contactUrl,
+                                    socialUrl,
+                                    footerUrl,
+                                    projectUrl
+                                )
                             )
-                        )
-                })
+                    }
+                )
             )
     }
 }
@@ -54,11 +83,32 @@ const receiveInfoContactData = (contactUrl, contactJson) => ({
     contactUrl,
 })
 
-const errorOccured = (error, locactionUrl, contactUrl, socialUrl) => ({
+const receiveFooterData = (footerUrl, footerJson) => ({
+    type: RECEIVE_FOOTER_DATA,
+    footerData: footerJson.data,
+    footerUrl,
+})
+
+const receiveProjectData = (projectUrl, projectJson) => ({
+    type: RECEIVE_PROJECT_SECTION_DATA,
+    projectData: projectJson.data,
+    projectUrl,
+})
+
+const errorOccured = (
+    error,
+    locactionUrl,
+    contactUrl,
+    socialUrl,
+    footerUrl,
+    projectUrl
+) => ({
     type: ERROR_OCCURED,
     locactionUrl,
     contactUrl,
     socialUrl,
+    footerUrl,
+    projectUrl,
     error,
 })
 

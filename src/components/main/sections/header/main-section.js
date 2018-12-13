@@ -1,19 +1,25 @@
 import React, { Component } from "react"
-import { Grid } from "semantic-ui-react"
 import { isBrowser } from "react-device-detect"
-import MainText from "./main-section-text"
-import MainImage from "./main-section-image"
+import MainMobile from "./main-section-mobile"
+import MainBrowser from "./main-section-browser"
 
 import styles from "../../../../css/sections/main/main-section.css"
 
 class MainSection extends Component {
     render() {
-        return (
-            <div styleName="styles.container">
-                <MainText />
-                {isBrowser && <MainImage />}
-            </div>
-        )
+        if (isBrowser) {
+            return (
+                <div styleName="styles.container">
+                    <MainBrowser />
+                </div>
+            )
+        } else {
+            return (
+                <div styleName="styles.container">
+                    <MainMobile />
+                </div>
+            )
+        }
     }
 }
 
