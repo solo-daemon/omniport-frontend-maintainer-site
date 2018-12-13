@@ -3,6 +3,7 @@ import {
     RECEIVE_INFO_CONTACT_DATA,
     RECEIVE_INFO_SOCIAL_DATA,
     RECEIVE_FOOTER_DATA,
+    RECEIVE_PROJECT_SECTION_DATA,
     ERROR_OCCURED,
 } from "../actions/apiInfoCall"
 
@@ -12,14 +13,17 @@ const apiInfoData = (
         socialData: null,
         contactData: null,
         footerData: null,
+        projectData: null,
         locationUrl: "",
         socialUrl: "",
         contactUrl: "",
         footerUrl: "",
+        projectUrl: "",
         locationLoaded: false,
         socialLoaded: false,
         contactLoaded: false,
         footerLoaded: false,
+        projectLoaded: false,
     },
     action
 ) => {
@@ -51,6 +55,13 @@ const apiInfoData = (
                 footerData: action.footerData,
                 footerUrl: action.footerUrl,
                 footerLoaded: true,
+            }
+        case RECEIVE_PROJECT_SECTION_DATA:
+            return {
+                ...state,
+                projectData: action.projectData,
+                projectUrl: action.projectUrl,
+                projectLoaded: true,
             }
         case ERROR_OCCURED:
             return {

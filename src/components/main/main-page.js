@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Loader } from "semantic-ui-react"
 
 import MainSection from "./sections/header/main-section"
 import ProjectSection from "./sections/project/project-section"
@@ -11,31 +10,25 @@ class MainPage extends Component {
         super(props)
     }
 
-    componentDidMount() {
-        // const URL1 = "location"
-        // const URL2 = "contact"
-        // const URL3 = "social"
-        // this.props.requestInfoData(URL1, URL2, URL3)
-    }
-
     render() {
-        console.log(this.props.apiInfoData)
-        // if (
-        //     this.props.apiInfoData.locationLoaded &&
-        //     this.props.apiInfoData.contactLoaded &&
-        //     this.props.apiInfoData.socialLoaded
-        // ) {
+        const { apiInfoData } = this.props
+        const { projectData } = apiInfoData
+        const { locationData } = apiInfoData
+        const { contactData } = apiInfoData
+        const { socialData } = apiInfoData
+        console.log(apiInfoData)
         return (
             <div>
                 <MainSection />
-                <ProjectSection />
+                <ProjectSection project={projectData.results.slice(0, 4)} />
                 <BlogSection />
-                <InfoSection />
+                <InfoSection
+                    location={locationData}
+                    contact={contactData}
+                    social={socialData}
+                />
             </div>
         )
-        // } else {
-        //     return <Loader active size="large" />
-        // }
     }
 }
 

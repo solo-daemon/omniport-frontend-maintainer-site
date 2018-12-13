@@ -11,9 +11,21 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        requestInfoData: (locationUrl, socialUrl, contactUrl, footerUrl) => {
+        requestInfoData: (
+            locationUrl,
+            socialUrl,
+            contactUrl,
+            footerUrl,
+            projectUrl
+        ) => {
             dispatch(
-                requestInfoData(locationUrl, socialUrl, contactUrl, footerUrl)
+                requestInfoData(
+                    locationUrl,
+                    socialUrl,
+                    contactUrl,
+                    footerUrl,
+                    projectUrl
+                )
             )
         },
     }

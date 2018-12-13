@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Container } from "semantic-ui-react"
+import { Container, Grid, Image, Button } from "semantic-ui-react"
 
 import styles from "../../css/header/app-header.css"
 
@@ -32,7 +32,27 @@ class AppHeader extends Component {
             <div styleName="styles.position">
                 <div styleName={`styles.${this.state.style}`}>
                     <Container>
-                        <h1>AppHeader</h1>
+                        <Grid columns={2}>
+                            <Grid.Column>
+                                <Image
+                                    src="http://img.channeli.in/static/images/imglogo.png"
+                                    size="tiny"
+                                />
+                            </Grid.Column>
+                            <Grid.Column>
+                                <div styleName="button">
+                                    <Button basic size="large">
+                                        Blogs
+                                    </Button>
+                                    <Button basic size="large">
+                                        Projects
+                                    </Button>
+                                    <Button basic size="large">
+                                        Team
+                                    </Button>
+                                </div>
+                            </Grid.Column>
+                        </Grid>
                     </Container>
                 </div>
             </div>
