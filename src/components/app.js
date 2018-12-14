@@ -7,8 +7,19 @@ import {
 } from "react-router-dom"
 
 import { connect } from "react-redux"
+import { isBrowser } from "react-device-detect"
 import { Loader } from "semantic-ui-react"
+import {
+    Button,
+    Header,
+    Icon,
+    Image,
+    Menu,
+    Segment,
+    Sidebar,
+} from "semantic-ui-react"
 import { requestInfoData } from "../actions/apiInfoCall"
+import { toggleSidebar } from "../actions/toggleSidebar"
 
 import AppHeader from "../components/header/app-header"
 import MainPage from "../components/main/main-page"
@@ -22,6 +33,13 @@ import AppFooter from "../components/footer/app-footer"
 import blocks from "../css/app.css"
 
 class App extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            sidebarStyle: "sidebar-container",
+        }
+    }
+
     componentDidMount() {
         const URL1 = "location"
         const URL2 = "contact"
@@ -29,9 +47,19 @@ class App extends Component {
         const URL4 = "maintainer_group"
         const URL5 = "projects"
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
+        if (this.props.sidebarVisible) {
+            this.setState({
+                sidebarStyle: "sidebar-container-hide",
+            })
+        }
+    }
+
+    handleToggle = () => {
+        this.props.toggleSidebar()
     }
 
     render() {
+        console.log(this.props.sidebarVisible)
         const creators = [
             {
                 name: "Aman Sharma",
@@ -46,6 +74,43 @@ class App extends Component {
 
         const { apiInfoData } = this.props
 
+        const Switcher = () => (
+            <Switch>
+                <Route
+                    path="/:url*"
+                    exact
+                    strict
+                    render={props => (
+                        <Redirect to={`${props.location.pathname}/`} />
+                    )}
+                />
+
+                <Route
+                    exact
+                    path={`${match.path}`}
+                    component={routeProps => (
+                        <MainPage {...routeProps} {...this.props} />
+                    )}
+                />
+                <Route path={`${match.path}blogs`} component={Blogs} />
+                <Route
+                    exact
+                    path={`${match.path}projects`}
+                    component={Projects}
+                />
+                <Route path={`${match.path}team`} component={Team} />
+                <Route
+                    exact
+                    path={`${match.path}projects/:slug`}
+                    component={ProjectDetailView}
+                />
+                <Route
+                    path={`${match.path}dhruv`}
+                    component={TeamIndividualView}
+                />
+            </Switch>
+        )
+
         if (
             apiInfoData.locationLoaded &&
             apiInfoData.contactLoaded &&
@@ -55,52 +120,47 @@ class App extends Component {
         ) {
             return (
                 <div styleName="blocks.container">
-                    <AppHeader />
-                    <div styleName="blocks.content-div">
-                        <Switch>
-                            <Route
-                                path="/:url*"
-                                exact
-                                strict
-                                render={props => (
-                                    <Redirect
-                                        to={`${props.location.pathname}/`}
-                                    />
-                                )}
-                            />
-
-                            <Route
-                                exact
-                                path={`${match.path}`}
-                                component={routeProps => (
-                                    <MainPage {...routeProps} {...this.props} />
-                                )}
-                            />
-                            <Route
-                                path={`${match.path}blogs`}
-                                component={Blogs}
-                            />
-                            <Route
-                                exact
-                                path={`${match.path}projects`}
-                                component={Projects}
-                            />
-                            <Route
-                                path={`${match.path}team`}
-                                component={Team}
-                            />
-                            <Route
-                                exact
-                                path={`${match.path}projects/:slug`}
-                                component={ProjectDetailView}
-                            />
-                            <Route
-                                path={`${match.path}dhruv`}
-                                component={TeamIndividualView}
-                            />
-                        </Switch>
-                        <AppFooter info={apiInfoData.footerData} />
-                    </div>
+                    <AppHeader
+                        handleClick={this.props.toggleSidebar}
+                        visible={this.props.sidebarVisible}
+                    />
+                    {isBrowser ? (
+                        <React.Fragment>
+                            <div styleName="blocks.content-div">
+                                <Switcher />
+                            </div>
+                            <AppFooter info={apiInfoData.footerData} />
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            {this.props.sidebarVisible && (
+                                <div
+                                    styleName={`blocks.${
+                                        this.state.sidebarStyle
+                                    }`}
+                                >
+                                    <div styleName="blocks.sidebar">
+                                        <button styleName="blocks.sidebar-button">
+                                            Blog
+                                        </button>
+                                        <button styleName="blocks.sidebar-button">
+                                            Projects
+                                        </button>
+                                        <button styleName="blocks.sidebar-button">
+                                            Team
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            <div
+                                styleName="blocks.content-div-mobile"
+                                onClick={this.handleToggle}
+                            >
+                                <Switcher />
+                            </div>
+                            <AppFooter info={apiInfoData.footerData} />
+                        </React.Fragment>
+                    )}
                 </div>
             )
         } else {
@@ -112,6 +172,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         apiInfoData: state.apiInfoData,
+        sidebarVisible: state.sidebarVisible,
     }
 }
 
@@ -133,6 +194,9 @@ const mapDispatchToProps = dispatch => {
                     projectUrl
                 )
             )
+        },
+        toggleSidebar: () => {
+            dispatch(toggleSidebar())
         },
     }
 }
