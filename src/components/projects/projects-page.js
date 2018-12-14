@@ -3,6 +3,7 @@ import { Card, Container, Segment, Menu, Icon, Loader } from "semantic-ui-react"
 import ProjectDetail from "./project-card"
 
 import styles from "../../css/insert-it.css"
+import common from "../../css/page-common-styles.css"
 class Projects extends Component {
     constructor(props) {
         super(props)
@@ -59,7 +60,7 @@ class Projects extends Component {
             console.log(this.props.apiProjectData.data)
             console.log(this.props.apiProjectData.count)
             return (
-                <Container textAlign="center">
+                <Container textAlign="center" styleName="common.margin">
                     <Card.Group
                         itemsPerRow={3}
                         stackable

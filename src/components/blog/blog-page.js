@@ -3,6 +3,7 @@ import { Card, Container, Segment, Icon, Loader } from "semantic-ui-react"
 import BlogDetail from "./blog-post-card"
 
 import styles from "../../css/insert-it.css"
+import common from "../../css/page-common-styles.css"
 
 const MEDIUM_URL = "https://medium.com/"
 const MEDIUM_PUBLICATION = "img-iit-roorkee"
@@ -21,7 +22,7 @@ class Blogs extends Component {
         console.log(this.props.apiBlogData)
         if (this.props.apiBlogData.loaded) {
             return (
-                <Container>
+                <Container styleName="common.margin">
                     <Card.Group
                         itemsPerRow={3}
                         stackable
