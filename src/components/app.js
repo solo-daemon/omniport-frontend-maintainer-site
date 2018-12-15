@@ -28,6 +28,7 @@ import TeamIndividualView from "./team/team-individual-view"
 import Blogs from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
+import AddProjectDetails from "./projects/add-project-details"
 import AppFooter from "../components/footer/app-footer"
 
 import blocks from "../css/app.css"
@@ -35,9 +36,6 @@ import blocks from "../css/app.css"
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            sidebarStyle: "sidebar-container",
-        }
     }
 
     componentDidMount() {
@@ -47,15 +45,10 @@ class App extends Component {
         const URL4 = "maintainer_group"
         const URL5 = "projects"
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
-        if (this.props.sidebarVisible) {
-            this.setState({
-                sidebarStyle: "sidebar-container-hide",
-            })
-        }
     }
 
     handleToggle = () => {
-        this.props.toggleSidebar()
+        // this.props.toggleSidebar()
     }
 
     render() {
@@ -92,7 +85,7 @@ class App extends Component {
                         <MainPage {...routeProps} {...this.props} />
                     )}
                 />
-                <Route path={`${match.path}blogs`} component={Blogs} />
+                <Route path={`${match.path}blog`} component={Blogs} />
                 <Route
                     exact
                     path={`${match.path}projects`}
@@ -107,6 +100,10 @@ class App extends Component {
                 <Route
                     path={`${match.path}dhruv`}
                     component={TeamIndividualView}
+                />
+                <Route
+                    path={`${match.path}lolz`}
+                    component={AddProjectDetails}
                 />
             </Switch>
         )
@@ -134,11 +131,7 @@ class App extends Component {
                     ) : (
                         <React.Fragment>
                             {this.props.sidebarVisible && (
-                                <div
-                                    styleName={`blocks.${
-                                        this.state.sidebarStyle
-                                    }`}
-                                >
+                                <div styleName={`blocks.sidebar-container`}>
                                     <div styleName="blocks.sidebar">
                                         <button styleName="blocks.sidebar-button">
                                             Blog
