@@ -6,6 +6,8 @@ import { isBrowser } from "react-device-detect"
 import styles from "../../css/header/app-header.css"
 import logo from "../../static/logo.svg"
 
+const PATHNAME = "/maintainer_site/"
+
 class AppHeader extends Component {
     constructor(props) {
         super(props)
@@ -17,27 +19,19 @@ class AppHeader extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener("scroll", this.handleScroll)
-    }
-
-    handleResize = () => {
-        this.setState({
-            windowWidth: window.innerWidth,
-        })
+        //window.addEventListener("scroll", this.handleScroll)
     }
 
     handleScroll = () => {
-        if (window.scrollY > 0) {
-            this.setState({
-                containerStyle: "container-white",
-                hamburgerStyle: "hamburger-yellow",
-            })
-        } else {
-            this.setState({
-                containerStyle: "container-transparent",
-                hamburgerStyle: "hamburger-black",
-            })
-        }
+        // if (window.scrollY > 0) {
+        //     this.setState({
+        //         containerStyle: "container-white-general",
+        //     })
+        // } else {
+        //     this.setState({
+        //         containerStyle: "container-transparent-general",
+        //     })
+        // }
     }
 
     render() {
@@ -57,34 +51,43 @@ class AppHeader extends Component {
                                     </svg>
                                 </div>
                             </Grid.Column>
-                            <Grid.Column>
+                            <Grid.Column style={{ height: "100%" }}>
                                 <div styleName="button">
                                     {isBrowser ? (
                                         <React.Fragment>
-                                            <Button
-                                                as={Link}
-                                                to="/maintainer_site/blogs/"
-                                                basic
-                                                styleName="link"
+                                            <Link
+                                                to={`${PATHNAME}blog/`}
+                                                styleName="styles.link-color"
                                             >
-                                                Blogs
-                                            </Button>
-                                            <Button
-                                                as={Link}
-                                                to="/maintainer_site/projects/"
-                                                basic
-                                                styleName="link"
+                                                <button
+                                                    name="blog"
+                                                    styleName="styles.link"
+                                                >
+                                                    Blog
+                                                </button>
+                                            </Link>
+                                            <Link
+                                                to={`${PATHNAME}projects/`}
+                                                styleName="styles.link-color"
                                             >
-                                                Projects
-                                            </Button>
-                                            <Button
-                                                as={Link}
-                                                to="/maintainer_site/team/"
-                                                basic
-                                                styleName="link"
+                                                <button
+                                                    name="projects"
+                                                    styleName="styles.link"
+                                                >
+                                                    Projects
+                                                </button>
+                                            </Link>
+                                            <Link
+                                                to={`${PATHNAME}team/`}
+                                                styleName="styles.link-color"
                                             >
-                                                Team
-                                            </Button>
+                                                <button
+                                                    name="team"
+                                                    styleName="styles.link"
+                                                >
+                                                    Team
+                                                </button>
+                                            </Link>
                                         </React.Fragment>
                                     ) : (
                                         !this.props.visible && (

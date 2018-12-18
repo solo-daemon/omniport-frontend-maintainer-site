@@ -9,15 +9,6 @@ import {
 import { connect } from "react-redux"
 import { isBrowser } from "react-device-detect"
 import { Loader } from "semantic-ui-react"
-import {
-    Button,
-    Header,
-    Icon,
-    Image,
-    Menu,
-    Segment,
-    Sidebar,
-} from "semantic-ui-react"
 import { requestInfoData } from "../actions/apiInfoCall"
 import { toggleSidebar } from "../actions/toggleSidebar"
 
@@ -28,6 +19,7 @@ import TeamIndividualView from "./team/team-individual-view"
 import Blogs from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
+import AddProjectDetails from "./projects/add-project-details"
 import AppFooter from "../components/footer/app-footer"
 
 import blocks from "../css/app.css"
@@ -35,9 +27,6 @@ import blocks from "../css/app.css"
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            sidebarStyle: "sidebar-container",
-        }
     }
 
     componentDidMount() {
@@ -47,15 +36,14 @@ class App extends Component {
         const URL4 = "maintainer_group"
         const URL5 = "projects"
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
-        if (this.props.sidebarVisible) {
-            this.setState({
-                sidebarStyle: "sidebar-container-hide",
-            })
-        }
     }
 
-    handleToggle = () => {
-        this.props.toggleSidebar()
+    handleHide = () => {
+        this.props.toggleSidebar(false)
+    }
+
+    handleShow = () => {
+        this.props.toggleSidebar(true)
     }
 
     render() {
@@ -92,7 +80,7 @@ class App extends Component {
                         <MainPage {...routeProps} {...this.props} />
                     )}
                 />
-                <Route path={`${match.path}blogs`} component={Blogs} />
+                <Route path={`${match.path}blog`} component={Blogs} />
                 <Route
                     exact
                     path={`${match.path}projects`}
@@ -108,6 +96,10 @@ class App extends Component {
                     path={`${match.path}dhruv`}
                     component={TeamIndividualView}
                 />
+                <Route
+                    path={`${match.path}lolz`}
+                    component={AddProjectDetails}
+                />
             </Switch>
         )
 
@@ -121,7 +113,8 @@ class App extends Component {
             return (
                 <div styleName="blocks.container">
                     <AppHeader
-                        handleClick={this.props.toggleSidebar}
+                        handleClick={this.handleShow}
+                        onClick={this.handleHide}
                         visible={this.props.sidebarVisible}
                     />
                     {isBrowser ? (
@@ -134,11 +127,7 @@ class App extends Component {
                     ) : (
                         <React.Fragment>
                             {this.props.sidebarVisible && (
-                                <div
-                                    styleName={`blocks.${
-                                        this.state.sidebarStyle
-                                    }`}
-                                >
+                                <div styleName={`blocks.sidebar-container`}>
                                     <div styleName="blocks.sidebar">
                                         <button styleName="blocks.sidebar-button">
                                             Blog
@@ -154,7 +143,7 @@ class App extends Component {
                             )}
                             <div
                                 styleName="blocks.content-div-mobile"
-                                onClick={this.handleToggle}
+                                onClick={this.handleHide}
                             >
                                 <Switcher />
                             </div>
@@ -195,8 +184,8 @@ const mapDispatchToProps = dispatch => {
                 )
             )
         },
-        toggleSidebar: () => {
-            dispatch(toggleSidebar())
+        toggleSidebar: visible => {
+            dispatch(toggleSidebar(visible))
         },
     }
 }
