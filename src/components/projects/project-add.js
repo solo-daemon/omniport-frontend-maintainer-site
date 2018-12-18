@@ -182,7 +182,6 @@ class AddProjectDetails extends Component {
                     /> */}
                     <Form.Dropdown
                         placeholder="Select the Project Makers"
-                        fluid
                         search
                         required
                         multiple

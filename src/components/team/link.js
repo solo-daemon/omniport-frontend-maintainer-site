@@ -3,10 +3,10 @@ import axios from "axios"
 import { Segment, Icon } from "semantic-ui-react"
 import style from "../../css/team/add-member-details.css"
 
-const SOCIAL_SITE_ICONS = {
+const ICON_OPTIONS = {
     beh: "behance",
     blo: "blogger",
-    dri: "dribble",
+    dri: "dribbble",
     fac: "facebook",
     fli: "flickr",
     git: "github",
@@ -21,23 +21,35 @@ const SOCIAL_SITE_ICONS = {
     twi: "twitter",
     you: "youtube",
     oth: "globe",
+    music: "music",
+    book: "book",
+    film: "film",
+    game: "game",
+    hobbies: "paint brush",
 }
 
 class Link extends React.Component {
     constructor(props) {
         super(props)
     }
-    handleDelete = () => {
-        this.props.handleUpdateDelete(this.props.id)
+    handleDelete = e => {
+        this.props.handleUpdateDelete(e)
     }
     render() {
+        const pop = this.props.name
+
         return (
             <Segment styleName="style.headingBox">
                 <div styleName="style.socialBox">
-                    <Icon name={SOCIAL_SITE_ICONS[this.props.data.site]} />
+                    <Icon name={ICON_OPTIONS[this.props.data.site]} />
                     <p styleName="style.link">{this.props.data.url}</p>
                 </div>
-                <Icon name="delete" onClick={this.handleDelete} />
+                <Icon
+                    name="delete"
+                    id={this.props.id}
+                    pop={this.props.name}
+                    onClick={this.handleDelete}
+                />
             </Segment>
         )
     }

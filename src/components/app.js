@@ -16,6 +16,8 @@ import AppHeader from "../components/header/app-header"
 import MainPage from "../components/main/main-page"
 import Team from "../containers/team/teamPageLoader"
 import TeamIndividualView from "./team/team-individual-view"
+import AddMemberDetails from "./team/add-member-details"
+import AddProjectDetails from "./projects/project-add"
 import Blogs from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
@@ -100,6 +102,8 @@ class App extends Component {
                     path={`${match.path}lolz`}
                     component={AddProjectDetails}
                 />
+
+                <Route path={`${match.path}lo`} component={AddMemberDetails} />
             </Switch>
         )
 

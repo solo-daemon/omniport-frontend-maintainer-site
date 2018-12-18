@@ -1,9 +1,8 @@
 import React from "react"
-import axios from "axios"
+
 import { Segment } from "semantic-ui-react"
 
 import Link from "./link"
-import style from "../../css/team/add-member-details.css"
 
 class LinkList extends React.Component {
     constructor(props) {
@@ -12,12 +11,14 @@ class LinkList extends React.Component {
 
     render() {
         const data = this.props.data
+        const name = this.props.name
         const handleUpdateDelete = this.props.handleUpdateDelete
         const children = Array.from(data).map(function(child, index) {
             return (
                 <Link
                     id={index}
                     data={child}
+                    name={name}
                     handleUpdateDelete={handleUpdateDelete}
                 />
             )
