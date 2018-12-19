@@ -36,6 +36,7 @@ class AddMemberDetails extends Component {
             film: { array: [], entry: "" },
             game: { array: [], entry: "" },
             hobbies: { array: [], entry: "" },
+            links_id: [],
             errors: {
                 music: "",
                 book: "",
@@ -91,11 +92,34 @@ class AddMemberDetails extends Component {
     addLink = e => {
         var arr = this.state.links
         arr.push(this.state.data)
+        console.log(this.state.data)
+        let headers = {
+            "X-CSRFToken": getCookie("csrftoken"),
+        }
+        axios({
+            method: "post",
+            url: "/api/maintainer_site/social_link/",
+            data: this.state.data,
+            headers: headers,
+        })
+            .then(response => {
+                //handle success
+
+                var arr = this.state.links_id
+                arr.push(response.data.id)
+                this.setState({ links_id: arr })
+                console.log(this.state.links_id)
+            })
+            .catch(function(response) {
+                //handle error
+                console.log(response.response.data)
+            })
+
         this.setState({ links: arr, data: initial.data })
     }
     handleUpdateDelete = e => {
         var id1 = e.target.id
-
+        console.log(id1)
         var arr = []
         for (let i = 0; i < this.state.links.length; i++) {
             if (i != id1) {
@@ -103,15 +127,40 @@ class AddMemberDetails extends Component {
             }
         }
 
+        let headers = {
+            "X-CSRFToken": getCookie("csrftoken"),
+        }
+        console.log(this.state.links_id[id1])
+
+        axios({
+            method: "delete",
+            url:
+                "/api/maintainer_site/social_link/" +
+                this.state.links_id[id1] +
+                "/",
+            headers: headers,
+        }).then(response => {
+            console.log(response)
+        })
+
+        var arr1 = []
+        for (let i = 0; i < this.state.links_id.length; i++) {
+            if (i != id1) {
+                arr1.push(this.state.links_id[i])
+            }
+        }
+
         this.setState({
             data: initial.data,
             links: arr,
+            links_id: arr1,
         })
     }
     handleUpdateDelete2 = e => {
         var name = e.target.getAttribute("pop")
-
+        console.log("deletekarenge")
         var id = e.target.id
+
         var arr = []
         for (let i = 0; i < this.state[name].array.length; i++) {
             if (i != id) {
@@ -119,14 +168,16 @@ class AddMemberDetails extends Component {
             }
         }
         this.setState({
-            [name]: { array: arr },
+            [name]: { array: arr, entry: "" },
         })
+        console.log(this.state[name])
     }
     fileChange = e => {
         this.setState({
             [e.target.name]: e.target.files[0],
         })
     }
+
     handlePost() {
         console.log("fljsdalkfjsd")
         console.log(this.state.links)
@@ -162,16 +213,16 @@ class AddMemberDetails extends Component {
             hobbies.push(this.state.hobbies.array[i].url)
         }
         if (
-            uploadedFileD &&
+            tuploadedFileD &&
             uploadedFileN &&
             handle &&
             shortBio &&
-            links &&
             book.length &&
             music.length &&
             film.length &&
             game.length &&
-            hobbies.length
+            hobbies.length &&
+            skills.length
         ) {
             var formData = new FormData()
             formData.append("handle", handle)
@@ -187,6 +238,7 @@ class AddMemberDetails extends Component {
 
             formData.append("normie_image", uploadedFileN)
             formData.append("dank_image", uploadedFileD)
+            formData.append("maintainer", [32])
 
             let headers = {
                 "Content-Type": "multipart/form-data",
@@ -929,6 +981,9 @@ class AddMemberDetails extends Component {
                                     color="blue"
                                     name="music"
                                     onClick={this.addLink2}
+                                    disabled={
+                                        this.state.music.array.length >= 5
+                                    }
                                 >
                                     Add
                                 </Button>
@@ -970,6 +1025,7 @@ class AddMemberDetails extends Component {
                                     color="blue"
                                     name="book"
                                     onClick={this.addLink2}
+                                    disabled={this.state.book.array.length >= 5}
                                 >
                                     Add
                                 </Button>
@@ -1010,6 +1066,7 @@ class AddMemberDetails extends Component {
                                     color="blue"
                                     name="film"
                                     onClick={this.addLink2}
+                                    disabled={this.state.film.array.length >= 5}
                                 >
                                     Add
                                 </Button>
@@ -1051,6 +1108,7 @@ class AddMemberDetails extends Component {
                                     color="blue"
                                     name="game"
                                     onClick={this.addLink2}
+                                    disabled={this.state.game.array.length >= 5}
                                 >
                                     Add
                                 </Button>
@@ -1092,6 +1150,9 @@ class AddMemberDetails extends Component {
                                     color="blue"
                                     name="hobbies"
                                     onClick={this.addLink2}
+                                    disabled={
+                                        this.state.hobbies.array.length >= 5
+                                    }
                                 >
                                     Add
                                 </Button>
@@ -1117,6 +1178,7 @@ class AddMemberDetails extends Component {
                         options={ll}
                         onChange={(event, { value }) => {
                             this.state.skills = value
+                            console.log(this.state.skills.length)
                         }}
                     />
                     <Form.Field required>
