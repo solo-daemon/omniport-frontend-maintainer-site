@@ -77,6 +77,7 @@ class AddProjectDetails extends Component {
                 "Content-Type": "multipart/form-data",
                 "X-CSRFToken": getCookie("csrftoken"),
             }
+
             const that = this
 
             axios({

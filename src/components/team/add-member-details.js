@@ -12,9 +12,11 @@ import {
     Input,
     Segment,
     Icon,
+    Label,
 } from "semantic-ui-react"
 import style from "../../css/team/add-member-details.css"
 import LinkList from "./linkList"
+import { getCookie } from "formula_one"
 const initial = {
     data: { site: "git", url: "" },
 }
@@ -25,14 +27,28 @@ class AddMemberDetails extends Component {
             profile: [],
             data: initial.data,
 
+            handle: "",
+            shortBio: "",
             links: [],
+            skills: [],
             music: { array: [], entry: "" },
             book: { array: [], entry: "" },
             film: { array: [], entry: "" },
             game: { array: [], entry: "" },
             hobbies: { array: [], entry: "" },
+            errors: {
+                music: "",
+                book: "",
+                film: "",
+                game: "",
+                hobbies: "",
+                skills: "",
+            },
+            error_handle: false,
+            error_shortBio: false,
         }
         this.fileChange = this.fileChange.bind(this)
+        this.handlePost = this.handlePost.bind(this)
     }
     componentDidMount() {
         const URL = `/api/maintainer_site/active_maintainer_info`
@@ -65,26 +81,24 @@ class AddMemberDetails extends Component {
     }
     addLink2 = e => {
         const name = e.target.name
-
-        var arr = this.state[name].array
-
-        var temp = { site: [name], url: this.state[name].entry }
-        arr.push(temp)
-        this.setState({ [name]: { array: arr, entry: "" } })
+        if (this.state[name].entry.length <= 63) {
+            var arr = this.state[name].array
+            var temp = { site: [name], url: this.state[name].entry }
+            arr.push(temp)
+            this.setState({ [name]: { array: arr, entry: "" } })
+        }
     }
     addLink = e => {
         var arr = this.state.links
         arr.push(this.state.data)
-        this.setState({ links: arr, data: initial.data }, () =>
-            console.log(this.state.links)
-        )
+        this.setState({ links: arr, data: initial.data })
     }
-    handleUpdateDelete = id => {
-        console.log("hee baa lala loo")
+    handleUpdateDelete = e => {
+        var id1 = e.target.id
 
         var arr = []
         for (let i = 0; i < this.state.links.length; i++) {
-            if (i != id) {
+            if (i != id1) {
                 arr.push(this.state.links[i])
             }
         }
@@ -112,6 +126,100 @@ class AddMemberDetails extends Component {
         this.setState({
             [e.target.name]: e.target.files[0],
         })
+    }
+    handlePost() {
+        console.log("fljsdalkfjsd")
+        console.log(this.state.links)
+
+        const {
+            handle,
+            shortBio,
+            links,
+            skills,
+            uploadedFileN,
+            uploadedFileD,
+        } = this.state
+
+        var book = [],
+            music = [],
+            film = [],
+            game = [],
+            hobbies = []
+
+        for (let i = 0; i < this.state.book.array.length; i++) {
+            book.push(this.state.book.array[i].url)
+        }
+        for (let i = 0; i < this.state.music.array.length; i++) {
+            music.push(this.state.music.array[i].url)
+        }
+        for (let i = 0; i < this.state.film.array.length; i++) {
+            film.push(this.state.film.array[i].url)
+        }
+        for (let i = 0; i < this.state.game.array.length; i++) {
+            game.push(this.state.game.array[i].url)
+        }
+        for (let i = 0; i < this.state.hobbies.array.length; i++) {
+            hobbies.push(this.state.hobbies.array[i].url)
+        }
+        if (
+            uploadedFileD &&
+            uploadedFileN &&
+            handle &&
+            shortBio &&
+            links &&
+            book.length &&
+            music.length &&
+            film.length &&
+            game.length &&
+            hobbies.length
+        ) {
+            var formData = new FormData()
+            formData.append("handle", handle)
+            formData.append("short_biography", shortBio)
+            formData.append("social_information", links)
+
+            formData.append("favourite_music", music)
+            formData.append("favourite_literature", book)
+            formData.append("technical_skills", skills)
+            formData.append("favourite_video", film)
+            formData.append("favourite_games", game)
+            formData.append("favourite_hobbies", hobbies)
+
+            formData.append("normie_image", uploadedFileN)
+            formData.append("dank_image", uploadedFileD)
+
+            let headers = {
+                "Content-Type": "multipart/form-data",
+                "X-CSRFToken": getCookie("csrftoken"),
+            }
+
+            const that = this
+            axios({
+                method: "post",
+                url: "/api/maintainer_site/active_maintainer_info/",
+                data: formData,
+                headers: headers,
+            })
+                .then(function(response) {
+                    //handle success
+                    console.log(response)
+                    that.props.history.push("../team/")
+                })
+                .catch(function(response) {
+                    //handle error
+                    if (response.response.data.handle != null) {
+                        that.setState({ error_handle: true })
+                    } else {
+                        that.setState({ error_handle: false })
+                    }
+                    if (response.response.data.shortBiography != null) {
+                        that.setState({ error_shortBio: true })
+                    } else {
+                        that.setState({ error_shortBio: false })
+                    }
+                    console.log(response.response.data)
+                })
+        }
     }
 
     render() {
@@ -715,19 +823,38 @@ class AddMemberDetails extends Component {
             },
         ]
         return (
-            <Container>
+            <div>
                 <Header as="h1">Add Member Details</Header>
                 <Form>
-                    <Form.Field>
+                    <Form.Field required>
                         <label>Handle Name</label>
-                        <input placeholder="Handle Name" />
+                        <input
+                            placeholder="Handle Name"
+                            onChange={event => {
+                                this.state.handle = event.target.value
+                            }}
+                        />
+                        {this.state.error_handle && (
+                            <Label color="red" pointing>
+                                This Handle already exists
+                            </Label>
+                        )}
                     </Form.Field>
 
                     <Form.Field
+                        required
                         control={TextArea}
                         label="Short Bio"
                         placeholder="Tell us more about you..."
+                        onChange={event => {
+                            this.state.shortBio = event.target.value
+                        }}
                     />
+                    {this.state.error_shortBio && (
+                        <Label color="red" pointing>
+                            Maximum 255 characters allowed
+                        </Label>
+                    )}
                 </Form>
 
                 <Segment basic fluid>
@@ -790,6 +917,11 @@ class AddMemberDetails extends Component {
                                     name="music"
                                     placeholder="Add Music preferences ..."
                                 />
+                                {this.state.music.entry.length > 63 && (
+                                    <Label color="red" pointing>
+                                        Maximum 63 characters are allowed only
+                                    </Label>
+                                )}
                             </Form.Field>
 
                             <Form.Field>
@@ -824,8 +956,13 @@ class AddMemberDetails extends Component {
                                     onChange={this.handleChange2}
                                     value={this.state.book.entry}
                                     name="book"
-                                    placeholder="Add Music preferences ..."
+                                    placeholder="Add Books that u read/like ..."
                                 />
+                                {this.state.book.entry.length > 63 && (
+                                    <Label color="red" pointing>
+                                        Maximum 63 characters are allowed only
+                                    </Label>
+                                )}
                             </Form.Field>
 
                             <Form.Field>
@@ -861,6 +998,11 @@ class AddMemberDetails extends Component {
                                     name="film"
                                     placeholder="Add MOvies/Tv Series preferences ..."
                                 />
+                                {this.state.film.entry.length > 63 && (
+                                    <Label color="red" pointing>
+                                        Maximum 63 characters are allowed only
+                                    </Label>
+                                )}
                             </Form.Field>
 
                             <Form.Field>
@@ -897,6 +1039,11 @@ class AddMemberDetails extends Component {
                                     name="game"
                                     placeholder="Add Your Games that u play ..."
                                 />
+                                {this.state.game.entry.length > 63 && (
+                                    <Label color="red" pointing>
+                                        Maximum 63 characters are allowed only
+                                    </Label>
+                                )}
                             </Form.Field>
 
                             <Form.Field>
@@ -933,6 +1080,11 @@ class AddMemberDetails extends Component {
                                     name="hobbies"
                                     placeholder="Add Your Hobbies..."
                                 />
+                                {this.state.hobbies.entry.length > 63 && (
+                                    <Label color="red" pointing>
+                                        Maximum 63 characters are allowed only
+                                    </Label>
+                                )}
                             </Form.Field>
 
                             <Form.Field>
@@ -963,6 +1115,9 @@ class AddMemberDetails extends Component {
                         search
                         label="Tech Skills:"
                         options={ll}
+                        onChange={(event, { value }) => {
+                            this.state.skills = value
+                        }}
                     />
                     <Form.Field required>
                         <label>Normie Image:</label>
@@ -980,8 +1135,12 @@ class AddMemberDetails extends Component {
                             name={"uploadedFileD"}
                         />
                     </Form.Field>
+
+                    <Button type="submit" onClick={this.handlePost}>
+                        Add Project
+                    </Button>
                 </Form>
-            </Container>
+            </div>
         )
     }
 }

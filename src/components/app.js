@@ -21,7 +21,7 @@ import AddProjectDetails from "./projects/project-add"
 import Blogs from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
-import AddProjectDetails from "./projects/add-project-details"
+
 import AppFooter from "../components/footer/app-footer"
 
 import blocks from "../css/app.css"
