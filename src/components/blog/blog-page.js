@@ -23,12 +23,7 @@ class Blogs extends Component {
         if (this.props.apiBlogData.loaded) {
             return (
                 <Container styleName="common.margin">
-                    <Card.Group
-                        itemsPerRow={3}
-                        stackable
-                        doubling
-                        styleName="styles.insert-it"
-                    >
+                    <Card.Group itemsPerRow={3} stackable doubling>
                         {this.props.apiBlogData.data.map(info => (
                             <BlogDetail info={info} key={info.id} />
                         ))}

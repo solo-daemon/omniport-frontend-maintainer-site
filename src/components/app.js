@@ -9,15 +9,6 @@ import {
 import { connect } from "react-redux"
 import { isBrowser } from "react-device-detect"
 import { Loader } from "semantic-ui-react"
-import {
-    Button,
-    Header,
-    Icon,
-    Image,
-    Menu,
-    Segment,
-    Sidebar,
-} from "semantic-ui-react"
 import { requestInfoData } from "../actions/apiInfoCall"
 import { toggleSidebar } from "../actions/toggleSidebar"
 
@@ -47,8 +38,12 @@ class App extends Component {
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
     }
 
-    handleToggle = () => {
-        // this.props.toggleSidebar()
+    handleHide = () => {
+        this.props.toggleSidebar(false)
+    }
+
+    handleShow = () => {
+        this.props.toggleSidebar(true)
     }
 
     render() {
@@ -118,7 +113,8 @@ class App extends Component {
             return (
                 <div styleName="blocks.container">
                     <AppHeader
-                        handleClick={this.props.toggleSidebar}
+                        handleClick={this.handleShow}
+                        onClick={this.handleHide}
                         visible={this.props.sidebarVisible}
                     />
                     {isBrowser ? (
@@ -147,7 +143,7 @@ class App extends Component {
                             )}
                             <div
                                 styleName="blocks.content-div-mobile"
-                                onClick={this.handleToggle}
+                                onClick={this.handleHide}
                             >
                                 <Switcher />
                             </div>
@@ -188,8 +184,8 @@ const mapDispatchToProps = dispatch => {
                 )
             )
         },
-        toggleSidebar: () => {
-            dispatch(toggleSidebar())
+        toggleSidebar: visible => {
+            dispatch(toggleSidebar(visible))
         },
     }
 }
