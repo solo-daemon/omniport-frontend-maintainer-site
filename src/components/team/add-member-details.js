@@ -26,6 +26,7 @@ class AddMemberDetails extends Component {
         this.state = {
             profile: [],
             data: initial.data,
+            disabled: false,
 
             handle: "",
             shortBio: "",
@@ -47,6 +48,7 @@ class AddMemberDetails extends Component {
             },
             error_handle: false,
             error_shortBio: false,
+            error_url: false,
         }
         this.fileChange = this.fileChange.bind(this)
         this.handlePost = this.handlePost.bind(this)
@@ -90,9 +92,9 @@ class AddMemberDetails extends Component {
         }
     }
     addLink = e => {
-        var arr = this.state.links
-        arr.push(this.state.data)
         console.log(this.state.data)
+        const that = this
+        that.setState({ error_url: false })
         let headers = {
             "X-CSRFToken": getCookie("csrftoken"),
         }
@@ -104,18 +106,22 @@ class AddMemberDetails extends Component {
         })
             .then(response => {
                 //handle success
+                var arr = this.state.links
+                arr.push(this.state.data)
+                this.setState({ links: arr, data: initial.data })
 
-                var arr = this.state.links_id
-                arr.push(response.data.id)
-                this.setState({ links_id: arr })
+                var arr1 = this.state.links_id
+                arr1.push(response.data.id)
+                this.setState({ links_id: arr1 })
+
                 console.log(this.state.links_id)
             })
             .catch(function(response) {
                 //handle error
-                console.log(response.response.data)
+                if (response.response.data.url != null) {
+                    that.setState({ error_url: true })
+                }
             })
-
-        this.setState({ links: arr, data: initial.data })
     }
     handleUpdateDelete = e => {
         var id1 = e.target.id
@@ -158,7 +164,7 @@ class AddMemberDetails extends Component {
     }
     handleUpdateDelete2 = e => {
         var name = e.target.getAttribute("pop")
-        console.log("deletekarenge")
+
         var id = e.target.id
 
         var arr = []
@@ -170,7 +176,6 @@ class AddMemberDetails extends Component {
         this.setState({
             [name]: { array: arr, entry: "" },
         })
-        console.log(this.state[name])
     }
     fileChange = e => {
         this.setState({
@@ -179,9 +184,6 @@ class AddMemberDetails extends Component {
     }
 
     handlePost() {
-        console.log("fljsdalkfjsd")
-        console.log(this.state.links)
-
         const {
             handle,
             shortBio,
@@ -213,7 +215,7 @@ class AddMemberDetails extends Component {
             hobbies.push(this.state.hobbies.array[i].url)
         }
         if (
-            tuploadedFileD &&
+            uploadedFileD &&
             uploadedFileN &&
             handle &&
             shortBio &&
@@ -222,7 +224,7 @@ class AddMemberDetails extends Component {
             film.length &&
             game.length &&
             hobbies.length &&
-            skills.length
+            skills.length <= 5
         ) {
             var formData = new FormData()
             formData.append("handle", handle)
@@ -246,9 +248,11 @@ class AddMemberDetails extends Component {
             }
 
             const that = this
+            that.setState({ error_handle: false })
+            that.setState({ error_shortBio: false })
             axios({
                 method: "post",
-                url: "/api/maintainer_site/active_maintainer_info/",
+                url: "/api/maintainer_site/logged_maintainer/",
                 data: formData,
                 headers: headers,
             })
@@ -261,13 +265,9 @@ class AddMemberDetails extends Component {
                     //handle error
                     if (response.response.data.handle != null) {
                         that.setState({ error_handle: true })
-                    } else {
-                        that.setState({ error_handle: false })
                     }
                     if (response.response.data.shortBiography != null) {
                         that.setState({ error_shortBio: true })
-                    } else {
-                        that.setState({ error_shortBio: false })
                     }
                     console.log(response.response.data)
                 })
@@ -935,6 +935,11 @@ class AddMemberDetails extends Component {
                                     name="url"
                                     placeholder="Add URl ..."
                                 />
+                                {this.state.error_url && (
+                                    <Label color="red" pointing>
+                                        Enter a valid URL
+                                    </Label>
+                                )}
                             </Form.Field>
 
                             <Form.Field>
@@ -1177,10 +1182,17 @@ class AddMemberDetails extends Component {
                         label="Tech Skills:"
                         options={ll}
                         onChange={(event, { value }) => {
-                            this.state.skills = value
-                            console.log(this.state.skills.length)
+                            this.setState({
+                                skills: value,
+                            })
                         }}
                     />
+                    {this.state.skills.length >= 5 && (
+                        <Label color="red" pointing>
+                            Maximum 5 skills are allowed only
+                        </Label>
+                    )}
+
                     <Form.Field required>
                         <label>Normie Image:</label>
                         <input
