@@ -24,7 +24,7 @@ class AddMemberDetails extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            profile: [],
+            profile: {},
             data: initial.data,
             disabled: false,
 
@@ -54,7 +54,7 @@ class AddMemberDetails extends Component {
         this.handlePost = this.handlePost.bind(this)
     }
     componentDidMount() {
-        const URL = `/api/maintainer_site/active_maintainer_info`
+        const URL = `/api/maintainer_site/logged_maintainer`
 
         axios.get(URL).then(res => {
             this.setState(
@@ -240,7 +240,6 @@ class AddMemberDetails extends Component {
 
             formData.append("normie_image", uploadedFileN)
             formData.append("dank_image", uploadedFileD)
-            formData.append("maintainer", [32])
 
             let headers = {
                 "Content-Type": "multipart/form-data",
@@ -874,6 +873,7 @@ class AddMemberDetails extends Component {
                 label: { className: "devicon-zend-plain" },
             },
         ]
+        console.log(this.state.game.array)
         return (
             <div>
                 <Header as="h1">Add Member Details</Header>
