@@ -27,7 +27,8 @@ class AddMemberDetails extends Component {
             profile: {},
             data: initial.data,
             disabled: false,
-
+            method: "post",
+            URL: "/api/maintainer_site/logged_maintainer/",
             handle: "",
             shortBio: "",
             links: [],
@@ -61,7 +62,33 @@ class AddMemberDetails extends Component {
                 {
                     profile: res.data,
                 },
-                () => {}
+                () => {
+                    if (this.state.profile.length) {
+                        console.log("this is")
+                        console.log(this.state.profile[0])
+                        this.setState({ method: "patch" })
+                        this.setState({
+                            URL:
+                                "/api/maintainer_site/logged_maintainer/" +
+                                this.state.profile[0].handle +
+                                "/",
+                        })
+                        axios
+                            .get(`/api/maintainer_site/social_link`)
+                            .then(res => {
+                                var ids = []
+                                var arra = []
+                                for (let i = 0; i < res.data.length; i++) {
+                                    ids.push(res.data[i].id)
+                                    var obj = { site: "", url: "" }
+                                    obj.site = res.data[i].site
+                                    obj.url = res.data[i].url
+                                    arra.push(obj)
+                                }
+                                this.setState({ links_id: ids, links: arra })
+                            })
+                    }
+                }
             )
         })
     }
@@ -214,6 +241,7 @@ class AddMemberDetails extends Component {
         for (let i = 0; i < this.state.hobbies.array.length; i++) {
             hobbies.push(this.state.hobbies.array[i].url)
         }
+        console.log(this.state.URL)
         if (
             uploadedFileD &&
             uploadedFileN &&
@@ -250,8 +278,8 @@ class AddMemberDetails extends Component {
             that.setState({ error_handle: false })
             that.setState({ error_shortBio: false })
             axios({
-                method: "post",
-                url: "/api/maintainer_site/logged_maintainer/",
+                method: this.state.method,
+                url: this.state.URL,
                 data: formData,
                 headers: headers,
             })
