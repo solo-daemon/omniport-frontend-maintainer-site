@@ -73,6 +73,10 @@ class AddMemberDetails extends Component {
                                 this.state.profile[0].handle +
                                 "/",
                         })
+                        this.setState({
+                            handle: this.state.profile[0].handle,
+                            shortBio: this.state.profile[0].shortBiography,
+                        })
                         axios
                             .get(`/api/maintainer_site/social_link`)
                             .then(res => {
@@ -87,6 +91,77 @@ class AddMemberDetails extends Component {
                                 }
                                 this.setState({ links_id: ids, links: arra })
                             })
+
+                        var arr = []
+                        for (
+                            let i = 0;
+                            i < this.state.profile[0].favouriteGames.length;
+                            i++
+                        ) {
+                            var obj = {
+                                site: "game",
+                                url: this.state.profile[0].favouriteGames[i],
+                            }
+                            arr.push(obj)
+                        }
+                        var arr1 = []
+                        for (
+                            let i = 0;
+                            i < this.state.profile[0].favouriteMusic.length;
+                            i++
+                        ) {
+                            var obj = {
+                                site: "music",
+                                url: this.state.profile[0].favouriteMusic[i],
+                            }
+                            arr1.push(obj)
+                        }
+                        var arr2 = []
+                        for (
+                            let i = 0;
+                            i <
+                            this.state.profile[0].favouriteLiterature.length;
+                            i++
+                        ) {
+                            var obj = {
+                                site: "book",
+                                url: this.state.profile[0].favouriteLiterature[
+                                    i
+                                ],
+                            }
+                            arr2.push(obj)
+                        }
+                        var arr3 = []
+                        for (
+                            let i = 0;
+                            i < this.state.profile[0].favouriteVideo.length;
+                            i++
+                        ) {
+                            var obj = {
+                                site: "film",
+                                url: this.state.profile[0].favouriteVideo[i],
+                            }
+                            arr3.push(obj)
+                        }
+                        var arr4 = []
+                        for (
+                            let i = 0;
+                            i < this.state.profile[0].favouriteHobbies.length;
+                            i++
+                        ) {
+                            var obj = {
+                                site: "hobbies",
+                                url: this.state.profile[0].favouriteHobbies[i],
+                            }
+                            arr4.push(obj)
+                        }
+                        this.setState({
+                            game: { entry: "", array: arr },
+                            music: { entry: "", array: arr1 },
+                            book: { entry: "", array: arr2 },
+                            film: { entry: "", array: arr3 },
+                            hobbies: { entry: "", array: arr4 },
+                        })
                     }
                 }
             )
@@ -911,8 +986,9 @@ class AddMemberDetails extends Component {
                         <input
                             placeholder="Handle Name"
                             onChange={event => {
-                                this.state.handle = event.target.value
+                                this.setState({ handle: event.target.value })
                             }}
+                            value={this.state.handle}
                         />
                         {this.state.error_handle && (
                             <Label color="red" pointing>
@@ -927,8 +1003,9 @@ class AddMemberDetails extends Component {
                         label="Short Bio"
                         placeholder="Tell us more about you..."
                         onChange={event => {
-                            this.state.shortBio = event.target.value
+                            this.setState({ shortBio: event.target.value })
                         }}
+                        value={this.state.shortBio}
                     />
                     {this.state.error_shortBio && (
                         <Label color="red" pointing>
