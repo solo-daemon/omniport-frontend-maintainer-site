@@ -49,17 +49,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props.sidebarVisible)
-        const creators = [
-            {
-                name: "Aman Sharma",
-                role: "Full Stack Developer",
-            },
-            {
-                name: "Harshit Khetan",
-                role: "Full Stack Developer",
-            },
-        ]
         const { match } = this.props
 
         const { apiInfoData } = this.props
