@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import { Header, Segment, Container, Search } from "semantic-ui-react"
 import axios from "axios"
+
+import common from "../../css/page-common-styles.css"
+
 const slug = "something"
-import inline from "formula_one/src/css/inline.css"
 
 class ProjectDetailView extends Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class ProjectDetailView extends Component {
     render() {
         return (
             <div>
-                <Container>
+                <Container styleName="common.margin">
                     <Segment attached="top">
                         <Header as="h1">{this.state.projects.title}</Header>
                     </Segment>

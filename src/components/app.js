@@ -21,6 +21,7 @@ import AddProjectDetails from "./projects/project-add"
 import Blogs from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
+import Sidebar from "./sidebar"
 
 import AppFooter from "../components/footer/app-footer"
 
@@ -108,7 +109,6 @@ class App extends Component {
                     <AppHeader
                         handleClick={this.handleShow}
                         onClick={this.handleHide}
-                        visible={this.props.sidebarVisible}
                     />
                     {isBrowser ? (
                         <React.Fragment>
@@ -119,27 +119,13 @@ class App extends Component {
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            {this.props.sidebarVisible && (
-                                <div styleName={`blocks.sidebar-container`}>
-                                    <div styleName="blocks.sidebar">
-                                        <button styleName="blocks.sidebar-button">
-                                            Blog
-                                        </button>
-                                        <button styleName="blocks.sidebar-button">
-                                            Projects
-                                        </button>
-                                        <button styleName="blocks.sidebar-button">
-                                            Team
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
                             <div
                                 styleName="blocks.content-div-mobile"
                                 onClick={this.handleHide}
                             >
                                 <Switcher />
                             </div>
+                            <Sidebar />
                             <AppFooter info={apiInfoData.footerData} />
                         </React.Fragment>
                     )}
@@ -154,7 +140,6 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         apiInfoData: state.apiInfoData,
-        sidebarVisible: state.sidebarVisible,
     }
 }
 

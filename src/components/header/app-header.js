@@ -13,25 +13,50 @@ class AppHeader extends Component {
         super(props)
         this.state = {
             containerStyle: "container",
+            logoStyle: "maintainer-logo",
+            navStyle: "",
             hamburgerStyle: "hamburger",
-            visibility: false,
         }
     }
 
     componentDidMount() {
-        //window.addEventListener("scroll", this.handleScroll)
+        window.addEventListener("scroll", this.handleScroll)
+        if (
+            window.location.pathname === PATHNAME &&
+            this.state.containerStyle === "container"
+        ) {
+            this.setState({
+                logoStyle: "maintainer-logo-yellow-start-main",
+            })
+        } else {
+            console.log(234)
+            this.setState({
+                logoStyle: "maintainer-logo-black-start-main",
+            })
+        }
     }
 
     handleScroll = () => {
-        // if (window.scrollY > 0) {
-        //     this.setState({
-        //         containerStyle: "container-white-general",
-        //     })
-        // } else {
-        //     this.setState({
-        //         containerStyle: "container-transparent-general",
-        //     })
-        // }
+        if (window.scrollY > 0) {
+            console.log(window.location.pathname)
+            this.setState({
+                containerStyle: "container-white-general",
+                logoStyle: "maintainer-logo-after-scroll-main",
+            })
+        } else {
+            this.setState({
+                containerStyle: "container-transparent-general",
+            })
+            if (window.location.pathname === PATHNAME) {
+                this.setState({
+                    logoStyle: "maintainer-logo-before-scroll-main",
+                })
+            } else {
+                this.setState({
+                    logoStyle: "maintainer-logo-after-scroll-main ",
+                })
+            }
+        }
     }
 
     render() {
@@ -41,15 +66,17 @@ class AppHeader extends Component {
                     <Container>
                         <Grid columns={2} verticalAlign="middle">
                             <Grid.Column>
-                                <div>
+                                <Link to={PATHNAME}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        styleName="styles.maintainer-logo"
+                                        styleName={`styles.${
+                                            this.state.logoStyle
+                                        }`}
                                         viewBox="0 0 100 100"
                                     >
                                         <use href={`${logo}#maintainer_logo`} />
                                     </svg>
-                                </div>
+                                </Link>
                             </Grid.Column>
                             <Grid.Column style={{ height: "100%" }}>
                                 <div styleName="button">
