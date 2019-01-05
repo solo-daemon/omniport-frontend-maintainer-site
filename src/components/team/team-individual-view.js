@@ -15,7 +15,7 @@ import {
 } from "semantic-ui-react"
 
 import styles from "../../css/team/team-individual-view.css"
-import common from "../../css/sections/common-styles.css"
+import common from "../../css/page-common-styles.css"
 
 import HobbiesCard from "./hobbies-card"
 class TeamIndividualView extends Component {
@@ -24,28 +24,39 @@ class TeamIndividualView extends Component {
         this.state = {
             member_details: [],
             loaded: false,
+            options: [],
+            role: "",
+            designation: "",
         }
     }
     componentDidMount() {
         const { handle } = this.props.match.params
         const URL = `/api/maintainer_site/active_maintainer_info/${handle}`
 
-        axios.get(URL).then(res => {
-            this.setState(
-                {
-                    member_details: res.data,
+        axios.all([axios.get(URL), axios.options(URL)]).then(
+            axios.spread((memberRes, optionsRes) => {
+                this.setState({
+                    member_details: memberRes.data,
+                    options: optionsRes.data,
                     loaded: true,
-                },
-                () => {}
-            )
-        })
+                })
+            })
+        )
     }
 
     render() {
+        const roleOptions = this.state.loaded
+            ? this.state.options.actions.PUT.maintainer.children.role.choices
+            : []
+        const designationOptions = this.state.loaded
+            ? this.state.options.actions.PUT.maintainer.children.designation
+                  .choices
+            : []
+
         if (this.state.loaded) {
             return (
                 <div>
-                    <Container>
+                    <Container styleName="common.margin">
                         <Grid columns={2} stackable>
                             <Grid.Column textAlign="center">
                                 <div styleName="styles.pro-image">
@@ -77,15 +88,28 @@ class TeamIndividualView extends Component {
                                         </Reveal.Content>
                                     </Reveal>
                                 </div>
-                                <h1 styleName="common.header">
+                                <h1>
                                     {
-                                        this.state.member_details.fullName
-                                            .fullName
+                                        this.state.member_details.maintainer
+                                            .person.fullName
                                     }
                                 </h1>
                                 <p>
-                                    {this.state.member_details.role},{" "}
-                                    {this.state.member_details.designation}
+                                    {roleOptions.map(
+                                        role =>
+                                            this.state.member_details.maintainer
+                                                .role === role.value && (
+                                                <>{`${role.displayName} | `} </>
+                                            )
+                                    )}
+                                    {designationOptions.map(
+                                        designation =>
+                                            this.state.member_details.maintainer
+                                                .designation ===
+                                                designation.value && (
+                                                <>{designation.displayName}</>
+                                            )
+                                    )}
                                 </p>
                             </Grid.Column>
                             <Grid.Column verticalAlign="middle">
