@@ -78,14 +78,14 @@ class App extends Component {
                     path={`${match.path}projects`}
                     component={Projects}
                 />
-                <Route path={`${match.path}team`} component={Team} />
+                <Route exact path={`${match.path}team`} component={Team} />
                 <Route
                     exact
                     path={`${match.path}projects/:slug`}
                     component={ProjectDetailView}
                 />
                 <Route
-                    path={`${match.path}dhruv`}
+                    path={`${match.path}team/:handle`}
                     component={TeamIndividualView}
                 />
                 <Route

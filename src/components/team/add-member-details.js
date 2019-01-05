@@ -979,346 +979,365 @@ class AddMemberDetails extends Component {
         console.log(this.state.game.array)
         return (
             <div>
-                <Header as="h1">Add Member Details</Header>
-                <Form>
-                    <Form.Field required>
-                        <label>Handle Name</label>
-                        <input
-                            placeholder="Handle Name"
+                <Container>
+                    <Header as="h1">Add Member Details</Header>
+                    <Form>
+                        <Form.Field required>
+                            <label>Handle Name</label>
+                            <input
+                                placeholder="Handle Name"
+                                onChange={event => {
+                                    this.setState({
+                                        handle: event.target.value,
+                                    })
+                                }}
+                                value={this.state.handle}
+                            />
+                            {this.state.error_handle && (
+                                <Label color="red" pointing>
+                                    This Handle already exists
+                                </Label>
+                            )}
+                        </Form.Field>
+
+                        <Form.Field
+                            required
+                            control={TextArea}
+                            label="Short Bio"
+                            placeholder="Tell us more about you..."
                             onChange={event => {
-                                this.setState({ handle: event.target.value })
+                                this.setState({ shortBio: event.target.value })
                             }}
-                            value={this.state.handle}
+                            value={this.state.shortBio}
                         />
-                        {this.state.error_handle && (
+                        {this.state.error_shortBio && (
                             <Label color="red" pointing>
-                                This Handle already exists
+                                Maximum 255 characters allowed
                             </Label>
                         )}
-                    </Form.Field>
+                    </Form>
 
-                    <Form.Field
-                        required
-                        control={TextArea}
-                        label="Short Bio"
-                        placeholder="Tell us more about you..."
-                        onChange={event => {
-                            this.setState({ shortBio: event.target.value })
-                        }}
-                        value={this.state.shortBio}
-                    />
-                    {this.state.error_shortBio && (
-                        <Label color="red" pointing>
-                            Maximum 255 characters allowed
-                        </Label>
-                    )}
-                </Form>
+                    <Segment basic fluid>
+                        <Segment
+                            attached="top"
+                            styleName="style.headingBox"
+                            fluid
+                        >
+                            <span>
+                                <h3>Social media links</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom" fluid>
+                            <Form>
+                                <Form.Field>
+                                    <label>Site</label>
+                                    <Dropdown
+                                        selection
+                                        name="site"
+                                        value={this.state.data.site}
+                                        onChange={this.onChange}
+                                        options={options}
+                                    />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Form.Input
+                                        label="URL"
+                                        onChange={this.handleChange}
+                                        value={this.state.data.url}
+                                        name="url"
+                                        placeholder="Add URl ..."
+                                    />
+                                    {this.state.error_url && (
+                                        <Label color="red" pointing>
+                                            Enter a valid URL
+                                        </Label>
+                                    )}
+                                </Form.Field>
 
-                <Segment basic fluid>
-                    <Segment attached="top" styleName="style.headingBox" fluid>
-                        <span>
-                            <h3>Social media links</h3>
-                        </span>
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="music"
+                                        onClick={this.addLink}
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
+
+                            <LinkList
+                                data={this.state.links}
+                                handleUpdateDelete={this.handleUpdateDelete}
+                            />
+                        </Segment>
                     </Segment>
-                    <Segment textAlign="left" attached="bottom" fluid>
-                        <Form>
-                            <Form.Field>
-                                <label>Site</label>
-                                <Dropdown
-                                    selection
-                                    name="site"
-                                    value={this.state.data.site}
-                                    onChange={this.onChange}
-                                    options={options}
-                                />
-                            </Form.Field>
-                            <Form.Field>
-                                <Form.Input
-                                    label="URL"
-                                    onChange={this.handleChange}
-                                    value={this.state.data.url}
-                                    name="url"
-                                    placeholder="Add URl ..."
-                                />
-                                {this.state.error_url && (
-                                    <Label color="red" pointing>
-                                        Enter a valid URL
-                                    </Label>
-                                )}
-                            </Form.Field>
+                    <Segment basic>
+                        <Segment attached="top">
+                            <span>
+                                <h3>Music</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom">
+                            <Form>
+                                <Form.Field>
+                                    <Form.Input
+                                        onChange={this.handleChange2}
+                                        value={this.state.music.entry}
+                                        name="music"
+                                        placeholder="Add Music preferences ..."
+                                    />
+                                    {this.state.music.entry.length > 63 && (
+                                        <Label color="red" pointing>
+                                            Maximum 63 characters are allowed
+                                            only
+                                        </Label>
+                                    )}
+                                </Form.Field>
 
-                            <Form.Field>
-                                <Button
-                                    color="blue"
-                                    name="music"
-                                    onClick={this.addLink}
-                                >
-                                    Add
-                                </Button>
-                            </Form.Field>
-                        </Form>
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="music"
+                                        onClick={this.addLink2}
+                                        disabled={
+                                            this.state.music.array.length >= 5
+                                        }
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
 
-                        <LinkList
-                            data={this.state.links}
-                            handleUpdateDelete={this.handleUpdateDelete}
+                            <LinkList
+                                data={this.state.music.array}
+                                handleUpdateDelete={this.handleUpdateDelete2}
+                                name="music"
+                            />
+                        </Segment>
+                    </Segment>
+
+                    <Segment basic>
+                        <Segment attached="top">
+                            <span>
+                                <h3>Literature</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom">
+                            <Form>
+                                <Form.Field>
+                                    <Form.Input
+                                        onChange={this.handleChange2}
+                                        value={this.state.book.entry}
+                                        name="book"
+                                        placeholder="Add Books that u read/like ..."
+                                    />
+                                    {this.state.book.entry.length > 63 && (
+                                        <Label color="red" pointing>
+                                            Maximum 63 characters are allowed
+                                            only
+                                        </Label>
+                                    )}
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="book"
+                                        onClick={this.addLink2}
+                                        disabled={
+                                            this.state.book.array.length >= 5
+                                        }
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
+
+                            <LinkList
+                                data={this.state.book.array}
+                                handleUpdateDelete={this.handleUpdateDelete2}
+                                name="book"
+                            />
+                        </Segment>
+                    </Segment>
+                    <Segment basic>
+                        <Segment attached="top">
+                            <span>
+                                <h3>Movies/TV Series</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom">
+                            <Form>
+                                <Form.Field>
+                                    <Form.Input
+                                        onChange={this.handleChange2}
+                                        value={this.state.film.entry}
+                                        name="film"
+                                        placeholder="Add MOvies/Tv Series preferences ..."
+                                    />
+                                    {this.state.film.entry.length > 63 && (
+                                        <Label color="red" pointing>
+                                            Maximum 63 characters are allowed
+                                            only
+                                        </Label>
+                                    )}
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="film"
+                                        onClick={this.addLink2}
+                                        disabled={
+                                            this.state.film.array.length >= 5
+                                        }
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
+
+                            <LinkList
+                                data={this.state.film.array}
+                                handleUpdateDelete={this.handleUpdateDelete2}
+                                name="film"
+                            />
+                        </Segment>
+                    </Segment>
+
+                    <Segment basic>
+                        <Segment attached="top">
+                            <span>
+                                <h3>Games You Play</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom">
+                            <Form>
+                                <Form.Field>
+                                    <Form.Input
+                                        onChange={this.handleChange2}
+                                        value={this.state.game.entry}
+                                        name="game"
+                                        placeholder="Add Your Games that u play ..."
+                                    />
+                                    {this.state.game.entry.length > 63 && (
+                                        <Label color="red" pointing>
+                                            Maximum 63 characters are allowed
+                                            only
+                                        </Label>
+                                    )}
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="game"
+                                        onClick={this.addLink2}
+                                        disabled={
+                                            this.state.game.array.length >= 5
+                                        }
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
+
+                            <LinkList
+                                data={this.state.game.array}
+                                handleUpdateDelete={this.handleUpdateDelete2}
+                                name="game"
+                            />
+                        </Segment>
+                    </Segment>
+
+                    <Segment basic>
+                        <Segment attached="top">
+                            <span>
+                                <h3>Tell Us Your Hobbies</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom">
+                            <Form>
+                                <Form.Field>
+                                    <Form.Input
+                                        onChange={this.handleChange2}
+                                        value={this.state.hobbies.entry}
+                                        name="hobbies"
+                                        placeholder="Add Your Hobbies..."
+                                    />
+                                    {this.state.hobbies.entry.length > 63 && (
+                                        <Label color="red" pointing>
+                                            Maximum 63 characters are allowed
+                                            only
+                                        </Label>
+                                    )}
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="hobbies"
+                                        onClick={this.addLink2}
+                                        disabled={
+                                            this.state.hobbies.array.length >= 5
+                                        }
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
+
+                            <LinkList
+                                data={this.state.hobbies.array}
+                                handleUpdateDelete={this.handleUpdateDelete2}
+                                name="hobbies"
+                            />
+                        </Segment>
+                    </Segment>
+
+                    <Form>
+                        <Form.Dropdown
+                            placeholder="Select tech Skill"
+                            fluid
+                            multiple
+                            selection
+                            search
+                            label="Tech Skills:"
+                            options={ll}
+                            onChange={(event, { value }) => {
+                                this.setState({
+                                    skills: value,
+                                })
+                            }}
                         />
-                    </Segment>
-                </Segment>
-                <Segment basic>
-                    <Segment attached="top">
-                        <span>
-                            <h3>Music</h3>
-                        </span>
-                    </Segment>
-                    <Segment textAlign="left" attached="bottom">
-                        <Form>
-                            <Form.Field>
-                                <Form.Input
-                                    onChange={this.handleChange2}
-                                    value={this.state.music.entry}
-                                    name="music"
-                                    placeholder="Add Music preferences ..."
-                                />
-                                {this.state.music.entry.length > 63 && (
-                                    <Label color="red" pointing>
-                                        Maximum 63 characters are allowed only
-                                    </Label>
-                                )}
-                            </Form.Field>
+                        {this.state.skills.length >= 5 && (
+                            <Label color="red" pointing>
+                                Maximum 5 skills are allowed only
+                            </Label>
+                        )}
 
-                            <Form.Field>
-                                <Button
-                                    color="blue"
-                                    name="music"
-                                    onClick={this.addLink2}
-                                    disabled={
-                                        this.state.music.array.length >= 5
-                                    }
-                                >
-                                    Add
-                                </Button>
-                            </Form.Field>
-                        </Form>
+                        <Form.Field required>
+                            <label>Normie Image:</label>
+                            <input
+                                type="file"
+                                onChange={this.fileChange}
+                                name={"uploadedFileN"}
+                            />
+                        </Form.Field>
+                        <Form.Field required>
+                            <label>Dank Image:</label>
+                            <input
+                                type="file"
+                                onChange={this.fileChange}
+                                name={"uploadedFileD"}
+                            />
+                        </Form.Field>
 
-                        <LinkList
-                            data={this.state.music.array}
-                            handleUpdateDelete={this.handleUpdateDelete2}
-                            name="music"
-                        />
-                    </Segment>
-                </Segment>
-
-                <Segment basic>
-                    <Segment attached="top">
-                        <span>
-                            <h3>Literature</h3>
-                        </span>
-                    </Segment>
-                    <Segment textAlign="left" attached="bottom">
-                        <Form>
-                            <Form.Field>
-                                <Form.Input
-                                    onChange={this.handleChange2}
-                                    value={this.state.book.entry}
-                                    name="book"
-                                    placeholder="Add Books that u read/like ..."
-                                />
-                                {this.state.book.entry.length > 63 && (
-                                    <Label color="red" pointing>
-                                        Maximum 63 characters are allowed only
-                                    </Label>
-                                )}
-                            </Form.Field>
-
-                            <Form.Field>
-                                <Button
-                                    color="blue"
-                                    name="book"
-                                    onClick={this.addLink2}
-                                    disabled={this.state.book.array.length >= 5}
-                                >
-                                    Add
-                                </Button>
-                            </Form.Field>
-                        </Form>
-
-                        <LinkList
-                            data={this.state.book.array}
-                            handleUpdateDelete={this.handleUpdateDelete2}
-                            name="book"
-                        />
-                    </Segment>
-                </Segment>
-                <Segment basic>
-                    <Segment attached="top">
-                        <span>
-                            <h3>Movies/TV Series</h3>
-                        </span>
-                    </Segment>
-                    <Segment textAlign="left" attached="bottom">
-                        <Form>
-                            <Form.Field>
-                                <Form.Input
-                                    onChange={this.handleChange2}
-                                    value={this.state.film.entry}
-                                    name="film"
-                                    placeholder="Add MOvies/Tv Series preferences ..."
-                                />
-                                {this.state.film.entry.length > 63 && (
-                                    <Label color="red" pointing>
-                                        Maximum 63 characters are allowed only
-                                    </Label>
-                                )}
-                            </Form.Field>
-
-                            <Form.Field>
-                                <Button
-                                    color="blue"
-                                    name="film"
-                                    onClick={this.addLink2}
-                                    disabled={this.state.film.array.length >= 5}
-                                >
-                                    Add
-                                </Button>
-                            </Form.Field>
-                        </Form>
-
-                        <LinkList
-                            data={this.state.film.array}
-                            handleUpdateDelete={this.handleUpdateDelete2}
-                            name="film"
-                        />
-                    </Segment>
-                </Segment>
-
-                <Segment basic>
-                    <Segment attached="top">
-                        <span>
-                            <h3>Games You Play</h3>
-                        </span>
-                    </Segment>
-                    <Segment textAlign="left" attached="bottom">
-                        <Form>
-                            <Form.Field>
-                                <Form.Input
-                                    onChange={this.handleChange2}
-                                    value={this.state.game.entry}
-                                    name="game"
-                                    placeholder="Add Your Games that u play ..."
-                                />
-                                {this.state.game.entry.length > 63 && (
-                                    <Label color="red" pointing>
-                                        Maximum 63 characters are allowed only
-                                    </Label>
-                                )}
-                            </Form.Field>
-
-                            <Form.Field>
-                                <Button
-                                    color="blue"
-                                    name="game"
-                                    onClick={this.addLink2}
-                                    disabled={this.state.game.array.length >= 5}
-                                >
-                                    Add
-                                </Button>
-                            </Form.Field>
-                        </Form>
-
-                        <LinkList
-                            data={this.state.game.array}
-                            handleUpdateDelete={this.handleUpdateDelete2}
-                            name="game"
-                        />
-                    </Segment>
-                </Segment>
-
-                <Segment basic>
-                    <Segment attached="top">
-                        <span>
-                            <h3>Tell Us Your Hobbies</h3>
-                        </span>
-                    </Segment>
-                    <Segment textAlign="left" attached="bottom">
-                        <Form>
-                            <Form.Field>
-                                <Form.Input
-                                    onChange={this.handleChange2}
-                                    value={this.state.hobbies.entry}
-                                    name="hobbies"
-                                    placeholder="Add Your Hobbies..."
-                                />
-                                {this.state.hobbies.entry.length > 63 && (
-                                    <Label color="red" pointing>
-                                        Maximum 63 characters are allowed only
-                                    </Label>
-                                )}
-                            </Form.Field>
-
-                            <Form.Field>
-                                <Button
-                                    color="blue"
-                                    name="hobbies"
-                                    onClick={this.addLink2}
-                                    disabled={
-                                        this.state.hobbies.array.length >= 5
-                                    }
-                                >
-                                    Add
-                                </Button>
-                            </Form.Field>
-                        </Form>
-
-                        <LinkList
-                            data={this.state.hobbies.array}
-                            handleUpdateDelete={this.handleUpdateDelete2}
-                            name="hobbies"
-                        />
-                    </Segment>
-                </Segment>
-
-                <Form>
-                    <Form.Dropdown
-                        placeholder="Select tech Skill"
-                        fluid
-                        multiple
-                        selection
-                        search
-                        label="Tech Skills:"
-                        options={ll}
-                        onChange={(event, { value }) => {
-                            this.setState({
-                                skills: value,
-                            })
-                        }}
-                    />
-                    {this.state.skills.length >= 5 && (
-                        <Label color="red" pointing>
-                            Maximum 5 skills are allowed only
-                        </Label>
-                    )}
-
-                    <Form.Field required>
-                        <label>Normie Image:</label>
-                        <input
-                            type="file"
-                            onChange={this.fileChange}
-                            name={"uploadedFileN"}
-                        />
-                    </Form.Field>
-                    <Form.Field required>
-                        <label>Dank Image:</label>
-                        <input
-                            type="file"
-                            onChange={this.fileChange}
-                            name={"uploadedFileD"}
-                        />
-                    </Form.Field>
-
-                    <Button type="submit" onClick={this.handlePost}>
-                        Add Project
-                    </Button>
-                </Form>
+                        <Button type="submit" onClick={this.handlePost}>
+                            Add Project
+                        </Button>
+                    </Form>
+                </Container>
             </div>
         )
     }

@@ -13,7 +13,6 @@ class Team extends Component {
     }
 
     render() {
-        console.log(this.props.apiTeamData)
         if (this.props.apiTeamData.loaded) {
             return (
                 <Container textAlign="center" styleName="common.margin">
