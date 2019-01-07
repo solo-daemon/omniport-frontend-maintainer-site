@@ -6,17 +6,22 @@ export const ERROR_OCCURED = "ERROR_OCCURED"
 const requestTeamData = url => {
     return dispatch => {
         axios
-            .get(`/api/maintainer_site/${url}`)
+            .all([
+                axios.get(`/api/maintainer_site/${url}`),
+                axios.options(`/api/maintainer_site/${url}`),
+            ])
             .then(
-                response => dispatch(receiveTeamData(url, response)),
-                error => dispatch(errorOccured(url, error))
+                axios.spread((memberRes, optionsRes) => {
+                    dispatch(receiveTeamData(url, memberRes, optionsRes))
+                })
             )
     }
 }
 
-const receiveTeamData = (url, json) => ({
+const receiveTeamData = (url, json1, json2) => ({
     type: RECEIVE_TEAM_DATA,
-    data: json.data,
+    data: json1.data,
+    options: json2.data,
     url,
 })
 

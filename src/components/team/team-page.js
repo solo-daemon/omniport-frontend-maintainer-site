@@ -13,12 +13,26 @@ class Team extends Component {
     }
 
     render() {
+        const roleOptions = this.props.apiTeamData.loaded
+            ? this.props.apiTeamData.options.actions.POST.maintainer.children
+                  .role.choices
+            : []
+        const designationOptions = this.props.apiTeamData.loaded
+            ? this.props.apiTeamData.options.actions.POST.maintainer.children
+                  .designation.choices
+            : []
+        console.log(roleOptions)
         if (this.props.apiTeamData.loaded) {
             return (
                 <Container textAlign="center" styleName="common.margin">
                     <Card.Group itemsPerRow={4} stackable>
                         {this.props.apiTeamData.data.map(info => (
-                            <TeamMember info={info} key={info.handle} />
+                            <TeamMember
+                                info={info}
+                                key={info.handle}
+                                roleOptions={roleOptions}
+                                designationOptions={designationOptions}
+                            />
                         ))}
                     </Card.Group>
                 </Container>
