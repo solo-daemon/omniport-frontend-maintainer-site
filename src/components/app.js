@@ -1,31 +1,31 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
     BrowserRouter as Router,
     Route,
     Switch,
     Redirect,
-} from "react-router-dom"
+} from 'react-router-dom'
 
-import { connect } from "react-redux"
-import { isBrowser } from "react-device-detect"
-import { Loader } from "semantic-ui-react"
-import { requestInfoData } from "../actions/apiInfoCall"
-import { toggleSidebar } from "../actions/toggleSidebar"
+import { connect } from 'react-redux'
+import { isBrowser } from 'react-device-detect'
+import { Loader } from 'semantic-ui-react'
+import { requestInfoData } from '../actions/apiInfoCall'
+import { toggleSidebar } from '../actions/toggleSidebar'
 
-import AppHeader from "../components/header/app-header"
-import MainPage from "../components/main/main-page"
-import Team from "../containers/team/teamPageLoader"
-import TeamIndividualView from "./team/team-individual-view"
-import AddMemberDetails from "./team/add-member-details"
-import AddProjectDetails from "./projects/project-add"
-import Blogs from "../containers/blog/blogPageLoader"
-import Projects from "../containers/project/projectPageLoader"
-import ProjectDetailView from "./projects/project-detail-view"
-import Sidebar from "./sidebar"
+import AppHeader from '../components/header/app-header'
+import MainPage from '../components/main/main-page'
+import Team from '../containers/team/teamPageLoader'
+import TeamIndividualView from './team/team-individual-view'
+import AddMemberDetails from './team/add-member-details'
+import AddProjectDetails from './projects/project-add'
+import Blogs from '../containers/blog/blogPageLoader'
+import Projects from '../containers/project/projectPageLoader'
+import ProjectDetailView from './projects/project-detail-view'
+import Sidebar from './sidebar'
 
-import AppFooter from "../components/footer/app-footer"
+import AppFooter from '../components/footer/app-footer'
 
-import blocks from "../css/app.css"
+import blocks from '../css/app.css'
 
 class App extends Component {
     constructor(props) {
@@ -33,11 +33,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const URL1 = "location"
-        const URL2 = "contact"
-        const URL3 = "social"
-        const URL4 = "maintainer_group"
-        const URL5 = "projects"
+        const URL1 = 'location'
+        const URL2 = 'contact'
+        const URL3 = 'social'
+        const URL4 = 'maintainer_group'
+        const URL5 = 'projects'
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
     }
 
