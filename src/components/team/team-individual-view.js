@@ -16,6 +16,7 @@ import {
 
 import styles from "../../css/team/team-individual-view.css"
 import common from "../../css/page-common-styles.css"
+import ProjectDetail from "../projects/project-card"
 
 import HobbiesCard from "./hobbies-card"
 class TeamIndividualView extends Component {
@@ -26,22 +27,37 @@ class TeamIndividualView extends Component {
             loaded: false,
             options: [],
             role: "",
+            member_projects: [],
             designation: "",
         }
+        this.requestForProjects = this.requestForProjects.bind(this)
     }
     componentDidMount() {
         const { handle } = this.props.match.params
         const URL = `/api/maintainer_site/active_maintainer_info/${handle}`
-
-        axios.all([axios.get(URL), axios.options(URL)]).then(
+        const URL2 = axios.all([axios.get(URL), axios.options(URL)]).then(
             axios.spread((memberRes, optionsRes) => {
                 this.setState({
                     member_details: memberRes.data,
                     options: optionsRes.data,
-                    loaded: true,
                 })
+                this.requestForProjects(memberRes.data.maintainer.id)
             })
         )
+    }
+    requestForProjects(id) {
+        URL = `/api/maintainer_site/maintainer_project/${id}`
+        axios.get(URL).then(res => {
+            this.setState(
+                {
+                    member_projects: res.data,
+                    loaded: true,
+                },
+                () => {
+                    console.log(this.state.member_projects)
+                }
+            )
+        })
     }
 
     render() {
@@ -54,6 +70,7 @@ class TeamIndividualView extends Component {
             : []
 
         if (this.state.loaded) {
+            //this.requestForProjects(this.state.member_details.maintainer.id)
             return (
                 <div>
                     <Container styleName="common.margin">
@@ -140,6 +157,7 @@ class TeamIndividualView extends Component {
                             </Grid.Column>
                         </Grid>
                         <Divider section />
+                        <Header textAlign="center">Hobbies</Header>
                         <Card.Group itemsPerRow={3} stackable doubling>
                             <HobbiesCard
                                 coverIcon="music"
@@ -178,6 +196,13 @@ class TeamIndividualView extends Component {
                                 array={this.state.member_details.favouriteGames}
                                 message="Favourite Games"
                             />
+                        </Card.Group>
+                        <Header textAlign="center">Projects</Header>
+
+                        <Card.Group itemsPerRow={3} stackable doubling>
+                            {this.state.member_projects.map(info => (
+                                <ProjectDetail info={info} key={info.slug} />
+                            ))}
                         </Card.Group>
                     </Container>
                 </div>

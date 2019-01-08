@@ -3,7 +3,7 @@ import { Card, Image } from "semantic-ui-react"
 
 const ProjectDetail = ({ info }) => {
     return (
-        <Card raised href={info.slug}>
+        <Card raised href={`/maintainer_site/projects/${info.slug}`}>
             <Image src={info.image} />
             <Card.Content>
                 <Card.Header>{info.title}</Card.Header>

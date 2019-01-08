@@ -57,7 +57,8 @@ class Projects extends Component {
             )
         }
         if (this.props.apiProjectData.loaded) {
-            console.log(this.props.apiProjectData.data)
+            console.log("sdfsdfsdfsdf")
+            console.log(this.props.apiProjectData.data.results)
             console.log(this.props.apiProjectData.count)
             return (
                 <Container textAlign="center" styleName="common.margin">
