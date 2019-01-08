@@ -20,6 +20,8 @@ import ProjectDetail from "../projects/project-card"
 import styles2 from "../../css/insert-it.css"
 
 import HobbiesCard from "./hobbies-card"
+import TechSkillsCard from "./tech-skills-card"
+
 class TeamIndividualView extends Component {
     constructor(props) {
         super(props)
@@ -71,7 +73,8 @@ class TeamIndividualView extends Component {
             : []
 
         if (this.state.loaded) {
-            //this.requestForProjects(this.state.member_details.maintainer.id)
+            let temp = this.state.member_details.technicalSkills[0]
+            let tempArr = temp.split(",")
             return (
                 <div>
                     <Container styleName="common.margin">
@@ -185,11 +188,9 @@ class TeamIndividualView extends Component {
                                 }
                                 message="Hobbies"
                             />
-                            <HobbiesCard
+                            <TechSkillsCard
                                 coverIcon="laptop"
-                                array={
-                                    this.state.member_details.technicalSkills
-                                }
+                                array={tempArr}
                                 message="Tech skills"
                             />
                             <HobbiesCard
