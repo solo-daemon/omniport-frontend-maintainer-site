@@ -1,12 +1,11 @@
-import React, { Component } from "react"
-import { Card, Container, Segment, Icon, Loader } from "semantic-ui-react"
-import BlogDetail from "./blog-post-card"
+import React, { Component } from 'react'
+import { Card, Container, Segment, Icon, Loader } from 'semantic-ui-react'
+import BlogDetail from './blog-post-card'
 
-import styles from "../../css/insert-it.css"
-import common from "../../css/page-common-styles.css"
+import common from '../../css/page-common-styles.css'
 
-const MEDIUM_URL = "https://medium.com/"
-var MEDIUM_PUBLICATION = ""
+const MEDIUM_URL = 'https://medium.com/'
+var MEDIUM_PUBLICATION = ''
 
 class Blogs extends Component {
     constructor(props) {
@@ -14,7 +13,7 @@ class Blogs extends Component {
     }
 
     componentDidMount() {
-        const URL = "blogs"
+        const URL = 'blogs'
         this.props.requestBlogData(URL)
     }
 
@@ -36,7 +35,7 @@ class Blogs extends Component {
                             onClick={() =>
                                 window.open(
                                     MEDIUM_URL + MEDIUM_PUBLICATION,
-                                    "_blank"
+                                    '_blank'
                                 )
                             }
                         />

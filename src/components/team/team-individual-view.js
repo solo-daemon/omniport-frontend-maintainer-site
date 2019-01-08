@@ -17,7 +17,6 @@ import {
 import styles from "../../css/team/team-individual-view.css"
 import common from "../../css/page-common-styles.css"
 import ProjectDetail from "../projects/project-card"
-import styles2 from "../../css/insert-it.css"
 
 import HobbiesCard from "./hobbies-card"
 import TechSkillsCard from "./tech-skills-card"

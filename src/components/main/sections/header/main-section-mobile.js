@@ -1,8 +1,7 @@
-import React from "react"
-import { isBrowser } from "react-device-detect"
-import { Container } from "semantic-ui-react"
+import React from 'react'
+import { Container } from 'semantic-ui-react'
 
-import styles from "../../../../css/sections/main/main-section-mobile.css"
+import styles from '../../../../css/sections/main/main-section-mobile.css'
 
 const MainMobile = () => (
     <div styleName="styles.text">

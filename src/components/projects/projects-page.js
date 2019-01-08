@@ -1,9 +1,8 @@
-import React, { Component } from "react"
-import { Card, Container, Segment, Menu, Icon, Loader } from "semantic-ui-react"
-import ProjectDetail from "./project-card"
+import React, { Component } from 'react'
+import { Card, Container, Segment, Menu, Icon, Loader } from 'semantic-ui-react'
+import ProjectDetail from './project-card'
 
-import styles from "../../css/insert-it.css"
-import common from "../../css/page-common-styles.css"
+import common from '../../css/page-common-styles.css'
 class Projects extends Component {
     constructor(props) {
         super(props)
@@ -18,7 +17,7 @@ class Projects extends Component {
     }
 
     paginating(a) {
-        const URL = "projects/?page=" + a
+        const URL = 'projects/?page=' + a
         this.props.requestProjectData(URL)
         this.setState({
             current: a,
@@ -59,12 +58,7 @@ class Projects extends Component {
         if (this.props.apiProjectData.loaded) {
             return (
                 <Container textAlign="center" styleName="common.margin">
-                    <Card.Group
-                        itemsPerRow={3}
-                        stackable
-                        doubling
-                        styleName="styles.insert-it"
-                    >
+                    <Card.Group itemsPerRow={3} stackable doubling>
                         {this.props.apiProjectData.data.results.map(info => (
                             <ProjectDetail info={info} key={info.slug} />
                         ))}

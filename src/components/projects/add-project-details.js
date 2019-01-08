@@ -1,21 +1,17 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 
-import axios from "axios"
+import axios from 'axios'
 import {
-    Card,
     Form,
-    Checkbox,
     Button,
-    Dropdown,
     Container,
     Header,
     TextArea,
-    Input,
     Label,
-} from "semantic-ui-react"
-import { getCookie } from "formula_one"
+} from 'semantic-ui-react'
+import { getCookie } from 'formula_one'
 
-import common from "../../css/page-common-styles.css"
+import common from '../../css/page-common-styles.css'
 
 class AddProjectDetails extends Component {
     constructor(props) {
@@ -23,11 +19,11 @@ class AddProjectDetails extends Component {
         this.state = {
             profile: [],
             data: {
-                slug: "",
-                title: "",
-                shortDescription: "",
-                longDescription: "",
-                image: "",
+                slug: '',
+                title: '',
+                shortDescription: '',
+                longDescription: '',
+                image: '',
                 members: [],
             },
 
@@ -39,7 +35,7 @@ class AddProjectDetails extends Component {
     }
 
     componentDidMount() {
-        const URL = "/api/maintainer_site/active_maintainer_info"
+        const URL = '/api/maintainer_site/active_maintainer_info'
 
         axios.get(URL).then(res => {
             this.setState(
@@ -66,29 +62,29 @@ class AddProjectDetails extends Component {
             uploadedFile
         ) {
             var formData = new FormData()
-            formData.append("slug", data.slug)
-            formData.append("title", data.title)
-            formData.append("short_description", data.shortDescription)
-            formData.append("long_description", data.longDescription)
-            formData.append("members", data.members)
+            formData.append('slug', data.slug)
+            formData.append('title', data.title)
+            formData.append('short_description', data.shortDescription)
+            formData.append('long_description', data.longDescription)
+            formData.append('members', data.members)
 
-            uploadedFile ? formData.append("image", uploadedFile) : void 0
+            uploadedFile ? formData.append('image', uploadedFile) : void 0
             let headers = {
-                "Content-Type": "multipart/form-data",
-                "X-CSRFToken": getCookie("csrftoken"),
+                'Content-Type': 'multipart/form-data',
+                'X-CSRFToken': getCookie('csrftoken'),
             }
             const that = this
 
             axios({
-                method: "post",
-                url: "/api/maintainer_site/projects/",
+                method: 'post',
+                url: '/api/maintainer_site/projects/',
                 data: formData,
                 headers: headers,
             })
                 .then(function(response) {
                     //handle success
                     console.log(response)
-                    that.props.history.push("../projects/")
+                    that.props.history.push('../projects/')
                 })
                 .catch(function(response) {
                     //handle error
@@ -199,7 +195,7 @@ class AddProjectDetails extends Component {
                         <input
                             type="file"
                             onChange={this.fileChange}
-                            name={"uploadedFile"}
+                            name={'uploadedFile'}
                         />
                     </Form.Field>
                     <Button type="submit" onClick={this.handlePost}>

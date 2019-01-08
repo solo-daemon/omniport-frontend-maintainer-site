@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Grid, Container, Icon } from "semantic-ui-react"
 import styles from "../../../../css/sections/info/info-section.css"
 
-const InfoSection = ({ location, contact, social }) => (
+const InfoSection = ({ location, contact, social, about }) => (
     <div styleName="styles.container">
         <Container>
             <Grid columns={2} padded="vertically" stackable reversed="mobile">
@@ -55,15 +55,7 @@ const InfoSection = ({ location, contact, social }) => (
                             <div styleName="styles.footer-text">About</div>
                         </h5>
                         <p styleName="styles.footer-text-content">
-                            As the institute evolves, so does IMG. We are a
-                            student group, which cultivates technical innovation
-                            and drives the development of software systems and
-                            niche applications which empathize with the
-                            residents of IIT Roorkee, making their digital stay
-                            as seamless as possible. We survive on action and
-                            results, getting it done faster, better and more
-                            efficiently, with one goal in mind: Simplifying the
-                            business of college life.
+                            {about.description}
                         </p>
                     </div>
                 </Grid.Column>
