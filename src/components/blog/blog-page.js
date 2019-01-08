@@ -6,7 +6,7 @@ import styles from "../../css/insert-it.css"
 import common from "../../css/page-common-styles.css"
 
 const MEDIUM_URL = "https://medium.com/"
-const MEDIUM_PUBLICATION = "img-iit-roorkee"
+var MEDIUM_PUBLICATION = ""
 
 class Blogs extends Component {
     constructor(props) {
@@ -19,8 +19,8 @@ class Blogs extends Component {
     }
 
     render() {
-        console.log(this.props.apiBlogData)
         if (this.props.apiBlogData.loaded) {
+            MEDIUM_PUBLICATION = this.props.apiBlogData.slug.mediumSlug
             return (
                 <Container styleName="common.margin">
                     <Card.Group itemsPerRow={3} stackable doubling>

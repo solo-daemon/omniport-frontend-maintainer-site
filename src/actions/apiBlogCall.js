@@ -6,17 +6,23 @@ export const ERROR_OCCURED = "ERROR_OCCURED"
 const requestBlogData = url => {
     return dispatch => {
         axios
-            .get(`/api/maintainer_site/${url}`)
+            .all([
+                axios.get(`/api/maintainer_site/${url}`),
+                axios.get(`/api/maintainer_site/maintainer_group`),
+            ])
             .then(
-                response => dispatch(receiveBlogData(url, response)),
-                error => dispatch(errorOccured(url, error))
+                axios.spread((blogRes, slugRes) => {
+                    dispatch(receiveBlogData(url, blogRes, slugRes)),
+                        dispatch(errorOccured(url, error))
+                })
             )
     }
 }
 
-const receiveBlogData = (url, json) => ({
+const receiveBlogData = (url, json1, json2) => ({
     type: RECEIVE_BLOG_DATA,
-    data: json.data,
+    data: json1.data,
+    slug: json2.data,
     url,
 })
 

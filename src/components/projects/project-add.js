@@ -113,9 +113,9 @@ class AddProjectDetails extends Component {
         const maintainers = this.state.profile.map(user => ({
             image: { avatar: true, src: user.normieImage },
             value: user.maintainer,
-            text: user.fullName.fullName,
+            text: user.maintainer.fullName.fullName,
         }))
-
+        
         return (
             <Container styleName="common.margin">
                 <Header as="h1">Add Project Details</Header>
