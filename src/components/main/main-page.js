@@ -16,6 +16,7 @@ class MainPage extends Component {
         const { locationData } = apiInfoData
         const { contactData } = apiInfoData
         const { socialData } = apiInfoData
+        const { footerData } = apiInfoData
         console.log(apiInfoData)
         return (
             <div>
@@ -26,6 +27,7 @@ class MainPage extends Component {
                     location={locationData}
                     contact={contactData}
                     social={socialData}
+                    about={footerData}
                 />
             </div>
         )
