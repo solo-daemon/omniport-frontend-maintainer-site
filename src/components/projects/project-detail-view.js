@@ -3,7 +3,7 @@ import { Header, Segment, Container, Search } from "semantic-ui-react"
 import axios from "axios"
 
 import common from "../../css/page-common-styles.css"
-
+import styles from "../../css/projects/project-detail.css"
 const slug = "something"
 
 class ProjectDetailView extends Component {
@@ -31,11 +31,11 @@ class ProjectDetailView extends Component {
         return (
             <div>
                 <Container styleName="common.margin">
-                    <Segment attached="top">
-                        <Header as="h1">{this.state.projects.title}</Header>
-                    </Segment>
-                    <Segment attached />
-                    <Segment attached="bottom">
+                    <Header as="h1" styleName="styles.fonts">
+                        {this.state.projects.title}
+                    </Header>
+
+                    <Segment basic compact>
                         <div
                             align="left"
                             dangerouslySetInnerHTML={{
@@ -43,6 +43,7 @@ class ProjectDetailView extends Component {
                             }}
                         />
                     </Segment>
+                    <Segment basic padded />
                 </Container>
             </div>
         )
