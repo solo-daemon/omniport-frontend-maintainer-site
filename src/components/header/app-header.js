@@ -1,38 +1,41 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Container, Grid, Icon, Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import { isBrowser } from 'react-device-detect'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Container, Grid, Icon, Button } from "semantic-ui-react"
+import { Link } from "react-router-dom"
+import { isBrowser } from "react-device-detect"
 
-import styles from '../../css/header/app-header.css'
-import logo from '../../static/logo.svg'
+import styles from "../../css/header/app-header.css"
+import logo from "../../static/logo.svg"
 
-const PATHNAME = '/maintainer_site/'
+const PATHNAME = "/maintainer_site/"
 
 class AppHeader extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            containerStyle: 'container',
-            logoStyle: 'maintainer-logo',
-            navStyle: '',
-            hamburgerStyle: 'hamburger',
+            containerStyle: "container",
+            logoStyle: "maintainer-logo",
+            navStyle: "link",
+            hamburgerStyle: "hamburger",
         }
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll)
+        window.addEventListener("scroll", this.handleScroll)
         if (
             window.location.pathname === PATHNAME &&
-            this.state.containerStyle === 'container'
+            this.state.containerStyle === "container"
         ) {
             this.setState({
-                logoStyle: 'maintainer-logo-yellow-start-main',
+                logoStyle: "maintainer-logo-yellow-start-main",
+                navStyle: "link-blue-start-main",
+                hamburgerStyle: "hamburger-yellow-start-main",
             })
         } else {
-            console.log(234)
             this.setState({
-                logoStyle: 'maintainer-logo-black-start-main',
+                logoStyle: "maintainer-logo-black-start-main",
+                navStyle: "link-black-start-main",
+                hamburgerStyle: "hamburger-black-start-main",
             })
         }
     }
@@ -41,20 +44,26 @@ class AppHeader extends Component {
         if (window.scrollY > 0) {
             console.log(window.location.pathname)
             this.setState({
-                containerStyle: 'container-white-general',
-                logoStyle: 'maintainer-logo-after-scroll-main',
+                containerStyle: "container-white-general",
+                logoStyle: "maintainer-logo-after-scroll-main",
+                navStyle: "link-after-scroll-main",
+                hamburgerStyle: "hamburger-after-scroll-main",
             })
         } else {
             this.setState({
-                containerStyle: 'container-transparent-general',
+                containerStyle: "container-transparent-general",
             })
             if (window.location.pathname === PATHNAME) {
                 this.setState({
-                    logoStyle: 'maintainer-logo-before-scroll-main',
+                    logoStyle: "maintainer-logo-before-scroll-main",
+                    navStyle: "link-before-scroll-main",
+                    hamburgerStyle: "hamburger-before-scroll-main",
                 })
             } else {
                 this.setState({
-                    logoStyle: 'maintainer-logo-after-scroll-main ',
+                    logoStyle: "maintainer-logo-after-scroll-main ",
+                    navStyle: "link-after-scroll-main",
+                    hamburgerStyle: "hamburger-after-scroll-main",
                 })
             }
         }
@@ -79,17 +88,19 @@ class AppHeader extends Component {
                                     </svg>
                                 </Link>
                             </Grid.Column>
-                            <Grid.Column style={{ height: '100%' }}>
+                            <Grid.Column style={{ height: "100%" }}>
                                 <div styleName="button">
                                     {isBrowser ? (
-                                        <>
+                                        <React.Fragment>
                                             <Link
                                                 to={`${PATHNAME}blog/`}
                                                 styleName="styles.link-color"
                                             >
                                                 <button
                                                     name="blog"
-                                                    styleName="styles.link"
+                                                    styleName={`styles.${
+                                                        this.state.navStyle
+                                                    }`}
                                                 >
                                                     Blog
                                                 </button>
@@ -100,7 +111,9 @@ class AppHeader extends Component {
                                             >
                                                 <button
                                                     name="projects"
-                                                    styleName="styles.link"
+                                                    styleName={`styles.${
+                                                        this.state.navStyle
+                                                    }`}
                                                 >
                                                     Projects
                                                 </button>
@@ -111,14 +124,16 @@ class AppHeader extends Component {
                                             >
                                                 <button
                                                     name="team"
-                                                    styleName="styles.link"
+                                                    styleName={`styles.${
+                                                        this.state.navStyle
+                                                    }`}
                                                 >
                                                     Team
                                                 </button>
                                             </Link>
-                                        </>
+                                        </React.Fragment>
                                     ) : (
-                                        !this.props.sidebarVisible && (
+                                        !this.props.sidebarVisible.visible && (
                                             <div
                                                 styleName={`styles.${
                                                     this.state.hamburgerStyle

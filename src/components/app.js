@@ -42,11 +42,11 @@ class App extends Component {
     }
 
     handleHide = () => {
-        this.props.toggleSidebar(false)
+        this.props.toggleSidebar(false, "sidebar-container-shrink")
     }
 
     handleShow = () => {
-        this.props.toggleSidebar(true)
+        this.props.toggleSidebar(true, "sidebar-container-expand")
     }
 
     render() {
@@ -165,8 +165,8 @@ const mapDispatchToProps = dispatch => {
                 )
             )
         },
-        toggleSidebar: visible => {
-            dispatch(toggleSidebar(visible))
+        toggleSidebar: (visible, style) => {
+            dispatch(toggleSidebar(visible, style))
         },
     }
 }

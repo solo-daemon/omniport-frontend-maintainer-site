@@ -1,9 +1,16 @@
 import { TOGGLE_SIDEBAR } from "../actions/toggleSidebar"
 
-const sidebarVisible = (state = false, action) => {
+const sidebarVisible = (
+    state = { visible: false, style: "sidebar-container" },
+    action
+) => {
     switch (action.type) {
         case TOGGLE_SIDEBAR:
-            return action.visible
+            return {
+                ...state,
+                visible: action.visible,
+                style: action.style,
+            }
         default:
             return state
     }
