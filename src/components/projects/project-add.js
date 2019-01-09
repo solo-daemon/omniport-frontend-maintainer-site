@@ -4,17 +4,17 @@ import axios from "axios"
 import {
     Card,
     Form,
-    Checkbox,
+    Loader,
     Button,
     Dropdown,
     Container,
     Header,
     TextArea,
-    Input,
+    Segment,
     Label,
 } from "semantic-ui-react"
 import { getCookie } from "formula_one"
-
+import { Editor } from "@tinymce/tinymce-react"
 import common from "../../css/page-common-styles.css"
 
 class AddProjectDetails extends Component {
@@ -33,8 +33,10 @@ class AddProjectDetails extends Component {
 
             slug: false,
             title: false,
+            loaded: false,
         }
         this.handlePost = this.handlePost.bind(this)
+        this.handleEditorChange = this.handleEditorChange.bind(this)
         this.fileChange = this.fileChange.bind(this)
     }
 
@@ -46,7 +48,9 @@ class AddProjectDetails extends Component {
                 {
                     profile: res.data,
                 },
-                () => {}
+                () => {
+                    this.setState({ loaded: true })
+                }
             )
         })
     }
@@ -55,8 +59,13 @@ class AddProjectDetails extends Component {
             [e.target.name]: e.target.files[0],
         })
     }
+    handleEditorChange(content) {
+        this.state.data.longDescription = content
+    }
     handlePost() {
-        const { profile, data, slug, title, uploadedFile } = this.state
+        const { profile, data, slug, title, loaded, uploadedFile } = this.state
+        console.log(data)
+        console.log(uploadedFile)
         if (
             data.longDescription &&
             data.shortDescription &&
@@ -112,102 +121,115 @@ class AddProjectDetails extends Component {
     render() {
         const maintainers = this.state.profile.map(user => ({
             image: { avatar: true, src: user.normieImage },
-            value: user.maintainer,
-            text: user.maintainer.fullName.fullName,
+            value: user.maintainer.id,
+            text: user.maintainer.person.fullName,
         }))
-        
-        return (
-            <Container styleName="common.margin">
-                <Header as="h1">Add Project Details</Header>
-                <Form>
-                    <Form.Field required>
-                        <label>Title:</label>
-                        <input
-                            placeholder="Title for the project"
-                            name="title"
+        if (this.state.loaded) {
+            return (
+                <Container styleName="common.margin">
+                    <Header as="h1">Add Project Details</Header>
+                    <Form>
+                        <Form.Field required>
+                            <label>Title:</label>
+                            <input
+                                placeholder="Title for the project"
+                                name="title"
+                                onChange={event => {
+                                    this.state.data.title = event.target.value
+                                }}
+                            />
+                            {this.state.title && (
+                                <Label color="red" pointing>
+                                    Title with that name already exists
+                                </Label>
+                            )}
+                        </Form.Field>
+                        <Form.Field required>
+                            <label>Slug:</label>
+                            <input
+                                placeholder="Slug for the project"
+                                onChange={event => {
+                                    this.state.data.slug = event.target.value
+                                }}
+                            />
+                            {this.state.slug && (
+                                <Label color="red" pointing>
+                                    Slug with that name already exists
+                                </Label>
+                            )}
+                        </Form.Field>
+                        <Form.Field
+                            control={TextArea}
+                            label="Short Description:"
+                            required
+                            placeholder="Short Description for the project..."
                             onChange={event => {
-                                this.state.data.title = event.target.value
+                                this.state.data.shortDescription =
+                                    event.target.value
                             }}
                         />
-                        {this.state.title && (
-                            <Label color="red" pointing>
-                                Title with that name already exists
-                            </Label>
-                        )}
-                    </Form.Field>
-
-                    <Form.Field required>
-                        <label>Slug:</label>
-                        <input
-                            placeholder="Slug for the project"
-                            onChange={event => {
-                                this.state.data.slug = event.target.value
+                        <Form.Field label="Content:" required />
+                        <Editor
+                            init={{
+                                plugins:
+                                    "contextmenu " +
+                                    " lists link table image codesample charmap " +
+                                    " fullscreen " +
+                                    " wordcount",
+                                contextmenu:
+                                    "bold italic underline strikethrough | " +
+                                    "superscript subscript | " +
+                                    "link",
+                                toolbar1:
+                                    "formatselect | " +
+                                    "bold italic underline strikethrough blockquote removeformat | " +
+                                    "alignleft aligncenter alignright alignjustify",
+                                toolbar2:
+                                    "undo redo | " +
+                                    "bullist numlist outdent indent | " +
+                                    "link unlink | " +
+                                    "table image codesample charmap | " +
+                                    "fullscreen",
+                                theme: "modern",
+                                height: 512,
+                                width: "auto",
+                                menubar: false,
+                                branding: false,
+                            }}
+                            onEditorChange={this.handleEditorChange}
+                        />
+                        <Segment basic />
+                        <Form.Dropdown
+                            placeholder="Select the Project Makers"
+                            search
+                            required
+                            multiple
+                            selection
+                            label="Maintainers:"
+                            options={maintainers}
+                            onChange={(event, { value }) => {
+                                const temp = { value }
+                                this.state.data.members = Number(temp.value)
                             }}
                         />
-                        {this.state.slug && (
-                            <Label color="red" pointing>
-                                Slug with that name already exists
-                            </Label>
-                        )}
-                    </Form.Field>
-
-                    <Form.Field
-                        control={TextArea}
-                        label="Short Description:"
-                        required
-                        placeholder="Short Description for the project..."
-                        onChange={event => {
-                            this.state.data.shortDescription =
-                                event.target.value
-                        }}
-                    />
-
-                    <Form.Field
-                        control={TextArea}
-                        label="Content:"
-                        required
-                        placeholder="Long Description for the project..."
-                        style={{ minHeight: 150 }}
-                        onChange={event => {
-                            this.state.data.longDescription = event.target.value
-                        }}
-                    />
-                    {/* <TinyMCE
-                        content="<p>This is the initial content of the editor</p>"
-                        config={{
-                            plugins: "autolink link image lists print preview",
-                            toolbar:
-                                "undo redo | bold italic | alignleft aligncenter alignright",
-                        }}
-                        onChange={this.handleEditorChange}
-                    /> */}
-                    <Form.Dropdown
-                        placeholder="Select the Project Makers"
-                        search
-                        required
-                        multiple
-                        selection
-                        label="Maintainers:"
-                        options={maintainers}
-                        onChange={(event, { value }) => {
-                            const temp = { value }
-                            this.state.data.members = Number(temp.value)
-                        }}
-                    />
-                    <Form.Field required>
-                        <label>Image:</label>
-                        <input
-                            type="file"
-                            onChange={this.fileChange}
-                            name={"uploadedFile"}
-                        />
-                    </Form.Field>
-                    <Button type="submit" onClick={this.handlePost}>
-                        Add Project
-                    </Button>
-                </Form>
-            </Container>
-        )
+                        <Form.Field required>
+                            <label>Image:</label>
+                            <input
+                                type="file"
+                                onChange={this.fileChange}
+                                name={"uploadedFile"}
+                            />
+                        </Form.Field>
+                        <Button type="submit" onClick={this.handlePost}>
+                            Add Project
+                        </Button>
+                    </Form>
+                    <Segment basic />
+                </Container>
+            )
+        } else {
+            return <Loader active size="large" />
+        }
     }
 }
 export default AddProjectDetails
