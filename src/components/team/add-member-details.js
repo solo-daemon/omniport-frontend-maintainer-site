@@ -17,6 +17,8 @@ import {
 import style from "../../css/team/add-member-details.css"
 import LinkList from "./linkList"
 import { getCookie } from "formula_one"
+import { Link } from "react-router-dom"
+
 const initial = {
     data: { site: "git", url: "" },
 }
@@ -47,6 +49,8 @@ class AddMemberDetails extends Component {
                 hobbies: "",
                 skills: "",
             },
+            uploadedFileD: "",
+            uploadedFileN: "",
             error_handle: false,
             error_shortBio: false,
             error_url: false,
@@ -74,6 +78,8 @@ class AddMemberDetails extends Component {
                         this.setState({
                             handle: this.state.profile[0].handle,
                             shortBio: this.state.profile[0].shortBiography,
+                            uploadedFileD: this.state.profile[0].dankImage,
+                            uploadedFileN: this.state.profile[0].normieImage,
                         })
                         axios
                             .get(`/api/maintainer_site/social_link`)
@@ -184,11 +190,14 @@ class AddMemberDetails extends Component {
     }
     addLink2 = e => {
         const name = e.target.name
+
         if (this.state[name].entry.length <= 63) {
             var arr = this.state[name].array
-            var temp = { site: [name], url: this.state[name].entry }
+            var temp = { site: "" + name, url: this.state[name].entry }
             arr.push(temp)
-            this.setState({ [name]: { array: arr, entry: "" } })
+            this.setState({ [name]: { array: arr, entry: "" } }, () =>
+                console.log(this.state[name])
+            )
         }
     }
     addLink = e => {
@@ -320,19 +329,29 @@ class AddMemberDetails extends Component {
             skills.length <= 5
         ) {
             var formData = new FormData()
+            console.log(hobbies)
             formData.append("handle", handle)
             formData.append("short_biography", shortBio)
             formData.append("social_information", links)
 
-            formData.append("favourite_music", music)
-            formData.append("favourite_literature", book)
             formData.append("technical_skills", skills)
-            formData.append("favourite_video", film)
-            formData.append("favourite_games", game)
-            formData.append("favourite_hobbies", hobbies)
 
-            formData.append("normie_image", uploadedFileN)
-            formData.append("dank_image", uploadedFileD)
+            music.map(element => formData.append("favourite_music", element))
+            book.map(element =>
+                formData.append("favourite_literature", element)
+            )
+            film.map(element => formData.append("favourite_video", element))
+            game.map(element => formData.append("favourite_games", element))
+            hobbies.map(element =>
+                formData.append("favourite_hobbies", element)
+            )
+
+            if (this.state.uploadedFileN.type == "image/jpeg") {
+                formData.append("normie_image", uploadedFileN)
+            }
+            if (this.state.uploadedFileD.type == "image/jpeg") {
+                formData.append("dank_image", uploadedFileD)
+            }
 
             let headers = {
                 "Content-Type": "multipart/form-data",
@@ -1297,7 +1316,7 @@ class AddMemberDetails extends Component {
                                 })
                             }}
                         />
-                        {this.state.skills.length >= 5 && (
+                        {this.state.skills.length > 5 && (
                             <Label color="red" pointing>
                                 Maximum 5 skills are allowed only
                             </Label>
@@ -1311,6 +1330,11 @@ class AddMemberDetails extends Component {
                                 name={"uploadedFileN"}
                             />
                         </Form.Field>
+
+                        <a href={this.state.uploadedFileN} target="_blank">
+                            See previous uploaded
+                        </a>
+                        <Segment basic />
                         <Form.Field required>
                             <label>Dank Image:</label>
                             <input
@@ -1319,11 +1343,15 @@ class AddMemberDetails extends Component {
                                 name={"uploadedFileD"}
                             />
                         </Form.Field>
-
+                        <a href={this.state.uploadedFileD} target="_blank">
+                            See previous uploaded
+                        </a>
+                        <Segment basic />
                         <Button type="submit" onClick={this.handlePost}>
                             Add Project
                         </Button>
                     </Form>
+                    <Segment basic />
                 </Container>
             </div>
         )
