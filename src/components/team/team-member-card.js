@@ -1,6 +1,6 @@
-import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
-import styles from '../../css/team/team-member.css'
+import React from "react"
+import { Card, Icon, Image } from "semantic-ui-react"
+import styles from "../../css/team/team-member.css"
 const TeamMember = ({ info, roleOptions, designationOptions }) => {
     return (
         <Card raised href={info.handle}>
@@ -12,14 +12,18 @@ const TeamMember = ({ info, roleOptions, designationOptions }) => {
                     {roleOptions.map(
                         role =>
                             info.maintainer.role === role.value && (
-                                <>{`${role.displayName} | `}</>
+                                <React.Fragment>{`${
+                                    role.displayName
+                                } | `}</React.Fragment>
                             )
                     )}
                     {designationOptions.map(
                         designation =>
                             info.maintainer.designation ===
                                 designation.value && (
-                                <>{designation.displayName}</>
+                                <React.Fragment>
+                                    {designation.displayName}
+                                </React.Fragment>
                             )
                     )}
                 </Card.Description>

@@ -50,15 +50,10 @@ class TeamIndividualView extends Component {
     requestForProjects(id) {
         URL = `/api/maintainer_site/maintainer_project/${id}`
         axios.get(URL).then(res => {
-            this.setState(
-                {
-                    member_projects: res.data,
-                    loaded: true,
-                },
-                () => {
-                    console.log(this.state.member_projects)
-                }
-            )
+            this.setState({
+                member_projects: res.data,
+                loaded: true,
+            })
         })
     }
 
@@ -119,7 +114,9 @@ class TeamIndividualView extends Component {
                                         role =>
                                             this.state.member_details.maintainer
                                                 .role === role.value && (
-                                                <>{`${role.displayName} | `} </>
+                                                <React.Fragment>
+                                                    {`${role.displayName} | `}{" "}
+                                                </React.Fragment>
                                             )
                                     )}
                                     {designationOptions.map(
@@ -127,7 +124,9 @@ class TeamIndividualView extends Component {
                                             this.state.member_details.maintainer
                                                 .designation ===
                                                 designation.value && (
-                                                <>{designation.displayName}</>
+                                                <React.Fragment>
+                                                    {designation.displayName}
+                                                </React.Fragment>
                                             )
                                     )}
                                 </p>

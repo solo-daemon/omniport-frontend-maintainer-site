@@ -17,3 +17,8 @@
     background-color: #f8d16c !important;
     color: #263146 !important;
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+}

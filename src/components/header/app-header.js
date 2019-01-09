@@ -1,61 +1,80 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Container, Grid, Icon, Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import { isBrowser } from 'react-device-detect'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Container, Grid, Icon } from "semantic-ui-react"
+import { Link } from "react-router-dom"
+import { isBrowser } from "react-device-detect"
 
-import styles from '../../css/header/app-header.css'
-import logo from '../../static/logo.svg'
+import styles from "../../css/header/app-header.css"
+import logo from "../../static/logo.svg"
 
-const PATHNAME = '/maintainer_site/'
+const PATHNAME = "/maintainer_site/"
 
 class AppHeader extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            containerStyle: 'container',
-            logoStyle: 'maintainer-logo',
-            navStyle: '',
-            hamburgerStyle: 'hamburger',
+            containerStyle: "container",
+            logoStyle: "maintainer-logo",
+            navStyle: "link",
+            hamburgerStyle: "hamburger",
         }
-    }
-
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll)
-        if (
-            window.location.pathname === PATHNAME &&
-            this.state.containerStyle === 'container'
-        ) {
-            this.setState({
-                logoStyle: 'maintainer-logo-yellow-start-main',
-            })
-        } else {
-            console.log(234)
-            this.setState({
-                logoStyle: 'maintainer-logo-black-start-main',
-            })
-        }
+        window.addEventListener("scroll", this.handleScroll)
     }
 
     handleScroll = () => {
         if (window.scrollY > 0) {
-            console.log(window.location.pathname)
             this.setState({
-                containerStyle: 'container-white-general',
-                logoStyle: 'maintainer-logo-after-scroll-main',
+                containerStyle: "container-white-general",
             })
         } else {
             this.setState({
-                containerStyle: 'container-transparent-general',
+                containerStyle: "container-transparent-general",
             })
+        }
+    }
+
+    handleContainerStyle = () => {
+        if (window.scrollY > 0) {
+            return "container-white-general"
+        } else if (this.state.containerStyle !== "container") {
+            return "container-transparent-general"
+        } else {
+            return "container"
+        }
+    }
+
+    handleLogoStyle = () => {
+        if (window.scrollY > 0) {
+            return "maintainer-logo-after-scroll-main"
+        } else {
             if (window.location.pathname === PATHNAME) {
-                this.setState({
-                    logoStyle: 'maintainer-logo-before-scroll-main',
-                })
+                return "maintainer-logo-before-scroll-main"
             } else {
-                this.setState({
-                    logoStyle: 'maintainer-logo-after-scroll-main ',
-                })
+                return "maintainer-logo-after-scroll-main"
+            }
+        }
+    }
+
+    handleNavStyle = () => {
+        if (window.scrollY > 0) {
+            return "link-after-scroll-main"
+        } else {
+            if (window.location.pathname === PATHNAME) {
+                return "link-before-scroll-main"
+            } else {
+                return "link-after-scroll-main"
+            }
+        }
+    }
+
+    handleHamburgerStyle = () => {
+        if (window.scrollY > 0) {
+            return "hamburger-after-scroll-main"
+        } else {
+            if (window.location.pathname === PATHNAME) {
+                return "hamburger-before-scroll-main"
+            } else {
+                return "hamburger-after-scroll-main"
             }
         }
     }
@@ -63,33 +82,32 @@ class AppHeader extends Component {
     render() {
         return (
             <div styleName="styles.position">
-                <div styleName={`styles.${this.state.containerStyle}`}>
+                <div styleName={`styles.${this.handleContainerStyle()}`}>
                     <Container>
                         <Grid columns={2} verticalAlign="middle">
                             <Grid.Column>
                                 <Link to={PATHNAME}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        styleName={`styles.${
-                                            this.state.logoStyle
-                                        }`}
+                                        styleName={`styles.${this.handleLogoStyle()}`}
                                         viewBox="0 0 100 100"
                                     >
                                         <use href={`${logo}#maintainer_logo`} />
                                     </svg>
                                 </Link>
                             </Grid.Column>
-                            <Grid.Column style={{ height: '100%' }}>
+                            <Grid.Column style={{ height: "100%" }}>
                                 <div styleName="button">
                                     {isBrowser ? (
-                                        <>
+                                        <React.Fragment>
                                             <Link
                                                 to={`${PATHNAME}blog/`}
                                                 styleName="styles.link-color"
+                                                onClick={this.handleSwitch}
                                             >
                                                 <button
                                                     name="blog"
-                                                    styleName="styles.link"
+                                                    styleName={`styles.${this.handleNavStyle()}`}
                                                 >
                                                     Blog
                                                 </button>
@@ -97,10 +115,11 @@ class AppHeader extends Component {
                                             <Link
                                                 to={`${PATHNAME}projects/`}
                                                 styleName="styles.link-color"
+                                                onClick={this.handleSwitch}
                                             >
                                                 <button
                                                     name="projects"
-                                                    styleName="styles.link"
+                                                    styleName={`styles.${this.handleNavStyle()}`}
                                                 >
                                                     Projects
                                                 </button>
@@ -108,21 +127,20 @@ class AppHeader extends Component {
                                             <Link
                                                 to={`${PATHNAME}team/`}
                                                 styleName="styles.link-color"
+                                                onClick={this.handleSwitch}
                                             >
                                                 <button
                                                     name="team"
-                                                    styleName="styles.link"
+                                                    styleName={`styles.${this.handleNavStyle()}`}
                                                 >
                                                     Team
                                                 </button>
                                             </Link>
-                                        </>
+                                        </React.Fragment>
                                     ) : (
-                                        !this.props.sidebarVisible && (
+                                        !this.props.sidebarVisible.visible && (
                                             <div
-                                                styleName={`styles.${
-                                                    this.state.hamburgerStyle
-                                                }`}
+                                                styleName={`styles.${this.handleHamburgerStyle()}`}
                                             >
                                                 <Icon
                                                     name="bars"

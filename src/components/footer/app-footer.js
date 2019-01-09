@@ -52,7 +52,7 @@ class FooterSection extends Component {
             )
         } else {
             return (
-                <footer styleName="styles.container">
+                <footer styleName="styles.container" styleName="styles.center">
                     <Container textAlign="center">
                         {this.state.iconVisible && (
                             <Icon

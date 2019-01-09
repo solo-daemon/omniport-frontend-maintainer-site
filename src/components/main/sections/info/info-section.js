@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { Grid, Container, Icon } from "semantic-ui-react"
 import styles from "../../../../css/sections/info/info-section.css"
 
@@ -39,11 +39,11 @@ const InfoSection = ({ location, contact, social, about }) => (
                             social.links.map(profile => (
                                 <span styleName="styles.social-links">
                                     <Icon
-                                        fitted
+                                        key={profile.id}
                                         title={profile.url}
                                         name={profile.siteLogo}
                                         onClick={() => window.open(profile.url)}
-                                        key={profile.siteName}
+                                        fitted
                                     />
                                 </span>
                             ))}

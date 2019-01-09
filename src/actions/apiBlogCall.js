@@ -11,7 +11,7 @@ const requestBlogData = url => {
                 axios.get(`/api/maintainer_site/maintainer_group`),
             ])
             .then(
-                axios.spread((blogRes, slugRes) => {
+                axios.spread((blogRes, slugRes, error) => {
                     dispatch(receiveBlogData(url, blogRes, slugRes)),
                         dispatch(errorOccured(url, error))
                 })

@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Card, Container, Loader } from 'semantic-ui-react'
+import React, { Component } from "react"
+import { Card, Container, Loader } from "semantic-ui-react"
 
-import TeamMember from './team-member-card'
+import TeamMember from "./team-member-card"
 
-import styles from '../../css/team/team.css'
-import common from '../../css/page-common-styles.css'
+import styles from "../../css/team/team.css"
+import common from "../../css/page-common-styles.css"
 
 class Team extends Component {
     componentDidMount() {
-        const URL = 'active_maintainer_info'
+        const URL = "active_maintainer_info"
         this.props.requestTeamData(URL)
     }
 
@@ -21,7 +21,6 @@ class Team extends Component {
             ? this.props.apiTeamData.options.actions.POST.maintainer.children
                   .designation.choices
             : []
-        console.log(roleOptions)
         if (this.props.apiTeamData.loaded) {
             return (
                 <Container textAlign="center" styleName="common.margin">

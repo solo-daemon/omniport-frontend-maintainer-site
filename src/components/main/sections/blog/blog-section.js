@@ -29,7 +29,7 @@ const BlogSection = () => (
                 </Grid.Column>
             </Grid>
             <Segment clearing padded basic>
-                <Link to="./blogs">
+                <Link to="./blog">
                     <div styleName="common.button">Read</div>
                 </Link>
             </Segment>

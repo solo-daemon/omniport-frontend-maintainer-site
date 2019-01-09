@@ -97,12 +97,10 @@ class AddProjectDetails extends Component {
             })
                 .then(function(response) {
                     //handle success
-                    console.log(response)
                     that.props.history.push("../projects/")
                 })
                 .catch(function(response) {
                     //handle error
-                    console.log(response.response.data)
 
                     if (response.response.data.slug != null) {
                         that.setState({ slug: true })
