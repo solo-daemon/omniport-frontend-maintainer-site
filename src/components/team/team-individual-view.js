@@ -50,15 +50,10 @@ class TeamIndividualView extends Component {
     requestForProjects(id) {
         URL = `/api/maintainer_site/maintainer_project/${id}`
         axios.get(URL).then(res => {
-            this.setState(
-                {
-                    member_projects: res.data,
-                    loaded: true,
-                },
-                () => {
-                    console.log(this.state.member_projects)
-                }
-            )
+            this.setState({
+                member_projects: res.data,
+                loaded: true,
+            })
         })
     }
 

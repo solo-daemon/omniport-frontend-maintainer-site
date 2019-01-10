@@ -17,7 +17,6 @@ class MainPage extends Component {
         const { contactData } = apiInfoData
         const { socialData } = apiInfoData
         const { footerData } = apiInfoData
-        console.log(apiInfoData)
         return (
             <div>
                 <MainSection />

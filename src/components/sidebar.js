@@ -12,7 +12,6 @@ class Sidebar extends Component {
     }
 
     render() {
-        console.log(this.props.sidebarVisible.style)
         return (
             <React.Fragment>
                 {this.props.sidebarVisible.visible && (

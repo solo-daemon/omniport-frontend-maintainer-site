@@ -615,7 +615,6 @@ const TechSkillsCard = ({ coverIcon, array, message }) => {
                                         label = item.label
                                     }
                                 })
-                                console.log(label.className)
                                 return (
                                     <List.Item>
                                         <span>

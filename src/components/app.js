@@ -112,6 +112,7 @@ class App extends Component {
                     <AppHeader
                         handleClick={this.handleShow}
                         onClick={this.handleHide}
+                        dummy={[]}
                     />
                     {isBrowser ? (
                         <React.Fragment>

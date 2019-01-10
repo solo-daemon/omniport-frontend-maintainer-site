@@ -64,8 +64,6 @@ class AddMemberDetails extends Component {
                 },
                 () => {
                     if (this.state.profile.length) {
-                        console.log("this is")
-                        console.log(this.state.profile[0])
                         this.setState({ method: "patch" })
                         this.setState({
                             URL:
@@ -194,7 +192,6 @@ class AddMemberDetails extends Component {
         }
     }
     addLink = e => {
-        console.log(this.state.data)
         const that = this
         that.setState({ error_url: false })
         let headers = {
@@ -215,8 +212,6 @@ class AddMemberDetails extends Component {
                 var arr1 = this.state.links_id
                 arr1.push(response.data.id)
                 this.setState({ links_id: arr1 })
-
-                console.log(this.state.links_id)
             })
             .catch(function(response) {
                 //handle error
@@ -227,7 +222,6 @@ class AddMemberDetails extends Component {
     }
     handleUpdateDelete = e => {
         var id1 = e.target.id
-        console.log(id1)
         var arr = []
         for (let i = 0; i < this.state.links.length; i++) {
             if (i != id1) {
@@ -238,7 +232,6 @@ class AddMemberDetails extends Component {
         let headers = {
             "X-CSRFToken": getCookie("csrftoken"),
         }
-        console.log(this.state.links_id[id1])
 
         axios({
             method: "delete",
@@ -247,9 +240,7 @@ class AddMemberDetails extends Component {
                 this.state.links_id[id1] +
                 "/",
             headers: headers,
-        }).then(response => {
-            console.log(response)
-        })
+        }).then(response => {})
 
         var arr1 = []
         for (let i = 0; i < this.state.links_id.length; i++) {
@@ -316,7 +307,6 @@ class AddMemberDetails extends Component {
         for (let i = 0; i < this.state.hobbies.array.length; i++) {
             hobbies.push(this.state.hobbies.array[i].url)
         }
-        console.log(this.state.URL)
         if (
             uploadedFileD &&
             uploadedFileN &&
@@ -360,7 +350,6 @@ class AddMemberDetails extends Component {
             })
                 .then(function(response) {
                     //handle success
-                    console.log(response)
                     that.props.history.push("../team/")
                 })
                 .catch(function(response) {
@@ -371,7 +360,6 @@ class AddMemberDetails extends Component {
                     if (response.response.data.shortBiography != null) {
                         that.setState({ error_shortBio: true })
                     }
-                    console.log(response.response.data)
                 })
         }
     }
@@ -976,7 +964,6 @@ class AddMemberDetails extends Component {
                 label: { className: "devicon-zend-plain" },
             },
         ]
-        console.log(this.state.game.array)
         return (
             <div>
                 <Container>
