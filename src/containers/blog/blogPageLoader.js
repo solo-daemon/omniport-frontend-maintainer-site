@@ -6,6 +6,7 @@ import Blog from "../../components/blog/blog-page"
 const mapStateToProps = state => {
     return {
         apiBlogData: state.apiBlogData,
+        apiInfoData: state.apiInfoData,
     }
 }
 

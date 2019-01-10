@@ -1,30 +1,31 @@
-import React, { Component } from 'react'
-import { Card, Container, Segment, Icon, Loader } from 'semantic-ui-react'
-import BlogDetail from './blog-post-card'
+import React, { Component } from "react"
+import { Card, Container, Segment, Icon, Loader } from "semantic-ui-react"
+import BlogDetail from "./blog-post-card"
 
-import common from '../../css/page-common-styles.css'
+import common from "../../css/page-common-styles.css"
 
-const MEDIUM_URL = 'https://medium.com/'
-var MEDIUM_PUBLICATION = ''
+const MEDIUM_URL = "https://medium.com/"
 
-class Blogs extends Component {
-    constructor(props) {
-        super(props)
-    }
-
+class Blog extends Component {
     componentDidMount() {
-        const URL = 'blogs'
+        const URL = "blogs"
         this.props.requestBlogData(URL)
+        console.log(this.props)
     }
 
     render() {
         if (this.props.apiBlogData.loaded) {
-            MEDIUM_PUBLICATION = this.props.apiBlogData.slug.mediumSlug
+            let MEDIUM_PUBLICATION = this.props.apiInfoData.footerData
+                .mediumSlug
             return (
                 <Container styleName="common.margin">
                     <Card.Group itemsPerRow={3} stackable doubling>
                         {this.props.apiBlogData.data.map(info => (
-                            <BlogDetail info={info} key={info.id} />
+                            <BlogDetail
+                                info={info}
+                                key={info.id}
+                                pub={MEDIUM_PUBLICATION}
+                            />
                         ))}
                     </Card.Group>
                     <Segment basic padded textAlign="center">
@@ -35,7 +36,7 @@ class Blogs extends Component {
                             onClick={() =>
                                 window.open(
                                     MEDIUM_URL + MEDIUM_PUBLICATION,
-                                    '_blank'
+                                    "_blank"
                                 )
                             }
                         />
@@ -47,4 +48,4 @@ class Blogs extends Component {
         }
     }
 }
-export default Blogs
+export default Blog

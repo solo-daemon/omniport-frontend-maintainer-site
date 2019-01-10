@@ -7,23 +7,27 @@ import ProjectElement from "./project-element"
 import styles from "../../../../css/sections/project/project-main.css"
 import common from "../../../../css/sections/common-styles.css"
 
-const ProjectSection = ({ project }) => (
+const ProjectSection = ({ project, image }) => (
     <div styleName="styles.container">
+        {console.log(image)}
+
         <Container textAlign="center">
             <h1 styleName="common.header">Projects</h1>
             <Image
-                src="http://img.channeli.in/static/images/img_website/landing/Projects.png"
+                src={"/static/maintainer_site/project.png"}
                 size="medium"
                 styleName="styles.image"
                 centered
             />
-            <Grid padded>
+
+            <Grid padded columns={4}>
                 {Object.keys(project).map((key, index) => (
                     <ProjectElement
+                        key={project[key].slug}
                         name={project[key].title}
                         number={index + 1}
                         description={project[key].shortDescription}
-                        key={project[key].slug}
+                        link={`/maintainer_site/projects/${project[key].slug}`}
                     />
                 ))}
             </Grid>

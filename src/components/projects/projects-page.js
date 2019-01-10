@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Card, Container, Segment, Menu, Icon, Loader } from 'semantic-ui-react'
-import ProjectDetail from './project-card'
+import React, { Component } from "react"
+import { Card, Container, Segment, Menu, Icon, Loader } from "semantic-ui-react"
+import ProjectDetail from "./project-card"
 
-import common from '../../css/page-common-styles.css'
+import common from "../../css/page-common-styles.css"
 class Projects extends Component {
     constructor(props) {
         super(props)
@@ -17,11 +17,12 @@ class Projects extends Component {
     }
 
     paginating(a) {
-        const URL = 'projects/?page=' + a
+        const URL = "projects/?page=" + a
         this.props.requestProjectData(URL)
         this.setState({
             current: a,
         })
+        window.scrollTo(0, 0)
     }
 
     leftClick = () => {

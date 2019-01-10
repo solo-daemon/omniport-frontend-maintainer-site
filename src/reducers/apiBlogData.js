@@ -1,11 +1,7 @@
-import {
-    RECEIVE_BLOG_DATA,
-    RECEIVE_MEDIUM_SLUG,
-    ERROR_OCCURED,
-} from "../actions/apiBlogCall"
+import { RECEIVE_BLOG_DATA, ERROR_OCCURED } from "../actions/apiBlogCall"
 
 const apiBlogData = (
-    state = { data: null, loaded: false, url: "", slug: "" },
+    state = { data: null, loaded: false, url: "" },
     action
 ) => {
     switch (action.type) {
@@ -15,7 +11,6 @@ const apiBlogData = (
                 data: action.data,
                 url: action.url,
                 loaded: true,
-                slug: action.slug,
             }
 
         case ERROR_OCCURED:

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
+
 import {
     Form,
     Button,
@@ -11,9 +12,11 @@ import {
     Label,
 } from "semantic-ui-react"
 import style from "../../css/team/add-member-details.css"
+import common from "../../css/page-common-styles.css"
+
 import LinkList from "./linkList"
+
 import { getCookie } from "formula_one"
-import { Link } from "react-router-dom"
 
 const initial = {
     data: { site: "git", url: "" },
@@ -51,8 +54,6 @@ class AddMemberDetails extends Component {
             error_shortBio: false,
             error_url: false,
         }
-        this.fileChange = this.fileChange.bind(this)
-        this.handlePost = this.handlePost.bind(this)
     }
     componentDidMount() {
         const URL = `/api/maintainer_site/logged_maintainer`
@@ -364,7 +365,7 @@ class AddMemberDetails extends Component {
                 headers: headers,
             })
                 .then(function(response) {
-                    //handle success
+                    // handle success
                     that.props.history.push("../team/")
                 })
                 .catch(function(response) {
@@ -981,7 +982,7 @@ class AddMemberDetails extends Component {
         ]
         return (
             <div>
-                <Container>
+                <Container styleName="common.margin">
                     <Header as="h1">Add Member Details</Header>
                     <Form>
                         <Form.Field required>
@@ -1344,7 +1345,7 @@ class AddMemberDetails extends Component {
                         </a>
                         <Segment basic />
                         <Button type="submit" onClick={this.handlePost}>
-                            Add Project
+                            Add Member
                         </Button>
                     </Form>
                     <Segment basic />
