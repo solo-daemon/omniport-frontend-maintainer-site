@@ -8,7 +8,6 @@ import {
     Icon,
     Segment,
     Divider,
-    List,
     Grid,
     Reveal,
     Loader,
@@ -25,7 +24,7 @@ class TeamIndividualView extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            member_details: [],
+            memberDetails: [],
             loaded: false,
             options: [],
             role: "",
@@ -40,7 +39,7 @@ class TeamIndividualView extends Component {
         const URL2 = axios.all([axios.get(URL), axios.options(URL)]).then(
             axios.spread((memberRes, optionsRes) => {
                 this.setState({
-                    member_details: memberRes.data,
+                    memberDetails: memberRes.data,
                     options: optionsRes.data,
                 })
                 this.requestForProjects(memberRes.data.maintainer.id)
@@ -67,7 +66,7 @@ class TeamIndividualView extends Component {
             : []
 
         if (this.state.loaded) {
-            let temp = this.state.member_details.technicalSkills[0]
+            let temp = this.state.memberDetails.technicalSkills[0]
             let tempArr = temp.split(",")
             return (
                 <div>
@@ -75,16 +74,11 @@ class TeamIndividualView extends Component {
                         <Grid columns={2} stackable>
                             <Grid.Column textAlign="center">
                                 <div styleName="styles.pro-image">
-                                    <Reveal
-                                        animated="move up"
-                                        // as='Segment'
-                                        // textAlign="center"
-                                        // circular
-                                    >
+                                    <Reveal animated="move up">
                                         <Reveal.Content visible>
                                             <Image
                                                 src={
-                                                    this.state.member_details
+                                                    this.state.memberDetails
                                                         .normieImage
                                                 }
                                                 size="medium"
@@ -94,7 +88,7 @@ class TeamIndividualView extends Component {
                                         <Reveal.Content hidden>
                                             <Image
                                                 src={
-                                                    this.state.member_details
+                                                    this.state.memberDetails
                                                         .dankImage
                                                 }
                                                 size="medium"
@@ -105,26 +99,26 @@ class TeamIndividualView extends Component {
                                 </div>
                                 <h1>
                                     {
-                                        this.state.member_details.maintainer
+                                        this.state.memberDetails.maintainer
                                             .person.fullName
                                     }
                                 </h1>
                                 <p>
                                     {roleOptions.map(
-                                        role =>
-                                            this.state.member_details.maintainer
+                                        (role, index) =>
+                                            this.state.memberDetails.maintainer
                                                 .role === role.value && (
-                                                <React.Fragment>
+                                                <React.Fragment key={index}>
                                                     {`${role.displayName} | `}{" "}
                                                 </React.Fragment>
                                             )
                                     )}
                                     {designationOptions.map(
-                                        designation =>
-                                            this.state.member_details.maintainer
+                                        (designation, index) =>
+                                            this.state.memberDetails.maintainer
                                                 .designation ===
                                                 designation.value && (
-                                                <React.Fragment>
+                                                <React.Fragment key={index}>
                                                     {designation.displayName}
                                                 </React.Fragment>
                                             )
@@ -132,15 +126,16 @@ class TeamIndividualView extends Component {
                                 </p>
                             </Grid.Column>
                             <Grid.Column verticalAlign="middle">
+                                <p>{this.state.memberDetails.shortBiography}</p>
                                 <p>
-                                    {this.state.member_details.shortBiography}
-                                </p>
-                                <p>
-                                    {this.state.member_details
+                                    {this.state.memberDetails
                                         .socialInformation[0] &&
-                                        this.state.member_details.socialInformation[0].links.map(
-                                            profile => (
-                                                <span styleName="styles.f-link">
+                                        this.state.memberDetails.socialInformation[0].links.map(
+                                            (profile, index) => (
+                                                <span
+                                                    styleName="styles.f-link"
+                                                    key={index}
+                                                >
                                                     <Icon
                                                         fitted
                                                         title={profile.url}
@@ -159,30 +154,31 @@ class TeamIndividualView extends Component {
                             </Grid.Column>
                         </Grid>
                         <Divider section />
-                        <Header textAlign="center">Hobbies</Header>
-                        <Card.Group itemsPerRow={3} stackable doubling>
+                        <Header as="h2" textAlign="center">
+                            Hobbies
+                        </Header>
+                        <Card.Group itemsPerRow={3} doubling>
                             <HobbiesCard
                                 coverIcon="music"
-                                array={this.state.member_details.favouriteMusic}
+                                array={this.state.memberDetails.favouriteMusic}
                                 message="Favourite Music"
                             />
                             <HobbiesCard
                                 coverIcon="book"
                                 array={
-                                    this.state.member_details
-                                        .favouriteLiterature
+                                    this.state.memberDetails.favouriteLiterature
                                 }
                                 message="Favourite Literature"
                             />
                             <HobbiesCard
                                 coverIcon="film"
-                                array={this.state.member_details.favouriteVideo}
+                                array={this.state.memberDetails.favouriteVideo}
                                 message="Movies/TV Series"
                             />
                             <HobbiesCard
                                 coverIcon="paint brush"
                                 array={
-                                    this.state.member_details.favouriteHobbies
+                                    this.state.memberDetails.favouriteHobbies
                                 }
                                 message="Hobbies"
                             />
@@ -193,15 +189,21 @@ class TeamIndividualView extends Component {
                             />
                             <HobbiesCard
                                 coverIcon="game"
-                                array={this.state.member_details.favouriteGames}
+                                array={this.state.memberDetails.favouriteGames}
                                 message="Favourite Games"
                             />
                         </Card.Group>
-                        <Header textAlign="center">Projects</Header>
+                        <Header as="h2" textAlign="center">
+                            Projects
+                        </Header>
 
-                        <Card.Group itemsPerRow={3} stackable doubling>
-                            {this.state.member_projects.map(info => (
-                                <ProjectDetail info={info} key={info.slug} />
+                        <Card.Group itemsPerRow={3} doubling>
+                            {this.state.member_projects.map((info, index) => (
+                                <ProjectDetail
+                                    key={index}
+                                    info={info}
+                                    key={info.slug}
+                                />
                             ))}
                         </Card.Group>
                         <Segment padded basic />

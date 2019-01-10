@@ -2,11 +2,9 @@ import React, { Component } from "react"
 
 import axios from "axios"
 import {
-    Card,
     Form,
     Loader,
     Button,
-    Dropdown,
     Container,
     Header,
     TextArea,

@@ -1,6 +1,6 @@
 import React from "react"
-import axios from "axios"
 import { Segment, Icon } from "semantic-ui-react"
+
 import style from "../../css/team/add-member-details.css"
 
 const ICON_OPTIONS = {

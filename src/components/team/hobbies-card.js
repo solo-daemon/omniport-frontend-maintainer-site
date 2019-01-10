@@ -1,16 +1,5 @@
-import React, { Component } from "react"
-import {
-    Card,
-    Image,
-    Header,
-    Container,
-    Icon,
-    Segment,
-    Divider,
-    List,
-    Grid,
-    Reveal,
-} from "semantic-ui-react"
+import React from "react"
+import { Card, Header, Icon, Segment, List, Reveal } from "semantic-ui-react"
 import styles from "../../css/team/hobbies-card.css"
 
 const HobbiesCard = ({ coverIcon, array, message }) => {
@@ -24,11 +13,11 @@ const HobbiesCard = ({ coverIcon, array, message }) => {
                 </Reveal.Content>
                 <Reveal.Content hidden>
                     <Segment basic padded>
-                        <Header as="h1">{message}</Header>
+                        <Header as="h2">{message}</Header>
                         <List>
-                            {array.map(info => {
+                            {array.map((info, index) => {
                                 return (
-                                    <List.Item>
+                                    <List.Item key={index}>
                                         <List.Icon name={coverIcon} />
                                         <List.Content>{info}</List.Content>
                                     </List.Item>

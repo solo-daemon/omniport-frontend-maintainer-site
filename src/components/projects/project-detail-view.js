@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Header, Segment, Container, Search } from "semantic-ui-react"
+import { Header, Segment, Container } from "semantic-ui-react"
 import axios from "axios"
 
 import common from "../../css/page-common-styles.css"

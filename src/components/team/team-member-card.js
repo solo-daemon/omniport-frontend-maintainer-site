@@ -1,6 +1,8 @@
 import React from "react"
-import { Card, Icon, Image } from "semantic-ui-react"
+import { Card, Image } from "semantic-ui-react"
+
 import styles from "../../css/team/team-member.css"
+
 const TeamMember = ({ info, roleOptions, designationOptions }) => {
     return (
         <Card raised href={info.handle}>

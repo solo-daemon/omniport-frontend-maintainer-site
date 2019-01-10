@@ -1,20 +1,10 @@
-import React, { Component } from "react"
-import {
-    Card,
-    Image,
-    Header,
-    Container,
-    Icon,
-    Segment,
-    Divider,
-    List,
-    Grid,
-    Reveal,
-} from "semantic-ui-react"
+import React from "react"
+
+import { Card, Header, Icon, Segment, List, Reveal } from "semantic-ui-react"
 import styles from "../../css/team/hobbies-card.css"
 import dev from "../../css/team/tech-skills-card.css"
 
-const ll = [
+const devIcons = [
     {
         text: "amazonwebservices",
         value: "amazonwebservices",
@@ -383,11 +373,6 @@ const ll = [
         value: "nodewebkit",
         label: { className: "devicon-nodewebkit-plain" },
     },
-    // {
-    //     text: "npm",
-    //     value: "npm",
-    //     label: { className: "devicon-npm-original-wordmark" },
-    // },
     {
         text: "oracle",
         value: "oracle",
@@ -578,11 +563,6 @@ const ll = [
         value: "wordpress",
         label: { className: "devicon-wordpress-plain" },
     },
-    // {
-    //     text: "yarn",
-    //     value: "yarn",
-    //     label: { className: "devicon-yarn-plain" },
-    // },
     {
         text: "yii",
         value: "yii",
@@ -608,15 +588,15 @@ const TechSkillsCard = ({ coverIcon, array, message }) => {
                     <Segment basic padded>
                         <Header as="h1">{message}</Header>
                         <List>
-                            {array.map(info => {
+                            {array.map((info, index) => {
                                 var label = ""
-                                var newArray = _.map(ll, function(item) {
+                                var newArray = _.map(devIcons, function(item) {
                                     if (item.value == info) {
                                         label = item.label
                                     }
                                 })
                                 return (
-                                    <List.Item>
+                                    <List.Item key={index}>
                                         <span>
                                             <i className={label.className} />{" "}
                                             {info}

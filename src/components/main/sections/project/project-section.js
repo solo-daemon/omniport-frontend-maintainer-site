@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
-import { Container, Image, Grid, Button, Segment } from "semantic-ui-react"
+import { Container, Image, Grid, Segment } from "semantic-ui-react"
 
 import ProjectElement from "./project-element"
 

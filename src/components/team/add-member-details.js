@@ -1,17 +1,13 @@
 import React, { Component } from "react"
 import axios from "axios"
 import {
-    Card,
     Form,
-    Checkbox,
     Button,
     Dropdown,
     Container,
     Header,
     TextArea,
-    Input,
     Segment,
-    Icon,
     Label,
 } from "semantic-ui-react"
 import style from "../../css/team/add-member-details.css"
