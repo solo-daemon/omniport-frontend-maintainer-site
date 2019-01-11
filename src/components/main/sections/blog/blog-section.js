@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { Container, Grid, Image, Segment, Button } from "semantic-ui-react"
+import { Container, Grid, Image, Segment } from "semantic-ui-react"
 
 import styles from "../../../../css/sections/blog/blog-section.css"
 import common from "../../../../css/sections/common-styles.css"
@@ -15,7 +15,7 @@ const BlogSection = () => (
             <Grid verticalAlign="middle" centered stackable padded>
                 <Grid.Column width={8} textAlign="center">
                     <Image
-                        src="http://img.channeli.in/static/images/img_website/landing/Blogs.png"
+                        src="/static/maintainer_site/blog.png"
                         size="medium"
                         inline
                     />

@@ -83,7 +83,7 @@ class AppHeader extends Component {
         return (
             <div styleName="styles.position">
                 <div styleName={`styles.${this.handleContainerStyle()}`}>
-                    <Container>
+                    <Container styleName="styles.container-margin">
                         <Grid columns={2} verticalAlign="middle">
                             <Grid.Column>
                                 <Link to={PATHNAME}>
@@ -96,7 +96,7 @@ class AppHeader extends Component {
                                     </svg>
                                 </Link>
                             </Grid.Column>
-                            <Grid.Column style={{ height: "100%" }}>
+                            <Grid.Column>
                                 <div styleName="button">
                                     {isBrowser ? (
                                         <React.Fragment>

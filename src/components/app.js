@@ -1,10 +1,5 @@
 import React, { Component } from "react"
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect,
-} from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 
 import { connect } from "react-redux"
 import { isBrowser } from "react-device-detect"
@@ -12,13 +7,14 @@ import { Loader } from "semantic-ui-react"
 import { requestInfoData } from "../actions/apiInfoCall"
 import { toggleSidebar } from "../actions/toggleSidebar"
 
+import ScrollToTop from "./scroll-to-top"
 import AppHeader from "../components/header/app-header"
 import MainPage from "../components/main/main-page"
 import Team from "../containers/team/teamPageLoader"
 import TeamIndividualView from "./team/team-individual-view"
 import AddMemberDetails from "./team/add-member-details"
 import AddProjectDetails from "./projects/project-add"
-import Blogs from "../containers/blog/blogPageLoader"
+import Blog from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
 import Sidebar from "./sidebar"
@@ -38,6 +34,7 @@ class App extends Component {
         const URL3 = "social"
         const URL4 = "maintainer_group"
         const URL5 = "projects"
+
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
     }
 
@@ -54,50 +51,54 @@ class App extends Component {
 
         const { apiInfoData } = this.props
 
+        console.log(apiInfoData)
+
         const Switcher = () => (
-            <Switch>
-                <Route
-                    path="/:url*"
-                    exact
-                    strict
-                    render={props => (
-                        <Redirect to={`${props.location.pathname}/`} />
-                    )}
-                />
+            <ScrollToTop>
+                <Switch>
+                    <Route
+                        path="/:url*"
+                        exact
+                        strict
+                        render={props => (
+                            <Redirect to={`${props.location.pathname}/`} />
+                        )}
+                    />
 
-                <Route
-                    exact
-                    path={`${match.path}`}
-                    component={routeProps => (
-                        <MainPage {...routeProps} {...this.props} />
-                    )}
-                />
-                <Route path={`${match.path}blog`} component={Blogs} />
-                <Route
-                    exact
-                    path={`${match.path}projects`}
-                    component={Projects}
-                />
-                <Route exact path={`${match.path}team`} component={Team} />
-                <Route
-                    exact
-                    path={`${match.path}projects/:slug`}
-                    component={ProjectDetailView}
-                />
-                <Route
-                    path={`${match.path}team/:handle`}
-                    component={TeamIndividualView}
-                />
-                <Route
-                    path={`${match.path}add_project_details`}
-                    component={AddProjectDetails}
-                />
+                    <Route
+                        exact
+                        path={`${match.path}`}
+                        component={routeProps => (
+                            <MainPage {...routeProps} {...this.props} />
+                        )}
+                    />
+                    <Route exact path={`${match.path}blog`} component={Blog} />
+                    <Route
+                        exact
+                        path={`${match.path}projects`}
+                        component={Projects}
+                    />
+                    <Route exact path={`${match.path}team`} component={Team} />
+                    <Route
+                        exact
+                        path={`${match.path}projects/:slug`}
+                        component={ProjectDetailView}
+                    />
+                    <Route
+                        path={`${match.path}team/:handle`}
+                        component={TeamIndividualView}
+                    />
+                    <Route
+                        path={`${match.path}add_project_details`}
+                        component={AddProjectDetails}
+                    />
 
-                <Route
-                    path={`${match.path}add_member_details`}
-                    component={AddMemberDetails}
-                />
-            </Switch>
+                    <Route
+                        path={`${match.path}add_member_details`}
+                        component={AddMemberDetails}
+                    />
+                </Switch>
+            </ScrollToTop>
         )
 
         if (
@@ -136,12 +137,13 @@ class App extends Component {
                 </div>
             )
         } else {
-            return <Loader active />
+            return <Loader active size="large" />
         }
     }
 }
 
 const mapStateToProps = state => {
+    console.log(state.apiInfoData)
     return {
         apiInfoData: state.apiInfoData,
     }

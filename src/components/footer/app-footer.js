@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { isBrowser } from "react-device-detect"
-import { Link } from "react-router-dom"
-import { Container, Icon, Label } from "semantic-ui-react"
+import React, {Component} from "react"
+import {isBrowser} from "react-device-detect"
+import {Link} from "react-router-dom"
+import {Container, Icon, Label} from "semantic-ui-react"
 
 import styles from "../../css/footer/app-footer.css"
 
@@ -21,7 +21,7 @@ class FooterSection extends Component {
                 clickCounter: this.state.clickCounter + 1,
             },
             () => {
-                if (this.state.clickCounter === 5) {
+                if (this.state.clickCounter === 2) {
                     this.setState({
                         iconVisible: true,
                     })
@@ -38,7 +38,7 @@ class FooterSection extends Component {
     }
 
     render() {
-        if (this.state.clickCounter < 5) {
+        if (this.state.clickCounter < 2) {
             let date = new Date()
             return (
                 <footer
@@ -73,12 +73,12 @@ const Creators = () => {
     const creators = [
         {
             name: "Aman Sharma",
-            role: "Full Stack Developer",
+            role: "Full-stack developer",
             url: "https://github.com/algomaster99",
         },
         {
             name: "Harshit Khetan",
-            role: "Full Stack Developer",
+            role: "Full-stack developer",
             url: "https://github.com/promehul",
         },
     ]

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Card, Container, Loader } from "semantic-ui-react"
+import { Card, Container, Loader, Segment } from "semantic-ui-react"
 
 import TeamMember from "./team-member-card"
 
@@ -23,18 +23,21 @@ class Team extends Component {
             : []
         if (this.props.apiTeamData.loaded) {
             return (
-                <Container textAlign="center" styleName="common.margin">
-                    <Card.Group itemsPerRow={3} stackable>
-                        {this.props.apiTeamData.data.map(info => (
-                            <TeamMember
-                                info={info}
-                                key={info.handle}
-                                roleOptions={roleOptions}
-                                designationOptions={designationOptions}
-                            />
-                        ))}
-                    </Card.Group>
-                </Container>
+                <React.Fragment>
+                    <Container textAlign="center" styleName="common.margin">
+                        <Card.Group itemsPerRow={3} stackable>
+                            {this.props.apiTeamData.data.map(info => (
+                                <TeamMember
+                                    info={info}
+                                    key={info.handle}
+                                    roleOptions={roleOptions}
+                                    designationOptions={designationOptions}
+                                />
+                            ))}
+                        </Card.Group>
+                    </Container>
+                    <Segment padded basic />
+                </React.Fragment>
             )
         } else {
             return <Loader active size="large" />

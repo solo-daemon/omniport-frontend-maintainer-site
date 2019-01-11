@@ -8,10 +8,10 @@ const MEDIUM_PUBLICATION = "img-iit-roorkee"
 const BLOG_IMAGE_URL = "https://cdn-images-1.medium.com/max/600/"
 const AUTHOR_IMAGE_URL = "https://cdn-images-1.medium.com/fit/c/50/50/"
 
-const BlogDetail = ({ info }) => (
+const BlogDetail = ({ info, pub }) => (
     <Card
         raised
-        href={`${MEDIUM_URL}${MEDIUM_PUBLICATION}/${info.slug}-${info.id}`}
+        href={`${MEDIUM_URL}${pub}/${info.slug}-${info.id}`}
         target="_blank"
     >
         <Image fluid src={BLOG_IMAGE_URL + info.imageId} />

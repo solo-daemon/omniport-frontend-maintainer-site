@@ -21,7 +21,7 @@ class MainBrowser extends Component {
                         <Grid.Column>
                             <div styleName="styles.image">
                                 <Image
-                                    src="http://img.channeli.in/static/images/img_website/bg-002.png"
+                                    src="/static/maintainer_site/computer.png"
                                     size="large"
                                 />
                             </div>
