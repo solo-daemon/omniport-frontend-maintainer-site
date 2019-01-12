@@ -8,7 +8,9 @@ const TeamMember = ({ info, roleOptions, designationOptions }) => {
         <Card raised href={info.handle}>
             <Image src={info.normieImage} />
             <Card.Content>
-                <Card.Header>{info.maintainer.person.fullName}</Card.Header>
+                <Card.Header styleName="styles.text-break">
+                    {info.maintainer.person.fullName}
+                </Card.Header>
                 <br />
                 <Card.Description>
                     {roleOptions.map(

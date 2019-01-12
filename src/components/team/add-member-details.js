@@ -333,6 +333,7 @@ class AddMemberDetails extends Component {
         for (let i = 0; i < this.state.hobbies.array.length; i++) {
             hobbies.push(this.state.hobbies.array[i].url)
         }
+
         if (
             uploadedFileD &&
             uploadedFileN &&
@@ -343,10 +344,11 @@ class AddMemberDetails extends Component {
             film.length &&
             game.length &&
             hobbies.length &&
-            skills.length <= 5
+            skills.length <= 5 &&
+            skills.length > 0
         ) {
             var formData = new FormData()
-            console.log(hobbies)
+            console.log("DATA post ki condition taiyaar")
             formData.append("handle", handle)
             formData.append("short_biography", shortBio)
             formData.append("social_information", links)
@@ -363,11 +365,16 @@ class AddMemberDetails extends Component {
                 formData.append("favourite_hobbies", element)
             )
 
-            if (this.state.uploadedFileN.type == "image/jpeg") {
-                formData.append("normie_image", uploadedFileN)
+            if (this.state.uploadedFileN.type) {
+                if (this.state.uploadedFileN.type.substring(0, 5) == "image") {
+                    formData.append("normie_image", uploadedFileN)
+                }
             }
-            if (this.state.uploadedFileD.type == "image/jpeg") {
-                formData.append("dank_image", uploadedFileD)
+
+            if (this.state.uploadedFileD.type) {
+                if (this.state.uploadedFileD.type.substring(0, 5) == "image") {
+                    formData.append("dank_image", uploadedFileD)
+                }
             }
 
             let headers = {
@@ -745,6 +752,7 @@ class AddMemberDetails extends Component {
                             multiple
                             selection
                             search
+                            required
                             label="Tech Skills:"
                             options={this.state.techSkillsOptions}
                             onChange={(event, { value }) => {
@@ -768,9 +776,11 @@ class AddMemberDetails extends Component {
                             />
                         </Form.Field>
 
-                        <a href={this.state.uploadedFileN} target="_blank">
-                            See previous uploaded
-                        </a>
+                        {this.state.uploadedFileN && (
+                            <a href={this.state.uploadedFileN} target="_blank">
+                                See previous uploaded
+                            </a>
+                        )}
                         <Segment basic />
                         <Form.Field required>
                             <label>Dank Image:</label>
@@ -780,9 +790,11 @@ class AddMemberDetails extends Component {
                                 name={"uploadedFileD"}
                             />
                         </Form.Field>
-                        <a href={this.state.uploadedFileD} target="_blank">
-                            See previous uploaded
-                        </a>
+                        {this.state.uploadedFileD && (
+                            <a href={this.state.uploadedFileD} target="_blank">
+                                See previous uploaded
+                            </a>
+                        )}
                         <Segment basic />
                         <Button type="submit" onClick={this.handlePost}>
                             Add Member

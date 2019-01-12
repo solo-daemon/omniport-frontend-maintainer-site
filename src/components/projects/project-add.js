@@ -29,6 +29,7 @@ class AddProjectDetails extends Component {
                 members: [],
             },
 
+            validImage: true,
             slug: false,
             title: false,
             loaded: false,
@@ -60,8 +61,17 @@ class AddProjectDetails extends Component {
     handleEditorChange(content) {
         this.state.data.longDescription = content
     }
+
     handlePost() {
-        const { profile, data, slug, title, loaded, uploadedFile } = this.state
+        const {
+            profile,
+            data,
+            slug,
+            title,
+            loaded,
+            uploadedFile,
+            validImage,
+        } = this.state
         console.log(data)
         console.log(uploadedFile)
         if (
@@ -78,8 +88,8 @@ class AddProjectDetails extends Component {
             formData.append("short_description", data.shortDescription)
             formData.append("long_description", data.longDescription)
             formData.append("members", data.members)
+            formData.append("image", uploadedFile)
 
-            uploadedFile ? formData.append("image", uploadedFile) : void 0
             let headers = {
                 "Content-Type": "multipart/form-data",
                 "X-CSRFToken": getCookie("csrftoken"),
@@ -109,6 +119,11 @@ class AddProjectDetails extends Component {
                         that.setState({ title: true })
                     } else {
                         that.setState({ title: false })
+                    }
+                    if (response.response.data.image != null) {
+                        that.setState({ validImage: false })
+                    } else {
+                        that.setState({ validImage: true })
                     }
                 })
         }
@@ -215,6 +230,11 @@ class AddProjectDetails extends Component {
                                 onChange={this.fileChange}
                                 name={"uploadedFile"}
                             />
+                            {!this.state.validImage && (
+                                <Label color="red" pointing>
+                                    Select valid image
+                                </Label>
+                            )}
                         </Form.Field>
                         <Button type="submit" onClick={this.handlePost}>
                             Add Project
