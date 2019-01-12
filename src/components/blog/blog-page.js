@@ -5,7 +5,6 @@ import BlogDetail from "./blog-post-card"
 import common from "../../css/page-common-styles.css"
 
 const MEDIUM_URL = "https://medium.com/"
-
 class Blog extends Component {
     componentDidMount() {
         const URL = "blogs"
