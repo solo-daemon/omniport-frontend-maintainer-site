@@ -20,16 +20,18 @@ const BlogDetail = ({ info, pub }) => (
             <Card.Description>{info.subtitle}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-            <div styleName="styles.authorDetails">
-                <div>
-                    <Image
-                        avatar
-                        spaced="right"
-                        src={AUTHOR_IMAGE_URL + info.authorImageId}
-                    />
-                    {info.name}
+            <a href={`${MEDIUM_URL}@${info.username}`}>
+                <div styleName="styles.authorDetails" styleName="styles.link">
+                    <div>
+                        <Image
+                            avatar
+                            spaced="right"
+                            src={AUTHOR_IMAGE_URL + info.authorImageId}
+                        />
+                        {info.name}
+                    </div>
                 </div>
-            </div>
+            </a>
             <div styleName="styles.blogDetails">
                 <div>{`${moment(info.createdAt).format(
                     "MMM Do, 'YY"
