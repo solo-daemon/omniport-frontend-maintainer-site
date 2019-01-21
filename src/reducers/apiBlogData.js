@@ -1,4 +1,4 @@
-import { RECEIVE_BLOG_DATA, ERROR_OCCURED } from "../actions/apiBlogCall"
+import { RECEIVE_BLOG_DATA, BLOG_ERROR_OCCURED } from "../actions/apiBlogCall"
 
 const apiBlogData = (
     state = { data: null, loaded: false, url: "" },
@@ -13,7 +13,7 @@ const apiBlogData = (
                 loaded: true,
             }
 
-        case ERROR_OCCURED:
+        case BLOG_ERROR_OCCURED:
             return {
                 ...state,
                 url: action.url,

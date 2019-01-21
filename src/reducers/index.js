@@ -4,6 +4,7 @@ import apiProjectData from "./apiProjectData"
 import apiTeamData from "./apiTeamData"
 import apiInfoData from "./apiInfoData"
 import sidebarVisible from "./toggleSidebar"
+import isAuthed from "./apiAuth"
 
 const rootReducers = combineReducers({
     apiBlogData,
@@ -11,6 +12,7 @@ const rootReducers = combineReducers({
     apiTeamData,
     apiInfoData,
     sidebarVisible,
+    isAuthed,
 })
 
 export default rootReducers

@@ -6,7 +6,7 @@ export const RECEIVE_INFO_SOCIAL_DATA = "RECEIVE_INFO_SOCIAL_DATA"
 export const RECEIVE_FOOTER_DATA = "RECEIVE_FOOTER_DATA"
 export const RECEIVE_PROJECT_SECTION_DATA = "RECEIVE_PROJECT_SECTION_DATA"
 
-export const ERROR_OCCURED = "ERROR_OCCURED"
+export const INFO_ERROR_OCCURED = "INFO_ERROR_OCCURED"
 
 const API_URL = "/api/maintainer_site/"
 
@@ -103,7 +103,7 @@ const errorOccured = (
     footerUrl,
     projectUrl
 ) => ({
-    type: ERROR_OCCURED,
+    type: INFO_ERROR_OCCURED,
     locactionUrl,
     contactUrl,
     socialUrl,

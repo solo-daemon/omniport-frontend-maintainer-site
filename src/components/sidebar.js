@@ -53,6 +53,28 @@ class Sidebar extends Component {
                                         Team
                                     </button>
                                 </Link>
+                                {this.props.isAuthed.auth && (
+                                    <React.Fragment>
+                                        <Link
+                                            to={`${PATHNAME}add_member_details/`}
+                                            styleName="styles.link-color"
+                                            onClick={this.handleHide}
+                                        >
+                                            <button styleName="styles.sidebar-button">
+                                                * Member
+                                            </button>
+                                        </Link>
+                                        <Link
+                                            to={`${PATHNAME}add_project_details/`}
+                                            styleName="styles.link-color"
+                                            onClick={this.handleHide}
+                                        >
+                                            <button styleName="styles.sidebar-button">
+                                                * Project
+                                            </button>
+                                        </Link>
+                                    </React.Fragment>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -65,6 +87,7 @@ class Sidebar extends Component {
 const mapStateToProps = state => {
     return {
         sidebarVisible: state.sidebarVisible,
+        isAuthed: state.isAuthed,
     }
 }
 

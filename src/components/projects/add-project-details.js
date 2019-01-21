@@ -52,7 +52,7 @@ class AddProjectDetails extends Component {
         })
     }
     handlePost() {
-        const { profile, data, slug, title, uploadedFile } = this.state
+        const { data, uploadedFile } = this.state
         if (
             data.longDescription &&
             data.shortDescription &&

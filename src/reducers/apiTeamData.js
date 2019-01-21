@@ -1,4 +1,4 @@
-import { RECEIVE_TEAM_DATA, ERROR_OCCURED } from "../actions/apiTeamCall"
+import { RECEIVE_TEAM_DATA, TEAM_ERROR_OCCURED } from "../actions/apiTeamCall"
 
 const apiTeamData = (
     state = { data: null, loaded: false, url: "", options: null },
@@ -13,7 +13,7 @@ const apiTeamData = (
                 loaded: true,
                 options: action.options,
             }
-        case ERROR_OCCURED:
+        case TEAM_ERROR_OCCURED:
             return {
                 ...state,
                 url: action.url,

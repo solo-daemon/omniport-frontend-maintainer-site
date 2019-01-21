@@ -6,7 +6,9 @@ import { isBrowser } from "react-device-detect"
 import { Loader } from "semantic-ui-react"
 import { requestInfoData } from "../actions/apiInfoCall"
 import { toggleSidebar } from "../actions/toggleSidebar"
+import { requestMaintainerAccess } from "../actions/apiAuthCall"
 
+import { NoMatch } from "formula_one"
 import ScrollToTop from "./scroll-to-top"
 import AppHeader from "../components/header/app-header"
 import MainPage from "../components/main/main-page"
@@ -34,8 +36,10 @@ class App extends Component {
         const URL3 = "social"
         const URL4 = "maintainer_group"
         const URL5 = "projects"
+        const AUTH_URL = "logged_maintainer"
 
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
+        this.props.requestMaintainerAccess(AUTH_URL)
     }
 
     handleHide = () => {
@@ -52,6 +56,8 @@ class App extends Component {
         const { apiInfoData } = this.props
 
         console.log(apiInfoData)
+
+        console.log(this.props.isAuthed)
 
         const Switcher = () => (
             <ScrollToTop>
@@ -88,15 +94,25 @@ class App extends Component {
                         path={`${match.path}team/:handle`}
                         component={TeamIndividualView}
                     />
-                    <Route
-                        path={`${match.path}add_project_details`}
-                        component={AddProjectDetails}
-                    />
-
-                    <Route
-                        path={`${match.path}add_member_details`}
-                        component={AddMemberDetails}
-                    />
+                    {this.props.isAuthed.loaded && (
+                        <React.Fragment>
+                            {this.props.isAuthed.auth && (
+                                <React.Fragment>
+                                    <Route
+                                        path={`${
+                                            match.path
+                                        }add_project_details`}
+                                        component={AddProjectDetails}
+                                    />
+                                    <Route
+                                        path={`${match.path}add_member_details`}
+                                        component={AddMemberDetails}
+                                    />
+                                </React.Fragment>
+                            )}
+                            <Route component={NoMatch} />
+                        </React.Fragment>
+                    )}
                 </Switch>
             </ScrollToTop>
         )
@@ -113,6 +129,7 @@ class App extends Component {
                     <AppHeader
                         handleClick={this.handleShow}
                         onClick={this.handleHide}
+                        title={apiInfoData.footerData.name}
                         dummy={[]}
                     />
                     {isBrowser ? (
@@ -125,7 +142,7 @@ class App extends Component {
                     ) : (
                         <React.Fragment>
                             <div
-                                styleName="blocks.content-div-mobile"
+                                styleName="blocks.content-div"
                                 onClick={this.handleHide}
                             >
                                 <Switcher />
@@ -143,9 +160,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state.apiInfoData)
     return {
         apiInfoData: state.apiInfoData,
+        isAuthed: state.isAuthed,
     }
 }
 
@@ -170,6 +187,9 @@ const mapDispatchToProps = dispatch => {
         },
         toggleSidebar: (visible, style) => {
             dispatch(toggleSidebar(visible, style))
+        },
+        requestMaintainerAccess: url => {
+            dispatch(requestMaintainerAccess(url))
         },
     }
 }

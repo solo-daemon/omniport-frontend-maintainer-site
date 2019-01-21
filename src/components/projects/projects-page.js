@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Card, Container, Segment, Menu, Icon, Loader } from "semantic-ui-react"
 import ProjectDetail from "./project-card"
 
+import styles from "../../css/projects/projects-page.css"
 import common from "../../css/page-common-styles.css"
 class Projects extends Component {
     constructor(props) {
@@ -58,12 +59,22 @@ class Projects extends Component {
         }
         if (this.props.apiProjectData.loaded) {
             return (
-                <Container textAlign="center" styleName="common.margin">
-                    <Card.Group itemsPerRow={3} stackable doubling>
-                        {this.props.apiProjectData.data.results.map(info => (
-                            <ProjectDetail info={info} key={info.slug} />
-                        ))}
-                    </Card.Group>
+                <Container
+                    textAlign="center"
+                    styleName="common.margin styles.project-container"
+                >
+                    <div styleName="styles.project-group-container">
+                        <Card.Group itemsPerRow={3} stackable doubling>
+                            {this.props.apiProjectData.data.results.map(
+                                info => (
+                                    <ProjectDetail
+                                        info={info}
+                                        key={info.slug}
+                                    />
+                                )
+                            )}
+                        </Card.Group>
+                    </div>
                     <Segment padded basic textAlign="center">
                         <Menu pagination>
                             <Menu.Item

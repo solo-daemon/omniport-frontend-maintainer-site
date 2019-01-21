@@ -1,5 +1,5 @@
 .container {
-    background-image: url("../../../static/background.svg");
+    background-image: url("/static/maintainer_site/background.svg");
     background-size: cover;
     background-position: center;
     display: flex;

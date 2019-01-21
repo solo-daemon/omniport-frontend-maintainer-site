@@ -4,7 +4,7 @@ import {
     RECEIVE_INFO_SOCIAL_DATA,
     RECEIVE_FOOTER_DATA,
     RECEIVE_PROJECT_SECTION_DATA,
-    ERROR_OCCURED,
+    INFO_ERROR_OCCURED,
 } from "../actions/apiInfoCall"
 
 const apiInfoData = (
@@ -63,7 +63,7 @@ const apiInfoData = (
                 projectUrl: action.projectUrl,
                 projectLoaded: true,
             }
-        case ERROR_OCCURED:
+        case INFO_ERROR_OCCURED:
             return {
                 ...state,
                 error: action.error,

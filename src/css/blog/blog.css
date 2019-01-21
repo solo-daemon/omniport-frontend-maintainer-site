@@ -1,6 +1,11 @@
-.authorDetails{
-    float: left
+.authorDetails {
+    float: left;
 }
-.blogDetails{
+.blogDetails {
     float: right;
+    margin-top: 0.1em; /* Fix misalignment of blog extra content */
+}
+
+.link:hover {
+    color: #000000;
 }

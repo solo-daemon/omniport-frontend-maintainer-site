@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const RECEIVE_PROJECT_DATA = "RECEIVE_PROJECT_DATA"
-export const ERROR_OCCURED = "ERROR_OCCURED"
+export const PROJECT_ERROR_OCCURED = "PROJECT_ERROR_OCCURED"
 
 const requestProjectData = url => {
     return dispatch => {
@@ -21,7 +21,7 @@ const receiveProjectData = (url, json) => ({
 })
 
 const errorOccured = (url, error) => ({
-    type: ERROR_OCCURED,
+    type: PROJECT_ERROR_OCCURED,
     url,
     error,
 })

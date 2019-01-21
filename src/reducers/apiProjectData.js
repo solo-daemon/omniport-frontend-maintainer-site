@@ -1,4 +1,7 @@
-import { RECEIVE_PROJECT_DATA, ERROR_OCCURED } from "../actions/apiProjectCall"
+import {
+    RECEIVE_PROJECT_DATA,
+    PROJECT_ERROR_OCCURED,
+} from "../actions/apiProjectCall"
 
 const apiProjectData = (
     state = { data: null, loaded: false, url: "", count: 0 },
@@ -13,7 +16,7 @@ const apiProjectData = (
                 count: Math.ceil(action.data.count / 12),
                 loaded: true,
             }
-        case ERROR_OCCURED:
+        case PROJECT_ERROR_OCCURED:
             return {
                 ...state,
                 url: action.url,
