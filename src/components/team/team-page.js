@@ -21,6 +21,11 @@ class Team extends Component {
             ? this.props.apiTeamData.options.actions.POST.maintainer.children
                   .designation.choices
             : []
+        const linkOptions = this.props.apiTeamData.loaded
+            ? this.props.apiTeamData.options.actions.POST.socialInformation
+                  .child.children.links.child.children.site.choices
+            : []
+
         if (this.props.apiTeamData.loaded) {
             return (
                 <React.Fragment>
@@ -32,6 +37,7 @@ class Team extends Component {
                                     key={info.handle}
                                     roleOptions={roleOptions}
                                     designationOptions={designationOptions}
+                                    linkOptions={linkOptions}
                                 />
                             ))}
                         </Card.Group>

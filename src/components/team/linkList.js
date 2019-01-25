@@ -13,6 +13,7 @@ class LinkList extends React.Component {
         const data = this.props.data
         const name = this.props.name
         const handleUpdateDelete = this.props.handleUpdateDelete
+        const linkListOptions = this.props.linkListOptions
         const children = Array.from(data).map(function(child, index) {
             return (
                 <Link
@@ -20,6 +21,7 @@ class LinkList extends React.Component {
                     data={child}
                     name={name}
                     handleUpdateDelete={handleUpdateDelete}
+                    linkListOptions={linkListOptions}
                 />
             )
         })

@@ -54,6 +54,7 @@ class AddMemberDetails extends Component {
             errorShortBio: false,
             errorUrl: false,
             techSkillsOptions: [],
+            socialLinksOptions: [],
         }
         this.handlePost = this.handlePost.bind(this)
     }
@@ -61,12 +62,15 @@ class AddMemberDetails extends Component {
         const URL1 = `/api/maintainer_site/logged_maintainer`
         const URL2 = `/api/maintainer_site/tech_skills`
 
-        axios.all([axios.get(URL1), axios.get(URL2)]).then(
-            axios.spread((memberRes, techSkillsRes) => {
+        axios.all([axios.get(URL1), axios.get(URL2), axios.options(URL1)]).then(
+            axios.spread((memberRes, techSkillsRes, linksRes) => {
                 this.setState(
                     {
                         profile: memberRes.data,
                         techSkillsOptions: techSkillsRes.data,
+                        socialLinksOptions:
+                            linksRes.data.actions.POST.socialInformation.child
+                                .children.links.child.children.site.choices,
                     },
                     () => {
                         if (this.state.profile.length) {
@@ -408,25 +412,29 @@ class AddMemberDetails extends Component {
     }
 
     render() {
-        const options = [
-            { icon: "behance", text: "Behance", value: "beh" },
-            { icon: "blogger", text: "Blogger", value: "blo" },
-            { icon: "dribbble", text: "Dribbble", value: "dri" },
-            { icon: "facebook", text: "Facebook", value: "fac" },
-            { icon: "flickr", text: "Flickr", value: "fli" },
-            { icon: "github", text: "Github", value: "git" },
-            { icon: "google", text: "Google", value: "goo" },
-            { icon: "linkedin", text: "LinkedIn", value: "lin" },
-            { icon: "medium", text: "Medium", value: "med" },
-            { icon: "pinterest", text: "Pinterest", value: "pin" },
-            { icon: "reddit", text: "Reddit", value: "red" },
-            { icon: "skype", text: "Skype", value: "sky" },
-            { icon: "snapchat", text: "Snapchat", value: "sna" },
-            { icon: "tumblr", text: "Tumblr", value: "tum" },
-            { icon: "twitter", text: "Twitter", value: "twi" },
-            { icon: "youtube", text: "Youtube", value: "you" },
-            { icon: "globe", text: "Other website", value: "oth" },
-        ]
+        //Computation to get all social Links from options functions and for other using globe icon
+        const options = []
+        const linkListOptions = {}
+        for (let i = 0; i < this.state.socialLinksOptions.length; i++) {
+            let icon = this.state.socialLinksOptions[
+                i
+            ].displayName.toLowerCase()
+            if (this.state.socialLinksOptions[i].value == "oth") {
+                icon = "globe"
+            }
+            options.push({
+                text: this.state.socialLinksOptions[i].displayName,
+                value: this.state.socialLinksOptions[i].value,
+                icon: icon,
+            })
+            linkListOptions[this.state.socialLinksOptions[i].value] = icon
+        }
+        linkListOptions["music"] = "music"
+        linkListOptions["book"] = "book"
+        linkListOptions["film"] = "film"
+        linkListOptions["game"] = "game"
+        linkListOptions["hobbies"] = "paint brush"
+
         return (
             <div>
                 <Container styleName="common.margin">
@@ -513,6 +521,7 @@ class AddMemberDetails extends Component {
                         <LinkList
                             data={this.state.links}
                             handleUpdateDelete={this.handleUpdateDelete}
+                            linkListOptions={linkListOptions}
                         />
                     </Segment>
 
@@ -555,6 +564,7 @@ class AddMemberDetails extends Component {
                             data={this.state.music.array}
                             handleUpdateDelete={this.handleUpdateDelete2}
                             name="music"
+                            linkListOptions={linkListOptions}
                         />
                     </Segment>
 
@@ -595,6 +605,7 @@ class AddMemberDetails extends Component {
                             data={this.state.book.array}
                             handleUpdateDelete={this.handleUpdateDelete2}
                             name="book"
+                            linkListOptions={linkListOptions}
                         />
                     </Segment>
 
@@ -635,6 +646,7 @@ class AddMemberDetails extends Component {
                             data={this.state.film.array}
                             handleUpdateDelete={this.handleUpdateDelete2}
                             name="film"
+                            linkListOptions={linkListOptions}
                         />
                     </Segment>
 
@@ -675,6 +687,7 @@ class AddMemberDetails extends Component {
                             data={this.state.game.array}
                             handleUpdateDelete={this.handleUpdateDelete2}
                             name="game"
+                            linkListOptions={linkListOptions}
                         />
                     </Segment>
 
@@ -717,6 +730,7 @@ class AddMemberDetails extends Component {
                             data={this.state.hobbies.array}
                             handleUpdateDelete={this.handleUpdateDelete2}
                             name="hobbies"
+                            linkListOptions={linkListOptions}
                         />
                     </Segment>
 
@@ -730,7 +744,8 @@ class AddMemberDetails extends Component {
                             required
                             label="Tech Skills:"
                             options={this.state.techSkillsOptions}
-                            onChange={({ value }) => {
+                            onChange={(e, { value }) => {
+                                console.log(value)
                                 this.setState({
                                     skills: value,
                                 })

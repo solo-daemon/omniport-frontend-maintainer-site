@@ -3,31 +3,6 @@ import { Segment, Icon } from "semantic-ui-react"
 
 import style from "../../css/team/add-member-details.css"
 
-const ICON_OPTIONS = {
-    beh: "behance",
-    blo: "blogger",
-    dri: "dribbble",
-    fac: "facebook",
-    fli: "flickr",
-    git: "github",
-    goo: "google",
-    lin: "linkedin",
-    med: "medium",
-    pin: "pinterest",
-    red: "reddit",
-    sky: "skype",
-    sna: "snapchat",
-    tum: "tumblr",
-    twi: "twitter",
-    you: "youtube",
-    oth: "globe",
-    music: "music",
-    book: "book",
-    film: "film",
-    game: "game",
-    hobbies: "paint brush",
-}
-
 class Link extends React.Component {
     constructor(props) {
         super(props)
@@ -37,6 +12,7 @@ class Link extends React.Component {
     }
     render() {
         const pop = this.props.name
+        const ICON_OPTIONS = this.props.linkListOptions
 
         return (
             <Segment styleName="style.headingBox">
