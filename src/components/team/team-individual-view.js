@@ -74,7 +74,7 @@ class TeamIndividualView extends Component {
                         <Grid columns={2} stackable>
                             <Grid.Column textAlign="center">
                                 <div styleName="styles.pro-image">
-                                    <Reveal animated="move up">
+                                    <Reveal animated="fade">
                                         <Reveal.Content visible>
                                             <Image
                                                 src={
@@ -82,7 +82,6 @@ class TeamIndividualView extends Component {
                                                         .normieImage
                                                 }
                                                 size="medium"
-                                                circular
                                             />
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
@@ -92,18 +91,19 @@ class TeamIndividualView extends Component {
                                                         .dankImage
                                                 }
                                                 size="medium"
-                                                circular
                                             />
                                         </Reveal.Content>
                                     </Reveal>
                                 </div>
-                                <h1>
+                            </Grid.Column>
+                            <Grid.Column verticalAlign="middle">
+                                <Header as="h1">
                                     {
                                         this.state.memberDetails.maintainer
                                             .person.fullName
                                     }
-                                </h1>
-                                <p>
+                                </Header>
+                                <div styleName="styles.role-designation">
                                     {roleOptions.map(
                                         (role, index) =>
                                             this.state.memberDetails.maintainer
@@ -123,11 +123,11 @@ class TeamIndividualView extends Component {
                                                 </React.Fragment>
                                             )
                                     )}
-                                </p>
-                            </Grid.Column>
-                            <Grid.Column verticalAlign="middle">
-                                <p>{this.state.memberDetails.shortBiography}</p>
-                                <p>
+                                </div>
+                                <div styleName="styles.short-biography">
+                                    {this.state.memberDetails.shortBiography}
+                                </div>
+                                <div>
                                     {this.state.memberDetails
                                         .socialInformation[0] &&
                                         this.state.memberDetails.socialInformation[0].links.map(
@@ -139,7 +139,6 @@ class TeamIndividualView extends Component {
                                                     <Icon
                                                         fitted
                                                         title={profile.url}
-                                                        size="large"
                                                         name={profile.siteLogo.toLowerCase()}
                                                         onClick={() =>
                                                             window.open(
@@ -150,10 +149,25 @@ class TeamIndividualView extends Component {
                                                 </span>
                                             )
                                         )}
-                                </p>
+                                </div>
                             </Grid.Column>
                         </Grid>
+
                         <Divider section />
+
+                        <Header as="h2" textAlign="center">
+                            Projects
+                        </Header>
+                        <Card.Group itemsPerRow={3} doubling>
+                            {this.state.member_projects.map((info, index) => (
+                                <ProjectDetail
+                                    key={index}
+                                    info={info}
+                                    key={info.slug}
+                                />
+                            ))}
+                        </Card.Group>
+
                         <Header as="h2" textAlign="center">
                             Hobbies
                         </Header>
@@ -193,19 +207,7 @@ class TeamIndividualView extends Component {
                                 message="Favourite Games"
                             />
                         </Card.Group>
-                        <Header as="h2" textAlign="center">
-                            Projects
-                        </Header>
 
-                        <Card.Group itemsPerRow={3} doubling>
-                            {this.state.member_projects.map((info, index) => (
-                                <ProjectDetail
-                                    key={index}
-                                    info={info}
-                                    key={info.slug}
-                                />
-                            ))}
-                        </Card.Group>
                         <Segment padded basic />
                     </Container>
                 </div>
