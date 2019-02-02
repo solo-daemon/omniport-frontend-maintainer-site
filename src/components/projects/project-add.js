@@ -10,10 +10,12 @@ import {
     TextArea,
     Segment,
     Label,
+    Modal,
 } from "semantic-ui-react"
 import { getCookie, CustomCropper } from "formula_one"
 import { Editor } from "@tinymce/tinymce-react"
-import getCroppedImg from "../getCroppedImage"
+import getCroppedImage from "../getCroppedImage"
+
 import common from "../../css/page-common-styles.css"
 
 class AddProjectDetails extends Component {
@@ -40,11 +42,8 @@ class AddProjectDetails extends Component {
             crop: {
                 aspect: 1,
             },
+            open: false,
         }
-        this.handlePost = this.handlePost.bind(this)
-        this.handleEditorChange = this.handleEditorChange.bind(this)
-        this.fileChange = this.fileChange.bind(this)
-        this.showCroppedImage = this.showCroppedImage.bind(this)
     }
 
     componentDidMount() {
@@ -69,14 +68,17 @@ class AddProjectDetails extends Component {
         console.log(imageDataUrl)
         this.setState({
             imageSrc: imageDataUrl,
+            open: true,
         })
     }
-    handleEditorChange(content) {
-        this.state.data.longDescription = content
+    handleEditorChange = content => {
+        this.setState({
+            data: { ...this.state.data, longDescription: content },
+        })
     }
 
     showCroppedImage = async () => {
-        const croppedImage = await getCroppedImg(
+        const croppedImage = await getCroppedImage(
             this.state.imageSrc,
             this.state.pixelCrop
         )
@@ -85,7 +87,7 @@ class AddProjectDetails extends Component {
         this.setState({ croppedImage: file })
     }
 
-    handlePost() {
+    handlePost = () => {
         const { data, croppedImage } = this.state
 
         if (
@@ -110,7 +112,7 @@ class AddProjectDetails extends Component {
                 "X-CSRFToken": getCookie("csrftoken"),
             }
 
-            const that = this
+            let that = this
 
             axios({
                 method: "post",
@@ -142,6 +144,18 @@ class AddProjectDetails extends Component {
                     }
                 })
         }
+    }
+
+    handleOpen = () => {
+        this.setState({
+            open: true,
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            open: false,
+        })
     }
 
     render() {
@@ -243,7 +257,8 @@ class AddProjectDetails extends Component {
                             <input
                                 type="file"
                                 onChange={this.fileChange}
-                                name={"uploadedFile"}
+                                name="uploadedFile"
+                                onClick={this.handleOpen}
                             />
                             {!this.state.validImage && (
                                 <Label color="red" pointing>
@@ -251,25 +266,42 @@ class AddProjectDetails extends Component {
                                 </Label>
                             )}
                         </Form.Field>
-                        {this.state.imageSrc && (
-                            <Fragment>
-                                <CustomCropper
-                                    src={this.state.imageSrc}
-                                    crop={this.state.crop}
-                                    onChange={crop => {
-                                        this.setState({ crop })
-                                    }}
-                                    onComplete={(crop, pixelCrop) => {
-                                        this.setState({ pixelCrop }, () =>
-                                            this.showCroppedImage()
-                                        )
-                                    }}
-                                />
-                            </Fragment>
-                        )}
-                        <Button type="submit" onClick={this.handlePost}>
-                            Add Project
-                        </Button>
+                        <Modal
+                            size="tiny"
+                            open={this.state.open}
+                            onClose={this.handleClose}
+                        >
+                            <Modal.Header>Crop project's photo</Modal.Header>
+                            <Modal.Content image>
+                                {this.state.imageSrc && (
+                                    <Fragment>
+                                        <CustomCropper
+                                            src={this.state.imageSrc}
+                                            crop={this.state.crop}
+                                            onChange={crop => {
+                                                this.setState({ crop })
+                                            }}
+                                            onComplete={(crop, pixelCrop) => {
+                                                this.setState(
+                                                    { pixelCrop },
+                                                    () =>
+                                                        this.showCroppedImage()
+                                                )
+                                            }}
+                                        />
+                                    </Fragment>
+                                )}
+                            </Modal.Content>
+                            <Modal.Actions>
+                                <Button
+                                    positive
+                                    type="submit"
+                                    onClick={this.handleClose}
+                                >
+                                    Done
+                                </Button>
+                            </Modal.Actions>
+                        </Modal>
                     </Form>
                     <Segment basic />
                 </Container>
