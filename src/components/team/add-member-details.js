@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import axios from "axios"
 
 import {
@@ -14,10 +14,11 @@ import {
 } from "semantic-ui-react"
 import style from "../../css/team/add-member-details.css"
 import common from "../../css/page-common-styles.css"
+import getCroppedImg from "../getCroppedImage"
 
 import LinkList from "./linkList"
 
-import { getCookie } from "formula_one"
+import { getCookie, CustomCropper } from "formula_one"
 
 const initial = {
     data: { site: "git", url: "" },
@@ -49,8 +50,24 @@ class AddMemberDetails extends Component {
                 hobbies: "",
                 skills: "",
             },
-            uploadedFileD: "",
-            uploadedFileN: "",
+
+            uploadedFileDank: {
+                imageSrc: null,
+                pixelCrop: null,
+                crop: {
+                    aspect: 1,
+                },
+            },
+            uploadedFileNormie: {
+                imageSrc: null,
+                pixelCrop: null,
+                crop: {
+                    aspect: 1,
+                },
+            },
+
+            prevUploadedFileD: null,
+            prevUploadedFileN: null,
             errorHandle: false,
             errorShortBio: false,
             errorUrl: false,
@@ -59,6 +76,7 @@ class AddMemberDetails extends Component {
             loaded: false,
         }
         this.handlePost = this.handlePost.bind(this)
+        this.showCroppedImage = this.showCroppedImage.bind(this)
     }
     componentDidMount() {
         const URL1 = `/api/maintainer_site/logged_maintainer`
@@ -86,8 +104,9 @@ class AddMemberDetails extends Component {
                             this.setState({
                                 handle: this.state.profile[0].handle,
                                 shortBio: this.state.profile[0].shortBiography,
-                                uploadedFileD: this.state.profile[0].dankImage,
-                                uploadedFileN: this.state.profile[0]
+                                prevUploadedFileD: this.state.profile[0]
+                                    .dankImage,
+                                prevUploadedFileN: this.state.profile[0]
                                     .normieImage,
                             })
                             axios
@@ -192,6 +211,8 @@ class AddMemberDetails extends Component {
                                     this.setState({ loaded: true })
                                 }
                             )
+                        } else {
+                            this.setState({ loaded: true })
                         }
                     }
                 )
@@ -306,9 +327,30 @@ class AddMemberDetails extends Component {
             [name]: { array: arr, entry: "" },
         })
     }
-    fileChange = e => {
+    fileChange = async e => {
+        console.log("fdsfsd")
+        const name = e.target.name
+        const imageDataUrl = await readFile(e.target.files[0])
+        console.log(this.state.uploadedFileNormie)
         this.setState({
-            [e.target.name]: e.target.files[0],
+            [name]: {
+                ...this.state[name],
+                imageSrc: imageDataUrl,
+            },
+        })
+    }
+    showCroppedImage = async name => {
+        const croppedImage = await getCroppedImg(
+            this.state[name].imageSrc,
+            this.state[name].pixelCrop
+        )
+        var file = dataURLtoFile(croppedImage, "image.png")
+        console.log(file)
+        this.setState({
+            [name]: {
+                ...this.state[name],
+                croppedImage: file,
+            },
         })
     }
 
@@ -318,9 +360,12 @@ class AddMemberDetails extends Component {
             shortBio,
             links,
             skills,
-            uploadedFileN,
-            uploadedFileD,
+            uploadedFileDank,
+            uploadedFileNormie,
         } = this.state
+
+        const uploadedFileD = uploadedFileDank.croppedImage
+        const uploadedFileN = uploadedFileNormie.croppedImage
 
         var book = [],
             music = [],
@@ -373,15 +418,16 @@ class AddMemberDetails extends Component {
             hobbies.map(element =>
                 formData.append("favourite_hobbies", element)
             )
-
-            if (this.state.uploadedFileN.type) {
-                if (this.state.uploadedFileN.type.substring(0, 5) == "image") {
+            console.log(uploadedFileD)
+            console.log(uploadedFileN)
+            if (uploadedFileN.type) {
+                if (uploadedFileN.type.substring(0, 5) == "image") {
                     formData.append("normie_image", uploadedFileN)
                 }
             }
 
-            if (this.state.uploadedFileD.type) {
-                if (this.state.uploadedFileD.type.substring(0, 5) == "image") {
+            if (uploadedFileD.type) {
+                if (uploadedFileD.type.substring(0, 5) == "image") {
                     formData.append("dank_image", uploadedFileD)
                 }
             }
@@ -783,13 +829,42 @@ class AddMemberDetails extends Component {
                                 <input
                                     type="file"
                                     onChange={this.fileChange}
-                                    name={"uploadedFileN"}
+                                    name={"uploadedFileNormie"}
                                 />
                             </Form.Field>
 
-                            {this.state.uploadedFileN && (
+                            {this.state.uploadedFileNormie.imageSrc && (
+                                <Fragment>
+                                    <CustomCropper
+                                        src={
+                                            this.state.uploadedFileNormie
+                                                .imageSrc
+                                        }
+                                        crop={
+                                            this.state.uploadedFileNormie.crop
+                                        }
+                                        onChange={crop => {
+                                            this.setState({
+                                                uploadedFileNormie: {
+                                                    ...this.state
+                                                        .uploadedFileNormie,
+                                                    crop: crop,
+                                                },
+                                            })
+                                        }}
+                                        onComplete={(crop, pixelCrop) => {
+                                            this.state.uploadedFileNormie.pixelCrop = pixelCrop
+                                            this.showCroppedImage(
+                                                "uploadedFileNormie"
+                                            )
+                                        }}
+                                    />
+                                </Fragment>
+                            )}
+
+                            {this.state.prevUploadedFileN && (
                                 <a
-                                    href={this.state.uploadedFileN}
+                                    href={this.state.prevUploadedFileN}
                                     target="_blank"
                                 >
                                     See previous uploaded
@@ -801,12 +876,37 @@ class AddMemberDetails extends Component {
                                 <input
                                     type="file"
                                     onChange={this.fileChange}
-                                    name={"uploadedFileD"}
+                                    name={"uploadedFileDank"}
                                 />
                             </Form.Field>
-                            {this.state.uploadedFileD && (
+                            {this.state.uploadedFileDank.imageSrc && (
+                                <Fragment>
+                                    <CustomCropper
+                                        src={
+                                            this.state.uploadedFileDank.imageSrc
+                                        }
+                                        crop={this.state.uploadedFileDank.crop}
+                                        onChange={crop => {
+                                            this.setState({
+                                                uploadedFileDank: {
+                                                    ...this.state
+                                                        .uploadedFileDank,
+                                                    crop: crop,
+                                                },
+                                            })
+                                        }}
+                                        onComplete={(crop, pixelCrop) => {
+                                            this.state.uploadedFileDank.pixelCrop = pixelCrop
+                                            this.showCroppedImage(
+                                                "uploadedFileDank"
+                                            )
+                                        }}
+                                    />
+                                </Fragment>
+                            )}
+                            {this.state.prevUploadedFileD && (
                                 <a
-                                    href={this.state.uploadedFileD}
+                                    href={this.state.prevUploadedFileD}
                                     target="_blank"
                                 >
                                     See previous uploaded
@@ -825,5 +925,23 @@ class AddMemberDetails extends Component {
             return <Loader active size="large" />
         }
     }
+}
+function readFile(file) {
+    return new Promise(resolve => {
+        const reader = new FileReader()
+        reader.addEventListener("load", () => resolve(reader.result), false)
+        reader.readAsDataURL(file)
+    })
+}
+function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n)
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+    }
+    return new File([u8arr], filename, { type: mime })
 }
 export default AddMemberDetails
