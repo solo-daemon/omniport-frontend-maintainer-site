@@ -1,18 +1,28 @@
+.pro-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.role-designation {
+    margin-top: -2%;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.short-biography {
+    margin-top: 2%;
+}
+
 .f-link {
     transition: all 0.3s;
     font-size: 17px;
-    margin-right: 0.6em;
     display: inline-block;
-    padding: 0.5em;
     border-radius: 2px;
+    margin: 0.2em 0.6em 0 0;
+    padding: 0.3em;
 }
 
 .f-link:hover {
     color: #f8d16c;
     background-color: #293b52;
-}
-.pro-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
