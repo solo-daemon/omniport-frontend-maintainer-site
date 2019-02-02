@@ -4,9 +4,11 @@ import styles from "../../css/projects/project-card.css"
 
 const ProjectDetail = ({ info }) => {
     return (
-        <Card raised href={`/maintainer_site/projects/${info.slug}`}>
-            <Image styleName="styles.item-card-img" src={info.image} />
-            <Card.Content>
+        <Card raised>
+            <a href={`/maintainer_site/projects/${info.slug}`}>
+                <Image styleName="styles.item-card-img" src={info.image} />
+            </a>
+            <Card.Content href={`/maintainer_site/projects/${info.slug}`}>
                 <Card.Header styleName="styles.text-break">
                     {info.title}
                 </Card.Header>

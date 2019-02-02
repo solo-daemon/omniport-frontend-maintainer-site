@@ -14,6 +14,7 @@ import AppHeader from "../components/header/app-header"
 import MainPage from "../components/main/main-page"
 import Team from "../containers/team/teamPageLoader"
 import TeamIndividualView from "./team/team-individual-view"
+import Alumni from "../containers/alumni/alumniPageLoader"
 import AddMemberDetails from "./team/add-member-details"
 import AddProjectDetails from "./projects/project-add"
 import Blog from "../containers/blog/blogPageLoader"
@@ -55,10 +56,6 @@ class App extends Component {
 
         const { apiInfoData } = this.props
 
-        console.log(apiInfoData)
-
-        console.log(this.props.isAuthed)
-
         const Switcher = () => (
             <ScrollToTop>
                 <Switch>
@@ -91,8 +88,14 @@ class App extends Component {
                         component={ProjectDetailView}
                     />
                     <Route
+                        exact
                         path={`${match.path}team/:handle`}
                         component={TeamIndividualView}
+                    />
+                    <Route
+                        exact
+                        path={`${match.path}alumni`}
+                        component={Alumni}
                     />
                     {this.props.isAuthed.loaded && (
                         <React.Fragment>

@@ -88,30 +88,11 @@ class AppHeader extends Component {
             <React.Fragment>
                 <Helmet>
                     <title>{this.pageHead()}</title>
-
-                    <link
-                        rel="apple-touch-icon"
-                        sizes="180x180"
-                        href="/static/maintainer_site/favicon/apple-touch-icon.png"
-                    />
                     <link
                         rel="icon"
-                        type="image/png"
-                        sizes="32x32"
-                        href="/static/maintainer_site/favicon/favicon-32x32.png"
-                    />
-                    <link
-                        rel="icon"
-                        type="image/png"
                         sizes="16x16"
-                        href="/static/maintainer_site/favicon/favicon-16x16.png"
+                        href="/static/maintainer_site/favicon/favicon.ico"
                     />
-                    <link
-                        rel="manifest"
-                        href="/static/maintainer_site/favicon/site.webmanifest"
-                    />
-                    <meta name="msapplication-TileColor" content="#ffc40d" />
-                    <meta name="theme-color" content="#ffffff" />
                 </Helmet>
                 <div styleName="styles.position">
                     <div styleName={`styles.${this.handleContainerStyle()}`}>
@@ -166,6 +147,18 @@ class AppHeader extends Component {
                                                         styleName={`styles.${this.handleNavStyle()}`}
                                                     >
                                                         Team
+                                                    </button>
+                                                </Link>
+                                                <Link
+                                                    to={`${PATHNAME}alumni/`}
+                                                    styleName="styles.link-color"
+                                                    onClick={this.handleSwitch}
+                                                >
+                                                    <button
+                                                        name="team"
+                                                        styleName={`styles.${this.handleNavStyle()}`}
+                                                    >
+                                                        Alumni
                                                     </button>
                                                 </Link>
                                                 {this.props.isAuthed.auth && (

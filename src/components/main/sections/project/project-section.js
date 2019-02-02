@@ -9,8 +9,6 @@ import common from "../../../../css/sections/common-styles.css"
 
 const ProjectSection = ({ project, image }) => (
     <div styleName="styles.container">
-        {console.log(image)}
-
         <Container textAlign="center">
             <h1 styleName="common.header">Projects</h1>
             <Image
@@ -31,7 +29,7 @@ const ProjectSection = ({ project, image }) => (
                     />
                 ))}
             </Grid>
-            <Segment clearing padded basic>
+            <Segment clearing padded="very" basic>
                 <Link to="./projects">
                     <div styleName="common.button">View more</div>
                 </Link>

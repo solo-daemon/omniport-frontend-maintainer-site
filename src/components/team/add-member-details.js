@@ -243,9 +243,9 @@ class AddMemberDetails extends Component {
             var arr = this.state[name].array
             var temp = { site: "" + name, url: this.state[name].entry }
             arr.push(temp)
-            this.setState({ [name]: { array: arr, entry: "" } }, () =>
-                console.log(this.state[name])
-            )
+            this.setState({
+                [name]: { array: arr, entry: "" },
+            })
         }
     }
     addLink = e => {
@@ -363,7 +363,6 @@ class AddMemberDetails extends Component {
             uploadedFileDank,
             uploadedFileNormie,
         } = this.state
-        console.log("sdf")
 
         const uploadedFileD = uploadedFileDank.croppedImage
         const uploadedFileN = uploadedFileNormie.croppedImage
@@ -404,7 +403,6 @@ class AddMemberDetails extends Component {
             skills.length > 0
         ) {
             var formData = new FormData()
-            console.log("DATA post ki condition taiyaar")
             formData.append("handle", handle)
             formData.append("short_biography", shortBio)
             formData.append("social_information", links)
@@ -815,7 +813,6 @@ class AddMemberDetails extends Component {
                                 label="Tech Skills:"
                                 options={this.state.techSkillsOptions}
                                 onChange={(e, { value }) => {
-                                    console.log(value)
                                     this.setState({
                                         skills: value,
                                     })

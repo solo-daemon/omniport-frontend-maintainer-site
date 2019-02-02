@@ -82,7 +82,6 @@ class AddProjectDetails extends Component {
         )
 
         var file = dataURLtoFile(croppedImage, "image.png")
-        console.log(file)
         this.setState({ croppedImage: file })
     }
 
@@ -98,7 +97,6 @@ class AddProjectDetails extends Component {
             croppedImage
         ) {
             var formData = new FormData()
-            console.log(data)
 
             formData.append("slug", data.slug)
             formData.append("title", data.title)
@@ -126,7 +124,6 @@ class AddProjectDetails extends Component {
                 })
                 .catch(function(response) {
                     //handle error
-                    console.log(response.response)
 
                     if (response.response.data.slug != null) {
                         that.setState({ slug: true })
