@@ -51,6 +51,8 @@ class AddMemberDetails extends Component {
             },
             uploadedFileD: "",
             uploadedFileN: "",
+            prevUploadedFileD: null,
+            prevUploadedFileN: null,
             errorHandle: false,
             errorShortBio: false,
             errorUrl: false,
@@ -86,8 +88,9 @@ class AddMemberDetails extends Component {
                             this.setState({
                                 handle: this.state.profile[0].handle,
                                 shortBio: this.state.profile[0].shortBiography,
-                                uploadedFileD: this.state.profile[0].dankImage,
-                                uploadedFileN: this.state.profile[0]
+                                prevUploadedFileD: this.state.profile[0]
+                                    .dankImage,
+                                prevUploadedFileN: this.state.profile[0]
                                     .normieImage,
                             })
                             axios
@@ -192,6 +195,8 @@ class AddMemberDetails extends Component {
                                     this.setState({ loaded: true })
                                 }
                             )
+                        } else {
+                            this.setState({ loaded: true })
                         }
                     }
                 )
@@ -790,9 +795,9 @@ class AddMemberDetails extends Component {
                                 />
                             </Form.Field>
 
-                            {this.state.uploadedFileN && (
+                            {this.state.prevUploadedFileN && (
                                 <a
-                                    href={this.state.uploadedFileN}
+                                    href={this.state.prevUploadedFileN}
                                     target="_blank"
                                 >
                                     See previous uploaded
@@ -807,9 +812,9 @@ class AddMemberDetails extends Component {
                                     name={"uploadedFileD"}
                                 />
                             </Form.Field>
-                            {this.state.uploadedFileD && (
+                            {this.state.prevUploadedFileD && (
                                 <a
-                                    href={this.state.uploadedFileD}
+                                    href={this.state.prevUploadedFileD}
                                     target="_blank"
                                 >
                                     See previous uploaded
