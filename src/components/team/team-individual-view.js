@@ -155,18 +155,24 @@ class TeamIndividualView extends Component {
 
                         <Divider section />
 
-                        <Header as="h2" textAlign="center">
-                            Projects
-                        </Header>
-                        <Card.Group itemsPerRow={3} doubling>
-                            {this.state.member_projects.map((info, index) => (
-                                <ProjectDetail
-                                    key={index}
-                                    info={info}
-                                    key={info.slug}
-                                />
-                            ))}
-                        </Card.Group>
+                        {Boolean(this.state.member_projects.length) && (
+                            <React.Fragment>
+                                <Header as="h2" textAlign="center">
+                                    Projects
+                                </Header>
+                                <Card.Group itemsPerRow={3} doubling>
+                                    {this.state.member_projects.map(
+                                        (info, index) => (
+                                            <ProjectDetail
+                                                key={index}
+                                                info={info}
+                                                key={info.slug}
+                                            />
+                                        )
+                                    )}
+                                </Card.Group>
+                            </React.Fragment>
+                        )}
 
                         <Header as="h2" textAlign="center">
                             Hobbies
