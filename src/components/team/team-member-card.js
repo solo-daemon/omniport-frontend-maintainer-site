@@ -6,7 +6,7 @@ import styles from "../../css/team/team-member.css"
 const TeamMember = ({ info, roleOptions, designationOptions, linkOptions }) => {
     return (
         <Card raised href={info.handle}>
-            <Image src={info.normieImage} />
+            <Image src={info.normieImage} styleName="styles.card-image" />
             <Card.Content>
                 <Card.Header styleName="styles.text-break">
                     {info.maintainer.person.fullName}
