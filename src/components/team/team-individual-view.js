@@ -81,6 +81,7 @@ class TeamIndividualView extends Component {
                                                     this.state.memberDetails
                                                         .normieImage
                                                 }
+                                                circular
                                                 size="medium"
                                             />
                                         </Reveal.Content>
@@ -90,6 +91,7 @@ class TeamIndividualView extends Component {
                                                     this.state.memberDetails
                                                         .dankImage
                                                 }
+                                                circular
                                                 size="medium"
                                             />
                                         </Reveal.Content>
