@@ -14,6 +14,8 @@ class LinkList extends React.Component {
         const name = this.props.name
         const handleUpdateDelete = this.props.handleUpdateDelete
         const linkListOptions = this.props.linkListOptions
+            ? this.props.linkListOptions
+            : null
         const children = Array.from(data).map(function(child, index) {
             return (
                 <Link

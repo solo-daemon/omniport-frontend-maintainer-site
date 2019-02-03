@@ -15,7 +15,7 @@ import {
 
 import styles from "../../css/team/team-individual-view.css"
 import common from "../../css/page-common-styles.css"
-//import ProjectDetail from "../projects/project-card"
+import ProjectDetail from "../projects/project-card"
 
 //import HobbiesCard from "./hobbies-card"
 import TechSkillsCard from "./tech-skills-card"
@@ -28,10 +28,10 @@ class TeamIndividualView extends Component {
             loaded: false,
             options: [],
             role: "",
-            //memberProjects: [],
+            memberProjects: [],
             designation: "",
         }
-        //this.requestForProjects = this.requestForProjects.bind(this)
+        this.requestForProjects = this.requestForProjects.bind(this)
     }
     componentDidMount() {
         const { handle } = this.props.match.params
@@ -43,19 +43,19 @@ class TeamIndividualView extends Component {
                     options: optionsRes.data,
                     loaded: true,
                 })
-                //this.requestForProjects(memberRes.data.maintainer.id)
+                this.requestForProjects(memberRes.data.maintainer.id)
             })
         )
     }
-    // requestForProjects(id) {
-    //     URL = `/api/maintainer_site/maintainer_project/${id}`
-    //     axios.get(URL).then(res => {
-    //         this.setState({
-    //             memberProjects: res.data,
-    //             loaded: true,
-    //         })
-    //     })
-    // }
+    requestForProjects(id) {
+        URL = `/api/maintainer_site/maintainer_project/${id}`
+        axios.get(URL).then(res => {
+            this.setState({
+                memberProjects: res.data,
+                loaded: true,
+            })
+        })
+    }
 
     render() {
         const roleOptions = this.state.loaded
@@ -82,8 +82,8 @@ class TeamIndividualView extends Component {
                                                     this.state.memberDetails
                                                         .normieImage
                                                 }
+                                                size="small"
                                                 circular
-                                                size="medium"
                                             />
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
@@ -92,8 +92,8 @@ class TeamIndividualView extends Component {
                                                     this.state.memberDetails
                                                         .dankImage
                                                 }
+                                                size="small"
                                                 circular
-                                                size="medium"
                                             />
                                         </Reveal.Content>
                                     </Reveal>
@@ -158,7 +158,7 @@ class TeamIndividualView extends Component {
 
                         <Divider section />
 
-                        {/* {Boolean(this.state.memberProjects.length) && (
+                        {Boolean(this.state.memberProjects.length) && (
                             <React.Fragment>
                                 <Header as="h2" textAlign="center">
                                     Projects
@@ -175,17 +175,12 @@ class TeamIndividualView extends Component {
                                     )}
                                 </Card.Group>
                             </React.Fragment>
-                        )} */}
+                        )}
 
                         {/* <Header as="h2" textAlign="center">
                             Hobbies
-<<<<<<< 1e58c36ad97782c4402141ee4316426b868351fc
                         </Header>
                         <Card.Group itemsPerRow={6} doubling>
-=======
-                        </Header> */}
-                        {/* <Card.Group itemsPerRow={3} doubling>
->>>>>>> Remove hobbies from frontend and member form
                             <HobbiesCard
                                 coverIcon="music"
                                 array={this.state.memberDetails.favouriteMusic}

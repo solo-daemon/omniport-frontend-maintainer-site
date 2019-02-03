@@ -8,16 +8,8 @@ import axios from "axios"
 class TechSkillsCard extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            devIcons: [],
-        }
     }
-    componentDidMount() {
-        const URL = `/api/maintainer_site/tech_skills`
-        axios.get(URL).then(res => {
-            this.setState({ devIcons: res.data })
-        })
-    }
+
     render() {
         const coverIcon = this.props.coverIcon
         const array = this.props.array
@@ -36,20 +28,15 @@ class TechSkillsCard extends Component {
                             <Header as="h1">{message}</Header>
                             <List>
                                 {array.map((info, index) => {
-                                    var label = ""
-                                    var newArray = _.map(
-                                        this.state.devIcons,
-                                        function(item) {
-                                            if (item.value == info) {
-                                                label = item.label
-                                            }
-                                        }
-                                    )
+                                    var icon = info.toLowerCase()
+                                    icon = icon.replace(/\s/g, "")
                                     return (
                                         <List.Item key={index}>
                                             <span>
-                                                <i
-                                                    className={label.className}
+                                                <img
+                                                    height="20"
+                                                    width="20"
+                                                    src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
                                                 />{" "}
                                                 {info}
                                             </span>

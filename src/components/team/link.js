@@ -13,12 +13,29 @@ class Link extends React.Component {
     render() {
         const pop = this.props.name
         const ICON_OPTIONS = this.props.linkListOptions
-
+        var iconText = ""
+        if (!this.props.data.url) {
+            let data = this.props.data
+            data = data.toLowerCase()
+            iconText = data.replace(/\s/g, "")
+        }
         return (
             <Segment styleName="style.headingBox">
                 <div styleName="style.socialBox">
-                    <Icon name={ICON_OPTIONS[this.props.data.site]} />
-                    <p styleName="style.link">{this.props.data.url}</p>
+                    {ICON_OPTIONS ? (
+                        <Icon name={ICON_OPTIONS[this.props.data.site]} />
+                    ) : (
+                        <img
+                            height="20"
+                            width="20"
+                            src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${iconText}.svg`}
+                        />
+                    )}
+                    {this.props.data.url ? (
+                        <p styleName="style.link">{this.props.data.url}</p>
+                    ) : (
+                        <p styleName="style.link">{this.props.data}</p>
+                    )}
                 </div>
                 <Icon
                     name="delete"

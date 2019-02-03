@@ -37,7 +37,8 @@ class AddMemberDetails extends Component {
             handle: "",
             shortBio: "",
             links: [],
-            skills: [],
+            //skills: [],
+            skills: { array: [], entry: "" },
             // music: { array: [], entry: "" },
             // book: { array: [], entry: "" },
             // film: { array: [], entry: "" },
@@ -106,9 +107,12 @@ class AddMemberDetails extends Component {
                             this.setState({
                                 handle: this.state.profile[0].handle,
                                 shortBio: this.state.profile[0].shortBiography,
-                                skills: this.state.profile[0].technicalSkills[0].split(
-                                    ","
-                                ),
+                                skills: {
+                                    array: this.state.profile[0].technicalSkills[0].split(
+                                        ","
+                                    ),
+                                    entry: "",
+                                },
                                 prevUploadedFileD: this.state.profile[0]
                                     .dankImage,
                                 prevUploadedFileN: this.state.profile[0]
@@ -257,32 +261,31 @@ class AddMemberDetails extends Component {
         const name = target.name
         this.setState({ data: { ...this.state.data, [name]: value } })
     }
-<<<<<<< 1e58c36ad97782c4402141ee4316426b868351fc
-
-    handleChange2 = e => {
-        const target = e.target
-        const name = target.name
-        const value = target.value
-        this.setState({ [name]: { ...this.state[name], entry: value } })
+    handleChangeSkills = e => {
+        const value = e.target.value
+        this.setState({ skills: { ...this.state.skills, entry: value } })
     }
-
-    addLink2 = e => {
-        let name = e.target.name
-
-        if (
-            this.state[name].entry.length <= 63 &&
-            this.state[name].entry.length > 0
-        ) {
-            var arr = this.state[name].array
-            var temp = { site: "" + name, url: this.state[name].entry }
-            arr.push(temp)
-            this.setState({
-                [name]: { array: arr, entry: "" },
-            })
+    addLinkSkills = () => {
+        var arr = this.state.skills.array
+        arr.push(this.state.skills.entry)
+        this.setState({
+            skills: { array: arr, entry: "" },
+        })
+    }
+    handleUpdateDeleteSkills = e => {
+        var name = "skills"
+        var id = e.target.id
+        var arr = []
+        for (let i = 0; i < this.state[name].array.length; i++) {
+            if (i != id) {
+                arr.push(this.state[name].array[i])
+            }
         }
+        this.setState({
+            [name]: { array: arr, entry: "" },
+        })
     }
 
-=======
     // handleChange2 = e => {
     //     const target = e.target
     //     const name = target.name
@@ -301,7 +304,6 @@ class AddMemberDetails extends Component {
     //         })
     //     }
     // }
->>>>>>> Remove hobbies from frontend and member form
     addLink = e => {
         const that = this
         that.setState({ errorUrl: false })
@@ -367,25 +369,6 @@ class AddMemberDetails extends Component {
             linksId: arr1,
         })
     }
-<<<<<<< 1e58c36ad97782c4402141ee4316426b868351fc
-
-    handleUpdateDelete2 = e => {
-        var name = e.target.getAttribute("pop")
-
-        var id = e.target.id
-
-        var arr = []
-        for (let i = 0; i < this.state[name].array.length; i++) {
-            if (i != id) {
-                arr.push(this.state[name].array[i])
-            }
-        }
-        this.setState({
-            [name]: { array: arr, entry: "" },
-        })
-    }
-
-=======
     // handleUpdateDelete2 = e => {
     //     var name = e.target.getAttribute("pop")
 
@@ -401,7 +384,6 @@ class AddMemberDetails extends Component {
     //         [name]: { array: arr, entry: "" },
     //     })
     // }
->>>>>>> Remove hobbies from frontend and member form
     fileChange = async e => {
         const name = e.target.name
         const imageDataUrl = await readFile(e.target.files[0])
@@ -446,6 +428,7 @@ class AddMemberDetails extends Component {
         const uploadedFileN = uploadedFileNormie.imageSrc
             ? uploadedFileNormie.croppedImage
             : null
+        const skillsArray = skills.array
 
         // var book = [],
         //     music = [],
@@ -479,15 +462,14 @@ class AddMemberDetails extends Component {
             // film.length &&
             // game.length &&
             // hobbies.length &&
-            skills.length <= 5 &&
-            skills.length > 0
+            skillsArray.length
         ) {
             var formData = new FormData()
             formData.append("handle", handle)
             formData.append("short_biography", shortBio)
             formData.append("social_information", links)
 
-            formData.append("technical_skills", skills)
+            formData.append("technical_skills", skillsArray)
 
             // music.map(element => formData.append("favourite_music", element))
             // book.map(element =>
@@ -908,9 +890,44 @@ class AddMemberDetails extends Component {
                                 linkListOptions={linkListOptions}
                             />
                         </Segment> */}
+                        <Segment attached="top">
+                            <span>
+                                <h3>Tech Skills</h3>
+                            </span>
+                        </Segment>
+                        <Segment textAlign="left" attached="bottom">
+                            <Form>
+                                <Form.Field>
+                                    <Form.Input
+                                        onChange={this.handleChangeSkills}
+                                        value={this.state.skills.entry}
+                                        name="skills"
+                                        placeholder="Add your Skills ..."
+                                    />
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <Button
+                                        color="blue"
+                                        name="skills"
+                                        onClick={this.addLinkSkills}
+                                    >
+                                        Add
+                                    </Button>
+                                </Form.Field>
+                            </Form>
+
+                            <LinkList
+                                data={this.state.skills.array}
+                                handleUpdateDelete={
+                                    this.handleUpdateDeleteSkills
+                                }
+                                name="skills"
+                            />
+                        </Segment>
 
                         <Form>
-                            <Form.Dropdown
+                            {/* <Form.Dropdown
                                 placeholder="Select tech Skill"
                                 fluid
                                 multiple
@@ -931,7 +948,7 @@ class AddMemberDetails extends Component {
                                 <Label color="red" pointing>
                                     Maximum 5 skills are allowed only
                                 </Label>
-                            )}
+                            )} */}
 
                             <Form.Field required>
                                 <label>Normie Image:</label>
