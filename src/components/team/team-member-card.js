@@ -7,7 +7,7 @@ const TeamMember = ({ info, roleOptions, designationOptions, linkOptions }) => {
     return (
         <Card raised>
             <a href={info.handle}>
-                <Image src={info.normieImage} />
+                <Image src={info.normieImage} styleName="styles.card-image" />
             </a>
             <Card.Content href={info.handle}>
                 <Card.Header styleName="styles.text-break">
