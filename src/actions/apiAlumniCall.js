@@ -6,17 +6,25 @@ export const ALUMNI_ERROR_OCCURED = "ALUMNI_ERROR_OCCURED"
 const requestAlumniData = url => {
     return dispatch => {
         axios
-            .get(`/api/maintainer_site/${url}`)
+            .all([
+                axios.get(`/api/maintainer_site/${url}`),
+                axios.options(`/api/maintainer_site/${url}`),
+            ])
             .then(
-                response => dispatch(receiveAlumniData(url, response)),
-                error => dispatch(errorOccured(url, error))
+                axios.spread((memberRes, optionsRes) => {
+                    dispatch(receiveAlumniData(url, memberRes, optionsRes))
+                })
             )
+            .catch(error => {
+                dispatch(errorOccured(url, error))
+            })
     }
 }
 
-const receiveAlumniData = (url, json) => ({
+const receiveAlumniData = (url, json1, json2) => ({
     type: RECEIVE_ALUMNI_DATA,
-    data: json.data,
+    data: json1.data,
+    options: json2.data,
     url,
 })
 

@@ -4,7 +4,7 @@ import {
 } from "../actions/apiAlumniCall"
 
 const apiAlumniData = (
-    state = { data: null, loaded: false, url: "" },
+    state = { data: null, loaded: false, url: "", options: null },
     action
 ) => {
     switch (action.type) {
@@ -14,8 +14,8 @@ const apiAlumniData = (
                 data: action.data,
                 url: action.url,
                 loaded: true,
+                options: action.options,
             }
-
         case ALUMNI_ERROR_OCCURED:
             return {
                 ...state,

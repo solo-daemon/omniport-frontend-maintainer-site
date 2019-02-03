@@ -14,6 +14,7 @@ import AppHeader from "../components/header/app-header"
 import MainPage from "../components/main/main-page"
 import Team from "../containers/team/teamPageLoader"
 import TeamIndividualView from "./team/team-individual-view"
+import AlumniIndividualView from "./alumni/alumni-individual-view"
 import Alumni from "../containers/alumni/alumniPageLoader"
 import AddMemberDetails from "./team/add-member-details"
 import AddProjectDetails from "./projects/project-add"
@@ -84,6 +85,11 @@ class App extends Component {
                     <Route exact path={`${match.path}team`} component={Team} />
                     <Route
                         exact
+                        path={`${match.path}alumni`}
+                        component={Alumni}
+                    />
+                    <Route
+                        exact
                         path={`${match.path}projects/:slug`}
                         component={ProjectDetailView}
                     />
@@ -94,9 +100,10 @@ class App extends Component {
                     />
                     <Route
                         exact
-                        path={`${match.path}alumni`}
-                        component={Alumni}
+                        path={`${match.path}alumni/:handle`}
+                        component={AlumniIndividualView}
                     />
+
                     {this.props.isAuthed.loaded && (
                         <React.Fragment>
                             {this.props.isAuthed.auth && (
