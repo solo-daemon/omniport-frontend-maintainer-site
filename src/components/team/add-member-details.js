@@ -212,7 +212,26 @@ class AddMemberDetails extends Component {
                                 }
                             )
                         } else {
-                            this.setState({ loaded: true })
+                            axios
+                                .get(`/api/maintainer_site/social_link`)
+                                .then(res => {
+                                    var ids = []
+                                    var arra = []
+                                    for (let i = 0; i < res.data.length; i++) {
+                                        ids.push(res.data[i].id)
+                                        var obj = { site: "", url: "" }
+                                        obj.site = res.data[i].site
+                                        obj.url = res.data[i].url
+                                        arra.push(obj)
+                                    }
+                                    this.setState(
+                                        {
+                                            linksId: ids,
+                                            links: arra,
+                                        },
+                                        () => this.setState({ loaded: true })
+                                    )
+                                })
                         }
                     }
                 )
