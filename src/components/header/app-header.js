@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import Favicon from "react-favicon"
 import Helmet from "react-helmet"
 import { Container, Grid, Icon } from "semantic-ui-react"
 import { Link } from "react-router-dom"

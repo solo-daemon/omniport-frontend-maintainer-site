@@ -75,27 +75,29 @@ class Projects extends Component {
                             )}
                         </Card.Group>
                     </div>
-                    <Segment padded basic textAlign="center">
-                        <Menu pagination>
-                            <Menu.Item
-                                onClick={() => {
-                                    this.leftClick()
-                                }}
-                                icon
-                            >
-                                <Icon name="chevron left" />
-                            </Menu.Item>
-                            {menu}
-                            <Menu.Item
-                                onClick={() => {
-                                    this.rightClick()
-                                }}
-                                icon
-                            >
-                                <Icon name="chevron right" />
-                            </Menu.Item>
-                        </Menu>
-                    </Segment>
+                    {this.props.apiProjectData.count > 1 && (
+                        <Segment padded basic textAlign="center">
+                            <Menu pagination>
+                                <Menu.Item
+                                    onClick={() => {
+                                        this.leftClick()
+                                    }}
+                                    icon
+                                >
+                                    <Icon name="chevron left" />
+                                </Menu.Item>
+                                {menu}
+                                <Menu.Item
+                                    onClick={() => {
+                                        this.rightClick()
+                                    }}
+                                    icon
+                                >
+                                    <Icon name="chevron right" />
+                                </Menu.Item>
+                            </Menu>
+                        </Segment>
+                    )}
                 </Container>
             )
         } else {
