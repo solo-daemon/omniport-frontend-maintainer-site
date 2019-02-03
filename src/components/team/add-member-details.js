@@ -38,11 +38,11 @@ class AddMemberDetails extends Component {
             shortBio: "",
             links: [],
             skills: [],
-            music: { array: [], entry: "" },
-            book: { array: [], entry: "" },
-            film: { array: [], entry: "" },
-            game: { array: [], entry: "" },
-            hobbies: { array: [], entry: "" },
+            // music: { array: [], entry: "" },
+            // book: { array: [], entry: "" },
+            // film: { array: [], entry: "" },
+            // game: { array: [], entry: "" },
+            // hobbies: { array: [], entry: "" },
             linksId: [],
             errors: {
                 music: "",
@@ -132,90 +132,91 @@ class AddMemberDetails extends Component {
                                     })
                                 })
 
-                            var arr = []
-                            for (
-                                let i = 0;
-                                i < this.state.profile[0].favouriteGames.length;
-                                i++
-                            ) {
-                                var obj = {
-                                    site: "game",
-                                    url: this.state.profile[0].favouriteGames[
-                                        i
-                                    ],
-                                }
-                                arr.push(obj)
-                            }
-                            var arr1 = []
-                            for (
-                                let i = 0;
-                                i < this.state.profile[0].favouriteMusic.length;
-                                i++
-                            ) {
-                                var obj = {
-                                    site: "music",
-                                    url: this.state.profile[0].favouriteMusic[
-                                        i
-                                    ],
-                                }
-                                arr1.push(obj)
-                            }
-                            var arr2 = []
-                            for (
-                                let i = 0;
-                                i <
-                                this.state.profile[0].favouriteLiterature
-                                    .length;
-                                i++
-                            ) {
-                                var obj = {
-                                    site: "book",
-                                    url: this.state.profile[0]
-                                        .favouriteLiterature[i],
-                                }
-                                arr2.push(obj)
-                            }
-                            var arr3 = []
-                            for (
-                                let i = 0;
-                                i < this.state.profile[0].favouriteVideo.length;
-                                i++
-                            ) {
-                                var obj = {
-                                    site: "film",
-                                    url: this.state.profile[0].favouriteVideo[
-                                        i
-                                    ],
-                                }
-                                arr3.push(obj)
-                            }
-                            var arr4 = []
-                            for (
-                                let i = 0;
-                                i <
-                                this.state.profile[0].favouriteHobbies.length;
-                                i++
-                            ) {
-                                var obj = {
-                                    site: "hobbies",
-                                    url: this.state.profile[0].favouriteHobbies[
-                                        i
-                                    ],
-                                }
-                                arr4.push(obj)
-                            }
-                            this.setState(
-                                {
-                                    game: { entry: "", array: arr },
-                                    music: { entry: "", array: arr1 },
-                                    book: { entry: "", array: arr2 },
-                                    film: { entry: "", array: arr3 },
-                                    hobbies: { entry: "", array: arr4 },
-                                },
-                                () => {
-                                    this.setState({ loaded: true })
-                                }
-                            )
+                            // var arr = []
+                            // for (
+                            //     let i = 0;
+                            //     i < this.state.profile[0].favouriteGames.length;
+                            //     i++
+                            // ) {
+                            //     var obj = {
+                            //         site: "game",
+                            //         url: this.state.profile[0].favouriteGames[
+                            //             i
+                            //         ],
+                            //     }
+                            //     arr.push(obj)
+                            // }
+                            // var arr1 = []
+                            // for (
+                            //     let i = 0;
+                            //     i < this.state.profile[0].favouriteMusic.length;
+                            //     i++
+                            // ) {
+                            //     var obj = {
+                            //         site: "music",
+                            //         url: this.state.profile[0].favouriteMusic[
+                            //             i
+                            //         ],
+                            //     }
+                            //     arr1.push(obj)
+                            // }
+                            // var arr2 = []
+                            // for (
+                            //     let i = 0;
+                            //     i <
+                            //     this.state.profile[0].favouriteLiterature
+                            //         .length;
+                            //     i++
+                            // ) {
+                            //     var obj = {
+                            //         site: "book",
+                            //         url: this.state.profile[0]
+                            //             .favouriteLiterature[i],
+                            //     }
+                            //     arr2.push(obj)
+                            // }
+                            // var arr3 = []
+                            // for (
+                            //     let i = 0;
+                            //     i < this.state.profile[0].favouriteVideo.length;
+                            //     i++
+                            // ) {
+                            //     var obj = {
+                            //         site: "film",
+                            //         url: this.state.profile[0].favouriteVideo[
+                            //             i
+                            //         ],
+                            //     }
+                            //     arr3.push(obj)
+                            // }
+                            // var arr4 = []
+                            // for (
+                            //     let i = 0;
+                            //     i <
+                            //     this.state.profile[0].favouriteHobbies.length;
+                            //     i++
+                            // ) {
+                            //     var obj = {
+                            //         site: "hobbies",
+                            //         url: this.state.profile[0].favouriteHobbies[
+                            //             i
+                            //         ],
+                            //     }
+                            //     arr4.push(obj)
+                            // }
+                            // this.setState(
+                            //     {
+                            //         game: { entry: "", array: arr },
+                            //         music: { entry: "", array: arr1 },
+                            //         book: { entry: "", array: arr2 },
+                            //         film: { entry: "", array: arr3 },
+                            //         hobbies: { entry: "", array: arr4 },
+                            //     },
+                            //     () => {
+                            //
+                            //     }
+                            // )
+                            this.setState({ loaded: true })
                         } else {
                             axios
                                 .get(`/api/maintainer_site/social_link`)
@@ -256,6 +257,7 @@ class AddMemberDetails extends Component {
         const name = target.name
         this.setState({ data: { ...this.state.data, [name]: value } })
     }
+<<<<<<< 1e58c36ad97782c4402141ee4316426b868351fc
 
     handleChange2 = e => {
         const target = e.target
@@ -280,6 +282,26 @@ class AddMemberDetails extends Component {
         }
     }
 
+=======
+    // handleChange2 = e => {
+    //     const target = e.target
+    //     const name = target.name
+    //     const value = target.value
+    //     this.setState({ [name]: { ...this.state[name], entry: value } })
+    // }
+    // addLink2 = e => {
+    //     const name = e.target.name
+
+    //     if (this.state[name].entry.length <= 63) {
+    //         var arr = this.state[name].array
+    //         var temp = { site: "" + name, url: this.state[name].entry }
+    //         arr.push(temp)
+    //         this.setState({
+    //             [name]: { array: arr, entry: "" },
+    //         })
+    //     }
+    // }
+>>>>>>> Remove hobbies from frontend and member form
     addLink = e => {
         const that = this
         that.setState({ errorUrl: false })
@@ -345,6 +367,7 @@ class AddMemberDetails extends Component {
             linksId: arr1,
         })
     }
+<<<<<<< 1e58c36ad97782c4402141ee4316426b868351fc
 
     handleUpdateDelete2 = e => {
         var name = e.target.getAttribute("pop")
@@ -362,6 +385,23 @@ class AddMemberDetails extends Component {
         })
     }
 
+=======
+    // handleUpdateDelete2 = e => {
+    //     var name = e.target.getAttribute("pop")
+
+    //     var id = e.target.id
+
+    //     var arr = []
+    //     for (let i = 0; i < this.state[name].array.length; i++) {
+    //         if (i != id) {
+    //             arr.push(this.state[name].array[i])
+    //         }
+    //     }
+    //     this.setState({
+    //         [name]: { array: arr, entry: "" },
+    //     })
+    // }
+>>>>>>> Remove hobbies from frontend and member form
     fileChange = async e => {
         const name = e.target.name
         const imageDataUrl = await readFile(e.target.files[0])
@@ -407,38 +447,38 @@ class AddMemberDetails extends Component {
             ? uploadedFileNormie.croppedImage
             : null
 
-        var book = [],
-            music = [],
-            film = [],
-            game = [],
-            hobbies = []
+        // var book = [],
+        //     music = [],
+        //     film = [],
+        //     game = [],
+        //     hobbies = []
 
-        for (let i = 0; i < this.state.book.array.length; i++) {
-            book.push(this.state.book.array[i].url)
-        }
-        for (let i = 0; i < this.state.music.array.length; i++) {
-            music.push(this.state.music.array[i].url)
-        }
-        for (let i = 0; i < this.state.film.array.length; i++) {
-            film.push(this.state.film.array[i].url)
-        }
-        for (let i = 0; i < this.state.game.array.length; i++) {
-            game.push(this.state.game.array[i].url)
-        }
-        for (let i = 0; i < this.state.hobbies.array.length; i++) {
-            hobbies.push(this.state.hobbies.array[i].url)
-        }
+        // for (let i = 0; i < this.state.book.array.length; i++) {
+        //     book.push(this.state.book.array[i].url)
+        // }
+        // for (let i = 0; i < this.state.music.array.length; i++) {
+        //     music.push(this.state.music.array[i].url)
+        // }
+        // for (let i = 0; i < this.state.film.array.length; i++) {
+        //     film.push(this.state.film.array[i].url)
+        // }
+        // for (let i = 0; i < this.state.game.array.length; i++) {
+        //     game.push(this.state.game.array[i].url)
+        // }
+        // for (let i = 0; i < this.state.hobbies.array.length; i++) {
+        //     hobbies.push(this.state.hobbies.array[i].url)
+        // }
 
         if (
             (uploadedFileD || prevUploadedFileD) &&
             (uploadedFileN || prevUploadedFileN) &&
             handle &&
             shortBio &&
-            book.length &&
-            music.length &&
-            film.length &&
-            game.length &&
-            hobbies.length &&
+            // book.length &&
+            // music.length &&
+            // film.length &&
+            // game.length &&
+            // hobbies.length &&
             skills.length <= 5 &&
             skills.length > 0
         ) {
@@ -449,17 +489,16 @@ class AddMemberDetails extends Component {
 
             formData.append("technical_skills", skills)
 
-            music.map(element => formData.append("favourite_music", element))
-            book.map(element =>
-                formData.append("favourite_literature", element)
-            )
-            film.map(element => formData.append("favourite_video", element))
-            game.map(element => formData.append("favourite_games", element))
-            hobbies.map(element =>
-                formData.append("favourite_hobbies", element)
-            )
-            console.log(uploadedFileD)
-            console.log(uploadedFileN)
+            // music.map(element => formData.append("favourite_music", element))
+            // book.map(element =>
+            //     formData.append("favourite_literature", element)
+            // )
+            // film.map(element => formData.append("favourite_video", element))
+            // game.map(element => formData.append("favourite_games", element))
+            // hobbies.map(element =>
+            //     formData.append("favourite_hobbies", element)
+            // )
+
             if (uploadedFileN && uploadedFileN.type) {
                 if (uploadedFileN.type.substring(0, 5) == "image") {
                     formData.append("normie_image", uploadedFileN)
@@ -548,11 +587,11 @@ class AddMemberDetails extends Component {
             })
             linkListOptions[this.state.socialLinksOptions[i].value] = icon
         }
-        linkListOptions["music"] = "music"
-        linkListOptions["book"] = "book"
-        linkListOptions["film"] = "film"
-        linkListOptions["game"] = "game"
-        linkListOptions["hobbies"] = "paint brush"
+        // linkListOptions["music"] = "music"
+        // linkListOptions["book"] = "book"
+        // linkListOptions["film"] = "film"
+        // linkListOptions["game"] = "game"
+        // linkListOptions["hobbies"] = "paint brush"
         if (this.state.loaded) {
             return (
                 <div>
@@ -650,7 +689,7 @@ class AddMemberDetails extends Component {
                             />
                         </Segment>
 
-                        <Segment attached="top">
+                        {/* <Segment attached="top">
                             <span>
                                 <h3>Music</h3>
                             </span>
@@ -868,7 +907,7 @@ class AddMemberDetails extends Component {
                                 name="hobbies"
                                 linkListOptions={linkListOptions}
                             />
-                        </Segment>
+                        </Segment> */}
 
                         <Form>
                             <Form.Dropdown
