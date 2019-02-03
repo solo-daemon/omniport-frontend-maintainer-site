@@ -104,6 +104,9 @@ class AddMemberDetails extends Component {
                             this.setState({
                                 handle: this.state.profile[0].handle,
                                 shortBio: this.state.profile[0].shortBiography,
+                                skills: this.state.profile[0].technicalSkills[0].split(
+                                    ","
+                                ),
                                 prevUploadedFileD: this.state.profile[0]
                                     .dankImage,
                                 prevUploadedFileN: this.state.profile[0]
@@ -347,7 +350,6 @@ class AddMemberDetails extends Component {
         })
     }
     fileChange = async e => {
-        console.log("fdsfsd")
         const name = e.target.name
         const imageDataUrl = await readFile(e.target.files[0])
         console.log(this.state.uploadedFileNormie)
@@ -364,7 +366,6 @@ class AddMemberDetails extends Component {
             this.state[name].pixelCrop
         )
         var file = dataURLtoFile(croppedImage, "image.png")
-        console.log(file)
         this.setState({
             [name]: {
                 ...this.state[name],
@@ -837,7 +838,9 @@ class AddMemberDetails extends Component {
                                 required
                                 label="Tech Skills:"
                                 options={this.state.techSkillsOptions}
+                                defaultValue={this.state.skills}
                                 onChange={(e, { value }) => {
+                                    console.log(value)
                                     this.setState({
                                         skills: value,
                                     })
