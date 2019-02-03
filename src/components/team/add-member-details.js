@@ -381,10 +381,16 @@ class AddMemberDetails extends Component {
             skills,
             uploadedFileDank,
             uploadedFileNormie,
+            prevUploadedFileD,
+            prevUploadedFileN,
         } = this.state
 
-        const uploadedFileD = uploadedFileDank.croppedImage
-        const uploadedFileN = uploadedFileNormie.croppedImage
+        const uploadedFileD = uploadedFileDank.imageSrc
+            ? uploadedFileDank.croppedImage
+            : null
+        const uploadedFileN = uploadedFileNormie.imageSrc
+            ? uploadedFileNormie.croppedImage
+            : null
 
         var book = [],
             music = [],
@@ -409,8 +415,8 @@ class AddMemberDetails extends Component {
         }
 
         if (
-            uploadedFileD &&
-            uploadedFileN &&
+            (uploadedFileD || prevUploadedFileD) &&
+            (uploadedFileN || prevUploadedFileN) &&
             handle &&
             shortBio &&
             book.length &&
@@ -439,13 +445,13 @@ class AddMemberDetails extends Component {
             )
             console.log(uploadedFileD)
             console.log(uploadedFileN)
-            if (uploadedFileN.type) {
+            if (uploadedFileN && uploadedFileN.type) {
                 if (uploadedFileN.type.substring(0, 5) == "image") {
                     formData.append("normie_image", uploadedFileN)
                 }
             }
 
-            if (uploadedFileD.type) {
+            if (uploadedFileD && uploadedFileD.type) {
                 if (uploadedFileD.type.substring(0, 5) == "image") {
                     formData.append("dank_image", uploadedFileD)
                 }
