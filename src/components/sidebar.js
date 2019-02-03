@@ -53,6 +53,15 @@ class Sidebar extends Component {
                                         Team
                                     </button>
                                 </Link>
+                                <Link
+                                    to={`${PATHNAME}alumni/`}
+                                    styleName="styles.link-color"
+                                    onClick={this.handleHide}
+                                >
+                                    <button styleName="styles.sidebar-button">
+                                        Alumni
+                                    </button>
+                                </Link>
                                 {this.props.isAuthed.auth && (
                                     <React.Fragment>
                                         <Link

@@ -5,7 +5,7 @@ import styles from "../../css/team/hobbies-card.css"
 const HobbiesCard = ({ coverIcon, array, message }) => {
     return (
         <Card raised>
-            <Reveal animated="move up" stylename="styles.revealHeight">
+            <Reveal animated="move up" stylename="styles.reveal-height">
                 <Reveal.Content visible styleName="styles.reveal">
                     <Segment basic padded styleName="styles.visible">
                         <Icon name={coverIcon} size="huge" />

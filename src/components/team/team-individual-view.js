@@ -28,7 +28,7 @@ class TeamIndividualView extends Component {
             loaded: false,
             options: [],
             role: "",
-            member_projects: [],
+            memberProjects: [],
             designation: "",
         }
         this.requestForProjects = this.requestForProjects.bind(this)
@@ -50,7 +50,7 @@ class TeamIndividualView extends Component {
         URL = `/api/maintainer_site/maintainer_project/${id}`
         axios.get(URL).then(res => {
             this.setState({
-                member_projects: res.data,
+                memberProjects: res.data,
                 loaded: true,
             })
         })
@@ -155,13 +155,13 @@ class TeamIndividualView extends Component {
 
                         <Divider section />
 
-                        {Boolean(this.state.member_projects.length) && (
+                        {Boolean(this.state.memberProjects.length) && (
                             <React.Fragment>
                                 <Header as="h2" textAlign="center">
                                     Projects
                                 </Header>
-                                <Card.Group itemsPerRow={3} doubling>
-                                    {this.state.member_projects.map(
+                                <Card.Group itemsPerRow={3} doubling stackable>
+                                    {this.state.memberProjects.map(
                                         (info, index) => (
                                             <ProjectDetail
                                                 key={index}

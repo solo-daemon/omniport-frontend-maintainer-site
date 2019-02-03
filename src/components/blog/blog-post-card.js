@@ -1,18 +1,18 @@
 import React from "react"
 import moment from "moment"
+
 import { Card, Image } from "semantic-ui-react"
 import styles from "../../css/blog/blog.css"
 import getCroppedImg from "../getCroppedImage"
 
 const MEDIUM_URL = "https://medium.com/"
-const MEDIUM_PUBLICATION = "img-iit-roorkee"
 const BLOG_IMAGE_URL = "https://cdn-images-1.medium.com/max/600/"
 const AUTHOR_IMAGE_URL = "https://cdn-images-1.medium.com/fit/c/50/50/"
 
 const imageStyle = id => {
     return {
         width: "100%",
-        height: "230px",
+        height: "200px",
         backgroundImage: "url(" + BLOG_IMAGE_URL + id + ")",
         backgroundPosition: "center",
         backgroundSize: "cover",
@@ -21,14 +21,15 @@ const imageStyle = id => {
 
 const BlogDetail = ({ info, pub }) => {
     return (
-        <Card
-            raised
-            href={`${MEDIUM_URL}${pub}/${info.slug}-${info.id}`}
-            target="_blank"
-        >
-            <div style={imageStyle(info.imageId)} />
+        <Card raised target="_blank">
+            <a href={`${MEDIUM_URL}${pub}/${info.slug}-${info.id}`}>
+                <div style={imageStyle(info.imageId)} />
+            </a>
 
-            <Card.Content textAlign="left">
+            <Card.Content
+                textAlign="left"
+                href={`${MEDIUM_URL}${pub}/${info.slug}-${info.id}`}
+            >
                 <Card.Header>{info.title}</Card.Header>
                 <Card.Description>{info.subtitle}</Card.Description>
             </Card.Content>

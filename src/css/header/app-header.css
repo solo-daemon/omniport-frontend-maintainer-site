@@ -64,7 +64,7 @@
 .link {
     background-color: transparent;
     text-transform: uppercase;
-    padding: 0.5em 1em;
+    padding: 0.5em 0.7em;
     font-family: "TypoPRO Bebas Neue";
     font-size: 1.5rem;
     cursor: pointer;
@@ -77,7 +77,7 @@
     background-color: transparent;
     color: #263146;
     text-transform: uppercase;
-    padding: 0.5em 1em;
+    padding: 0.5em 0.7em;
     font-family: "TypoPRO Bebas Neue";
     font-size: 1.5rem;
     transition: color 0.3s;
@@ -91,7 +91,7 @@
     background-color: transparent;
     color: #000000;
     text-transform: uppercase;
-    padding: 0.5em 1em;
+    padding: 0.5em 0.7em;
     font-family: "TypoPRO Bebas Neue";
     font-size: 1.5rem;
     transition: color 0.3s;

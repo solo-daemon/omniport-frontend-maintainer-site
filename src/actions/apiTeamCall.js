@@ -15,6 +15,9 @@ const requestTeamData = url => {
                     dispatch(receiveTeamData(url, memberRes, optionsRes))
                 })
             )
+            .catch(error => {
+                dispatch(errorOccured(url, error))
+            })
     }
 }
 

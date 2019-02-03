@@ -9,7 +9,6 @@ class Blog extends Component {
     componentDidMount() {
         const URL = "blogs"
         this.props.requestBlogData(URL)
-        console.log(this.props)
     }
 
     render() {
