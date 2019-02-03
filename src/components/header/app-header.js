@@ -80,13 +80,40 @@ class AppHeader extends Component {
         }
     }
 
-    pageHead = () => <title>{this.props.title}</title>
+    pageHead = () => {
+        return this.props.title
+    }
 
     render() {
         return (
             <React.Fragment>
-                <Helmet>{this.pageHead()}</Helmet>
-                <Favicon url="/static/maintainer_site/logo.svg" />
+                <Helmet>
+                    <title>{this.pageHead()}</title>
+
+                    <link
+                        rel="apple-touch-icon"
+                        sizes="180x180"
+                        href="/static/maintainer_site/favicon/apple-touch-icon.png"
+                    />
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        sizes="32x32"
+                        href="/static/maintainer_site/favicon/favicon-32x32.png"
+                    />
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        sizes="16x16"
+                        href="/static/maintainer_site/favicon/favicon-16x16.png"
+                    />
+                    <link
+                        rel="manifest"
+                        href="/static/maintainer_site/favicon/site.webmanifest"
+                    />
+                    <meta name="msapplication-TileColor" content="#ffc40d" />
+                    <meta name="theme-color" content="#ffffff" />
+                </Helmet>
                 <div styleName="styles.position">
                     <div styleName={`styles.${this.handleContainerStyle()}`}>
                         <Container styleName="styles.container-margin">
