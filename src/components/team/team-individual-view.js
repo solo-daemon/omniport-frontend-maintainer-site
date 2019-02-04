@@ -67,7 +67,7 @@ class TeamIndividualView extends Component {
             : []
 
         if (this.state.loaded) {
-            let temp = this.state.memberDetails.technicalSkills[0]
+            let temp = this.state.memberDetails.technicalSkills
             let tempArr = temp.split(",")
             return (
                 <div>

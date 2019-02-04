@@ -108,7 +108,7 @@ class AddMemberDetails extends Component {
                                 handle: this.state.profile[0].handle,
                                 shortBio: this.state.profile[0].shortBiography,
                                 skills: {
-                                    array: this.state.profile[0].technicalSkills[0].split(
+                                    array: this.state.profile[0].technicalSkills.split(
                                         ","
                                     ),
                                     entry: "",
