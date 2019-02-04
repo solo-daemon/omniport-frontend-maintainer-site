@@ -179,7 +179,7 @@ class TeamIndividualView extends Component {
                         <Header as="h2" textAlign="center">
                             Hobbies
                         </Header>
-                        <Card.Group itemsPerRow={3} doubling>
+                        <Card.Group itemsPerRow={6} doubling>
                             <HobbiesCard
                                 coverIcon="music"
                                 array={this.state.memberDetails.favouriteMusic}

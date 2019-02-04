@@ -31,12 +31,11 @@ class AddProjectDetails extends Component {
                 image: "",
                 members: [],
             },
-
             validImage: true,
             slug: false,
             title: false,
             loaded: false,
-
+            imageCrop: true,
             imageSrc: null,
             pixelCrop: null,
             crop: {
@@ -60,6 +59,7 @@ class AddProjectDetails extends Component {
             )
         })
     }
+
     fileChange = async e => {
         this.setState({
             [e.target.name]: e.target.files[0],
@@ -71,6 +71,7 @@ class AddProjectDetails extends Component {
             open: true,
         })
     }
+
     handleEditorChange = content => {
         this.setState({
             data: { ...this.state.data, longDescription: content },
@@ -89,6 +90,13 @@ class AddProjectDetails extends Component {
 
     handlePost = () => {
         const { data, croppedImage } = this.state
+        let image
+
+        !croppedImage ? (image = false) : (image = true)
+
+        this.setState({
+            imageCrop: image,
+        })
 
         if (
             data.longDescription &&
@@ -99,7 +107,8 @@ class AddProjectDetails extends Component {
             croppedImage
         ) {
             var formData = new FormData()
-
+            console.log(233)
+            console.log(croppedImage)
             formData.append("slug", data.slug)
             formData.append("title", data.title)
             formData.append("short_description", data.shortDescription)
@@ -123,6 +132,7 @@ class AddProjectDetails extends Component {
                 .then(function(response) {
                     //handle success
                     that.props.history.push("../projects/")
+                    console.log(response)
                 })
                 .catch(function(response) {
                     //handle error
@@ -142,6 +152,7 @@ class AddProjectDetails extends Component {
                     } else {
                         that.setState({ validImage: true })
                     }
+                    console.log(response)
                 })
         }
     }
@@ -254,22 +265,23 @@ class AddProjectDetails extends Component {
                         />
                         <Form.Field required>
                             <label>Image:</label>
+                            {!this.state.imageCrop && (
+                                <Label color="red" pointing>
+                                    Please crop your image
+                                </Label>
+                            )}
                             <input
                                 type="file"
                                 onChange={this.fileChange}
                                 name="uploadedFile"
                                 onClick={this.handleOpen}
                             />
-                            {!this.state.validImage && (
-                                <Label color="red" pointing>
-                                    Select valid image
-                                </Label>
-                            )}
                         </Form.Field>
                         <Modal
                             size="tiny"
                             open={this.state.open}
                             onClose={this.handleClose}
+                            dimmer="blurring"
                         >
                             <Modal.Header>Crop project's photo</Modal.Header>
                             <Modal.Content image>
@@ -302,6 +314,9 @@ class AddProjectDetails extends Component {
                                 </Button>
                             </Modal.Actions>
                         </Modal>
+                        <Button onClick={this.handlePost} positive>
+                            Add project
+                        </Button>
                     </Form>
                     <Segment basic />
                 </Container>

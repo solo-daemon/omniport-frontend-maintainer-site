@@ -18,3 +18,11 @@
     word-break: break-all;
     padding: 0.5em;
 }
+
+.previous-upload-button {
+    margin-bottom: 1.4em !important;
+}
+
+.submit-button {
+    display: block !important;
+}

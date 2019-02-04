@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react"
 import axios from "axios"
+import { getCookie, CustomCropper } from "formula_one"
 
 import {
     Form,
@@ -11,14 +12,15 @@ import {
     Segment,
     Label,
     Loader,
+    Modal,
+    Image,
 } from "semantic-ui-react"
-import style from "../../css/team/add-member-details.css"
+
+import styles from "../../css/team/add-member-details.css"
 import common from "../../css/page-common-styles.css"
+
 import getCroppedImg from "../getCroppedImage"
-
 import LinkList from "./linkList"
-
-import { getCookie, CustomCropper } from "formula_one"
 
 const initial = {
     data: { site: "git", url: "" },
@@ -74,9 +76,9 @@ class AddMemberDetails extends Component {
             techSkillsOptions: [],
             socialLinksOptions: [],
             loaded: false,
+            normieOpen: false,
+            dankOpen: false,
         }
-        this.handlePost = this.handlePost.bind(this)
-        this.showCroppedImage = this.showCroppedImage.bind(this)
     }
     componentDidMount() {
         const URL1 = `/api/maintainer_site/logged_maintainer`
@@ -241,27 +243,34 @@ class AddMemberDetails extends Component {
             })
         )
     }
+
     onChange = (event, data) => {
         const { value } = data
 
         this.setState({ data: { ...this.state.data, site: value } })
     }
+
     handleChange = e => {
         const target = e.target
         const value = target.value
         const name = target.name
         this.setState({ data: { ...this.state.data, [name]: value } })
     }
+
     handleChange2 = e => {
         const target = e.target
         const name = target.name
         const value = target.value
         this.setState({ [name]: { ...this.state[name], entry: value } })
     }
-    addLink2 = e => {
-        const name = e.target.name
 
-        if (this.state[name].entry.length <= 63) {
+    addLink2 = e => {
+        let name = e.target.name
+
+        if (
+            this.state[name].entry.length <= 63 &&
+            this.state[name].entry.length > 0
+        ) {
             var arr = this.state[name].array
             var temp = { site: "" + name, url: this.state[name].entry }
             arr.push(temp)
@@ -270,6 +279,7 @@ class AddMemberDetails extends Component {
             })
         }
     }
+
     addLink = e => {
         const that = this
         that.setState({ errorUrl: false })
@@ -299,6 +309,7 @@ class AddMemberDetails extends Component {
                 }
             })
     }
+
     handleUpdateDelete = e => {
         var id1 = e.target.id
         var arr = []
@@ -334,6 +345,7 @@ class AddMemberDetails extends Component {
             linksId: arr1,
         })
     }
+
     handleUpdateDelete2 = e => {
         var name = e.target.getAttribute("pop")
 
@@ -349,6 +361,7 @@ class AddMemberDetails extends Component {
             [name]: { array: arr, entry: "" },
         })
     }
+
     fileChange = async e => {
         const name = e.target.name
         const imageDataUrl = await readFile(e.target.files[0])
@@ -360,6 +373,7 @@ class AddMemberDetails extends Component {
             },
         })
     }
+
     showCroppedImage = async name => {
         const croppedImage = await getCroppedImg(
             this.state[name].imageSrc,
@@ -374,7 +388,7 @@ class AddMemberDetails extends Component {
         })
     }
 
-    handlePost() {
+    handlePost = () => {
         const {
             handle,
             shortBio,
@@ -488,6 +502,34 @@ class AddMemberDetails extends Component {
         }
     }
 
+    handleClose = e => {
+        let triggered = e.target.name
+        console.log(triggered)
+        if (triggered === "uploadedFileNormie") {
+            this.setState({
+                normieOpen: false,
+            })
+        } else if (triggered === "uploadedFileDank") {
+            this.setState({
+                dankOpen: false,
+            })
+        }
+    }
+
+    handleOpen = e => {
+        let triggered = e.target.name
+        console.log(triggered)
+        if (triggered === "uploadedFileNormie") {
+            this.setState({
+                normieOpen: true,
+            })
+        } else if (triggered === "uploadedFileDank") {
+            this.setState({
+                dankOpen: true,
+            })
+        }
+    }
+
     render() {
         //Computation to get all social Links from options functions and for other using globe icon
         const options = []
@@ -556,7 +598,7 @@ class AddMemberDetails extends Component {
 
                         <Segment
                             attached="top"
-                            styleName="style.headingBox"
+                            styleName="styles.headingBox"
                             fluid
                         >
                             <span>
@@ -857,91 +899,183 @@ class AddMemberDetails extends Component {
                                 <input
                                     type="file"
                                     onChange={this.fileChange}
-                                    name={"uploadedFileNormie"}
+                                    name="uploadedFileNormie"
+                                    onClick={this.handleOpen}
                                 />
                             </Form.Field>
-
-                            {this.state.uploadedFileNormie.imageSrc && (
-                                <Fragment>
-                                    <CustomCropper
-                                        src={
-                                            this.state.uploadedFileNormie
-                                                .imageSrc
-                                        }
-                                        crop={
-                                            this.state.uploadedFileNormie.crop
-                                        }
-                                        onChange={crop => {
-                                            this.setState({
-                                                uploadedFileNormie: {
-                                                    ...this.state
-                                                        .uploadedFileNormie,
-                                                    crop: crop,
-                                                },
-                                            })
-                                        }}
-                                        onComplete={(crop, pixelCrop) => {
-                                            this.state.uploadedFileNormie.pixelCrop = pixelCrop
-                                            this.showCroppedImage(
-                                                "uploadedFileNormie"
-                                            )
-                                        }}
-                                    />
-                                </Fragment>
-                            )}
+                            <Modal
+                                size="tiny"
+                                open={this.state.normieOpen}
+                                onClose={this.handleClose}
+                            >
+                                <Modal.Header>
+                                    Crop <em>Normie</em> Image
+                                </Modal.Header>
+                                <Modal.Content image>
+                                    {this.state.uploadedFileNormie.imageSrc && (
+                                        <Fragment>
+                                            <CustomCropper
+                                                src={
+                                                    this.state
+                                                        .uploadedFileNormie
+                                                        .imageSrc
+                                                }
+                                                crop={
+                                                    this.state
+                                                        .uploadedFileNormie.crop
+                                                }
+                                                onChange={crop => {
+                                                    this.setState({
+                                                        uploadedFileNormie: {
+                                                            ...this.state
+                                                                .uploadedFileNormie,
+                                                            crop: crop,
+                                                        },
+                                                    })
+                                                }}
+                                                onComplete={(
+                                                    crop,
+                                                    pixelCrop
+                                                ) => {
+                                                    this.state.uploadedFileNormie.pixelCrop = pixelCrop
+                                                    this.showCroppedImage(
+                                                        "uploadedFileNormie"
+                                                    )
+                                                }}
+                                            />
+                                        </Fragment>
+                                    )}
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button
+                                        positive
+                                        type="submit"
+                                        onClick={this.handleClose}
+                                        name="uploadedFileNormie"
+                                    >
+                                        Done
+                                    </Button>
+                                </Modal.Actions>
+                            </Modal>
 
                             {this.state.prevUploadedFileN && (
-                                <a
-                                    href={this.state.prevUploadedFileN}
-                                    target="_blank"
+                                <Modal
+                                    trigger={
+                                        <Button
+                                            styleName="styles.previous-upload-button"
+                                            basic
+                                            color="blue"
+                                        >
+                                            See previous upload
+                                        </Button>
+                                    }
+                                    size="tiny"
+                                    dimmer="blurring"
                                 >
-                                    See previous uploaded
-                                </a>
+                                    <Modal.Header>
+                                        Previous <em>Normie</em> Image
+                                    </Modal.Header>
+                                    <Modal.Content image>
+                                        <Image
+                                            src={this.state.prevUploadedFileN}
+                                        />
+                                    </Modal.Content>
+                                </Modal>
                             )}
-                            <Segment basic />
+
                             <Form.Field required>
                                 <label>Dank Image:</label>
                                 <input
                                     type="file"
                                     onChange={this.fileChange}
-                                    name={"uploadedFileDank"}
+                                    name="uploadedFileDank"
+                                    onClick={this.handleOpen}
                                 />
                             </Form.Field>
-                            {this.state.uploadedFileDank.imageSrc && (
-                                <Fragment>
-                                    <CustomCropper
-                                        src={
-                                            this.state.uploadedFileDank.imageSrc
-                                        }
-                                        crop={this.state.uploadedFileDank.crop}
-                                        onChange={crop => {
-                                            this.setState({
-                                                uploadedFileDank: {
-                                                    ...this.state
-                                                        .uploadedFileDank,
-                                                    crop: crop,
-                                                },
-                                            })
-                                        }}
-                                        onComplete={(crop, pixelCrop) => {
-                                            this.state.uploadedFileDank.pixelCrop = pixelCrop
-                                            this.showCroppedImage(
-                                                "uploadedFileDank"
-                                            )
-                                        }}
-                                    />
-                                </Fragment>
-                            )}
+                            <Modal
+                                size="tiny"
+                                open={this.state.dankOpen}
+                                onClose={this.handleClose}
+                            >
+                                <Modal.Header>
+                                    Crop <em>Dank</em> Image
+                                </Modal.Header>
+                                <Modal.Content image>
+                                    {this.state.uploadedFileDank.imageSrc && (
+                                        <Fragment>
+                                            <CustomCropper
+                                                src={
+                                                    this.state.uploadedFileDank
+                                                        .imageSrc
+                                                }
+                                                crop={
+                                                    this.state.uploadedFileDank
+                                                        .crop
+                                                }
+                                                onChange={crop => {
+                                                    this.setState({
+                                                        uploadedFileDank: {
+                                                            ...this.state
+                                                                .uploadedFileDank,
+                                                            crop: crop,
+                                                        },
+                                                    })
+                                                }}
+                                                onComplete={(
+                                                    crop,
+                                                    pixelCrop
+                                                ) => {
+                                                    this.state.uploadedFileDank.pixelCrop = pixelCrop
+                                                    this.showCroppedImage(
+                                                        "uploadedFileDank"
+                                                    )
+                                                }}
+                                            />
+                                        </Fragment>
+                                    )}
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button
+                                        positive
+                                        type="submit"
+                                        name="uploadedFileDank"
+                                        onClick={this.handleClose}
+                                    >
+                                        Done
+                                    </Button>
+                                </Modal.Actions>
+                            </Modal>
+
                             {this.state.prevUploadedFileD && (
-                                <a
-                                    href={this.state.prevUploadedFileD}
-                                    target="_blank"
+                                <Modal
+                                    trigger={
+                                        <Button
+                                            styleName="styles.previous-upload-button"
+                                            basic
+                                            color="blue"
+                                        >
+                                            See previous upload
+                                        </Button>
+                                    }
+                                    dimmer="blurring"
+                                    size="tiny"
                                 >
-                                    See previous uploaded
-                                </a>
+                                    <Modal.Header>
+                                        Previous <em>Dank</em> Image
+                                    </Modal.Header>
+                                    <Modal.Content image>
+                                        <Image
+                                            src={this.state.prevUploadedFileD}
+                                        />
+                                    </Modal.Content>
+                                </Modal>
                             )}
-                            <Segment basic />
-                            <Button type="submit" onClick={this.handlePost}>
+
+                            <Button
+                                onClick={this.handlePost}
+                                positive
+                                styleName="styles.submit-button"
+                            >
                                 Add Member
                             </Button>
                         </Form>
@@ -961,6 +1095,7 @@ function readFile(file) {
         reader.readAsDataURL(file)
     })
 }
+
 function dataURLtoFile(dataurl, filename) {
     var arr = dataurl.split(","),
         mime = arr[0].match(/:(.*?);/)[1],
