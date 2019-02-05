@@ -64,41 +64,62 @@
 .link {
     background-color: transparent;
     text-transform: uppercase;
-    padding: 0.5em 0.7em;
+    padding: 0.5em 1em;
     font-family: "TypoPRO Bebas Neue";
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
     border: none;
     outline: none;
-    margin-left: 0.5em;
+}
+
+.link:focus {
+    outline: 0;
+}
+
+.link:hover {
+    opacity: 0.8;
 }
 
 .link-before-scroll-main {
     background-color: transparent;
     color: #263146;
     text-transform: uppercase;
-    padding: 0.5em 0.7em;
+    padding: 0.5em 1em;
     font-family: "TypoPRO Bebas Neue";
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     transition: color 0.3s;
     cursor: pointer;
     border: none;
     outline: none;
-    margin-left: 0.5em;
+}
+
+.link-before-scroll-main:focus {
+    outline: 0;
+}
+
+.link-before-scroll-main:hover {
+    opacity: 0.8;
 }
 
 .link-after-scroll-main {
     background-color: transparent;
     color: #000000;
     text-transform: uppercase;
-    padding: 0.5em 0.7em;
+    padding: 0.5em 1em;
     font-family: "TypoPRO Bebas Neue";
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     transition: color 0.3s;
     cursor: pointer;
     border: none;
     outline: none;
-    margin-left: 0.5em;
+}
+
+.link-after-scroll-main:focus {
+    outline: 0;
+}
+
+.link-after-scroll-main:hover {
+    opacity: 0.8;
 }
 
 .hamburger {

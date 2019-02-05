@@ -52,12 +52,14 @@
     text-transform: uppercase;
     font-family: "TypoPRO Bebas Neue";
     font-size: 1.7rem;
+    font-weight: bold;
     cursor: pointer;
     border: none;
     text-align: left;
     padding: 0.5em 0.3em;
     display: block;
     outline: none;
+    margin-left: 0.4em;
 }
 
 .overlay {

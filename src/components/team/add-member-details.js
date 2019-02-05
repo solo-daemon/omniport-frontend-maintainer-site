@@ -890,12 +890,21 @@ class AddMemberDetails extends Component {
                                 linkListOptions={linkListOptions}
                             />
                         </Segment> */}
+
                         <Segment attached="top">
                             <span>
                                 <h3>Tech Skills</h3>
                             </span>
                         </Segment>
                         <Segment textAlign="left" attached="bottom">
+                            Add your tech skills in a punctuated form. For
+                            example, 'Adobe Illustrator' or 'Python'. You may
+                            visit
+                            <a href="https://simpleicons.org" target="_blank">
+                                {" "}
+                                Simple Icons{" "}
+                            </a>
+                            for reference.
                             <Form>
                                 <Form.Field>
                                     <Form.Input
@@ -916,7 +925,6 @@ class AddMemberDetails extends Component {
                                     </Button>
                                 </Form.Field>
                             </Form>
-
                             <LinkList
                                 data={this.state.skills.array}
                                 handleUpdateDelete={

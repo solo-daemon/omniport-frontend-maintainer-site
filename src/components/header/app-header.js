@@ -2,12 +2,16 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import Helmet from "react-helmet"
 import { Container, Grid, Icon } from "semantic-ui-react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { isBrowser } from "react-device-detect"
 
 import styles from "../../css/header/app-header.css"
 
 const PATHNAME = "/maintainer_site/"
+
+const ACTIVE_NAV_STYLE = {
+    borderBottom: "2.5px solid #000000",
+}
 
 class AppHeader extends Component {
     constructor(props) {
@@ -79,6 +83,11 @@ class AppHeader extends Component {
         }
     }
 
+    handleSelection = (match, location) => {
+        console.log(match)
+        console.log(location)
+    }
+
     pageHead = () => {
         return this.props.title
     }
@@ -113,10 +122,12 @@ class AppHeader extends Component {
                                     <div styleName="button">
                                         {isBrowser ? (
                                             <React.Fragment>
-                                                <Link
+                                                <NavLink
                                                     to={`${PATHNAME}blog/`}
                                                     styleName="styles.link-color"
-                                                    onClick={this.handleSwitch}
+                                                    activeStyle={
+                                                        ACTIVE_NAV_STYLE
+                                                    }
                                                 >
                                                     <button
                                                         name="blog"
@@ -124,11 +135,13 @@ class AppHeader extends Component {
                                                     >
                                                         Blog
                                                     </button>
-                                                </Link>
-                                                <Link
+                                                </NavLink>
+                                                <NavLink
                                                     to={`${PATHNAME}projects/`}
                                                     styleName="styles.link-color"
-                                                    onClick={this.handleSwitch}
+                                                    activeStyle={
+                                                        ACTIVE_NAV_STYLE
+                                                    }
                                                 >
                                                     <button
                                                         name="projects"
@@ -136,11 +149,13 @@ class AppHeader extends Component {
                                                     >
                                                         Projects
                                                     </button>
-                                                </Link>
-                                                <Link
+                                                </NavLink>
+                                                <NavLink
                                                     to={`${PATHNAME}team/`}
                                                     styleName="styles.link-color"
-                                                    onClick={this.handleSwitch}
+                                                    activeStyle={
+                                                        ACTIVE_NAV_STYLE
+                                                    }
                                                 >
                                                     <button
                                                         name="team"
@@ -148,11 +163,13 @@ class AppHeader extends Component {
                                                     >
                                                         Team
                                                     </button>
-                                                </Link>
-                                                <Link
+                                                </NavLink>
+                                                <NavLink
                                                     to={`${PATHNAME}alumni/`}
                                                     styleName="styles.link-color"
-                                                    onClick={this.handleSwitch}
+                                                    activeStyle={
+                                                        ACTIVE_NAV_STYLE
+                                                    }
                                                 >
                                                     <button
                                                         name="team"
@@ -160,15 +177,14 @@ class AppHeader extends Component {
                                                     >
                                                         Alumni
                                                     </button>
-                                                </Link>
+                                                </NavLink>
                                                 {this.props.isAuthed.auth && (
                                                     <React.Fragment>
-                                                        <Link
+                                                        <NavLink
                                                             to={`${PATHNAME}add_member_details/`}
                                                             styleName="styles.link-color"
-                                                            onClick={
-                                                                this
-                                                                    .handleSwitch
+                                                            activeStyle={
+                                                                ACTIVE_NAV_STYLE
                                                             }
                                                         >
                                                             <button
@@ -177,13 +193,12 @@ class AppHeader extends Component {
                                                             >
                                                                 * Member
                                                             </button>
-                                                        </Link>
-                                                        <Link
+                                                        </NavLink>
+                                                        <NavLink
                                                             to={`${PATHNAME}add_project_details/`}
                                                             styleName="styles.link-color"
-                                                            onClick={
-                                                                this
-                                                                    .handleSwitch
+                                                            activeStyle={
+                                                                ACTIVE_NAV_STYLE
                                                             }
                                                         >
                                                             <button
@@ -192,7 +207,7 @@ class AppHeader extends Component {
                                                             >
                                                                 * Project
                                                             </button>
-                                                        </Link>
+                                                        </NavLink>
                                                     </React.Fragment>
                                                 )}
                                             </React.Fragment>
