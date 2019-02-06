@@ -1,7 +1,5 @@
 import React, { Component } from "react"
-import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { toggleSidebar } from "../actions/toggleSidebar"
 
 import styles from "../css/sidebar.css"
 
@@ -9,6 +7,10 @@ const PATHNAME = "/maintainer_site/"
 class Sidebar extends Component {
     handleHide = () => {
         this.props.toggleSidebar(false, "sidebar-container-shrink")
+    }
+
+    handleClick = e => {
+        this.props.navMobileTitleRender(e.target.name)
     }
 
     render() {
@@ -31,7 +33,11 @@ class Sidebar extends Component {
                                     styleName="styles.link-color"
                                     onClick={this.handleHide}
                                 >
-                                    <button styleName="styles.sidebar-button">
+                                    <button
+                                        name="blog"
+                                        styleName="styles.sidebar-button"
+                                        onClick={this.handleClick}
+                                    >
                                         Blog
                                     </button>
                                 </Link>
@@ -40,7 +46,11 @@ class Sidebar extends Component {
                                     styleName="styles.link-color"
                                     onClick={this.handleHide}
                                 >
-                                    <button styleName="styles.sidebar-button">
+                                    <button
+                                        name="projects"
+                                        styleName="styles.sidebar-button"
+                                        onClick={this.handleClick}
+                                    >
                                         Projects
                                     </button>
                                 </Link>
@@ -49,7 +59,11 @@ class Sidebar extends Component {
                                     styleName="styles.link-color"
                                     onClick={this.handleHide}
                                 >
-                                    <button styleName="styles.sidebar-button">
+                                    <button
+                                        name="team"
+                                        styleName="styles.sidebar-button"
+                                        onClick={this.handleClick}
+                                    >
                                         Team
                                     </button>
                                 </Link>
@@ -58,7 +72,11 @@ class Sidebar extends Component {
                                     styleName="styles.link-color"
                                     onClick={this.handleHide}
                                 >
-                                    <button styleName="styles.sidebar-button">
+                                    <button
+                                        name="alumni"
+                                        styleName="styles.sidebar-button"
+                                        onClick={this.handleClick}
+                                    >
                                         Alumni
                                     </button>
                                 </Link>
@@ -69,7 +87,11 @@ class Sidebar extends Component {
                                             styleName="styles.link-color"
                                             onClick={this.handleHide}
                                         >
-                                            <button styleName="styles.sidebar-button">
+                                            <button
+                                                name="add member details"
+                                                styleName="styles.sidebar-button"
+                                                onClick={this.handleClick}
+                                            >
                                                 * Member
                                             </button>
                                         </Link>
@@ -78,7 +100,11 @@ class Sidebar extends Component {
                                             styleName="styles.link-color"
                                             onClick={this.handleHide}
                                         >
-                                            <button styleName="styles.sidebar-button">
+                                            <button
+                                                name="add project details"
+                                                styleName="styles.sidebar-button"
+                                                onClick={this.handleClick}
+                                            >
                                                 * Project
                                             </button>
                                         </Link>
@@ -93,22 +119,4 @@ class Sidebar extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        sidebarVisible: state.sidebarVisible,
-        isAuthed: state.isAuthed,
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleSidebar: (visible, style) => {
-            dispatch(toggleSidebar(visible, style))
-        },
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Sidebar)
+export default Sidebar
