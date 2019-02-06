@@ -20,7 +20,7 @@ const sidebarVisible = (
             }
         default:
             let name = action.name
-            console.log(12)
+
             if (window.location.pathname === `${PATHNAME}`) {
                 name = ""
             } else if (window.location.pathname === `${PATHNAME}blog/`) {

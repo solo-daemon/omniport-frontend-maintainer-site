@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
+import { Route } from "react-router-dom"
 import {
     Card,
     Image,
@@ -19,6 +20,7 @@ import ProjectDetail from "../projects/project-card"
 
 import HobbiesCard from "../team/hobbies-card"
 import TechSkillsCard from "../team/tech-skills-card"
+import NoMatch from "../404/404"
 
 class AlumniIndividualView extends Component {
     constructor(props) {
@@ -30,23 +32,31 @@ class AlumniIndividualView extends Component {
             role: "",
             memberProjects: [],
             designation: "",
+            error: false,
         }
-        this.requestForProjects = this.requestForProjects.bind(this)
     }
+
     componentDidMount() {
         const { handle } = this.props.match.params
         const URL = `/api/maintainer_site/inactive_maintainer_info/${handle}`
-        const URL2 = axios.all([axios.get(URL), axios.options(URL)]).then(
-            axios.spread((memberRes, optionsRes) => {
-                this.setState({
-                    memberDetails: memberRes.data,
-                    options: optionsRes.data,
+        axios
+            .all([axios.get(URL), axios.options(URL)])
+            .then(
+                axios.spread((memberRes, optionsRes) => {
+                    this.setState({
+                        memberDetails: memberRes.data,
+                        options: optionsRes.data,
+                    })
+                    this.requestForProjects(memberRes.data.maintainer.id)
                 })
-                this.requestForProjects(memberRes.data.maintainer.id)
+            )
+            .catch(error => {
+                this.setState({
+                    error: <Route component={NoMatch} />,
+                })
             })
-        )
     }
-    requestForProjects(id) {
+    requestForProjects = id => {
         URL = `/api/maintainer_site/maintainer_project/${id}`
         axios.get(URL).then(res => {
             this.setState({
@@ -220,6 +230,8 @@ class AlumniIndividualView extends Component {
                     </Container>
                 </div>
             )
+        } else if (this.state.error) {
+            return this.state.error
         } else {
             return <Loader active size="large" />
         }

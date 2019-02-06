@@ -8,7 +8,6 @@ import { requestInfoData } from "../actions/apiInfoCall"
 import { toggleSidebar } from "../actions/sidebarClick"
 import { requestMaintainerAccess } from "../actions/apiAuthCall"
 
-import { NoMatch } from "formula_one"
 import ScrollToTop from "./scroll-to-top"
 import AppHeader from "../containers/header/appHeader"
 import MainPage from "../components/main/main-page"
@@ -22,6 +21,7 @@ import Blog from "../containers/blog/blogPageLoader"
 import Projects from "../containers/project/projectPageLoader"
 import ProjectDetailView from "./projects/project-detail-view"
 import Sidebar from "../containers/sidebar"
+import NoMatch from "./404/404"
 
 import AppFooter from "../components/footer/app-footer"
 
@@ -103,25 +103,27 @@ class App extends Component {
                         path={`${match.path}alumni/:handle`}
                         component={AlumniIndividualView}
                     />
-
                     {this.props.isAuthed.loaded && (
-                        <React.Fragment>
+                        <Switch>
                             {this.props.isAuthed.auth && (
-                                <React.Fragment>
+                                <Switch>
                                     <Route
+                                        exact
                                         path={`${
                                             match.path
                                         }add_project_details`}
                                         component={AddProjectDetails}
                                     />
                                     <Route
+                                        exact
                                         path={`${match.path}add_member_details`}
                                         component={AddMemberDetails}
                                     />
-                                </React.Fragment>
+                                    <Route component={NoMatch} />
+                                </Switch>
                             )}
                             <Route component={NoMatch} />
-                        </React.Fragment>
+                        </Switch>
                     )}
                 </Switch>
             </ScrollToTop>

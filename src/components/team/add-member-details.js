@@ -664,11 +664,13 @@ class AddMemberDetails extends Component {
                                 </Form.Field>
                             </Form>
 
-                            <LinkList
-                                data={this.state.links}
-                                handleUpdateDelete={this.handleUpdateDelete}
-                                linkListOptions={linkListOptions}
-                            />
+                            {this.state.links === [] && (
+                                <LinkList
+                                    data={this.state.links}
+                                    handleUpdateDelete={this.handleUpdateDelete}
+                                    linkListOptions={linkListOptions}
+                                />
+                            )}
                         </Segment>
 
                         {/* <Segment attached="top">
@@ -925,13 +927,15 @@ class AddMemberDetails extends Component {
                                     </Button>
                                 </Form.Field>
                             </Form>
-                            <LinkList
-                                data={this.state.skills.array}
-                                handleUpdateDelete={
-                                    this.handleUpdateDeleteSkills
-                                }
-                                name="skills"
-                            />
+                            {!this.state.skills.array === [] && (
+                                <LinkList
+                                    data={this.state.skills.array}
+                                    handleUpdateDelete={
+                                        this.handleUpdateDeleteSkills
+                                    }
+                                    name="skills"
+                                />
+                            )}
                         </Segment>
 
                         <Form>

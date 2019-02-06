@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
+import { Route } from "react-router-dom"
 import {
     Card,
     Image,
@@ -19,6 +20,7 @@ import ProjectDetail from "../projects/project-card"
 
 //import HobbiesCard from "./hobbies-card"
 import TechSkillsCard from "./tech-skills-card"
+import NoMatch from "../404/404"
 
 class TeamIndividualView extends Component {
     constructor(props) {
@@ -30,22 +32,30 @@ class TeamIndividualView extends Component {
             role: "",
             memberProjects: [],
             designation: "",
+            error: false,
         }
         this.requestForProjects = this.requestForProjects.bind(this)
     }
     componentDidMount() {
         const { handle } = this.props.match.params
         const URL = `/api/maintainer_site/active_maintainer_info/${handle}`
-        const URL2 = axios.all([axios.get(URL), axios.options(URL)]).then(
-            axios.spread((memberRes, optionsRes) => {
-                this.setState({
-                    memberDetails: memberRes.data,
-                    options: optionsRes.data,
-                    loaded: true,
+        axios
+            .all([axios.get(URL), axios.options(URL)])
+            .then(
+                axios.spread((memberRes, optionsRes) => {
+                    this.setState({
+                        memberDetails: memberRes.data,
+                        options: optionsRes.data,
+                        loaded: true,
+                    })
+                    this.requestForProjects(memberRes.data.maintainer.id)
                 })
-                this.requestForProjects(memberRes.data.maintainer.id)
+            )
+            .catch(error => {
+                this.setState({
+                    error: <Route component={NoMatch} />,
+                })
             })
-        )
     }
     requestForProjects(id) {
         URL = `/api/maintainer_site/maintainer_project/${id}`
@@ -221,6 +231,8 @@ class TeamIndividualView extends Component {
                     </Container>
                 </div>
             )
+        } else if (this.state.error) {
+            return this.state.error
         } else {
             return <Loader active size="large" />
         }

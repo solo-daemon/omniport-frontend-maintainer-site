@@ -1,0 +1,6 @@
+.container {
+    height: 100%;
+    display: flex !important; /* Override semantic container attribute display: block */
+    flex-direction: column;
+    justify-content: center;
+}
