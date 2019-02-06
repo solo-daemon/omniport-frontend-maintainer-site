@@ -62,6 +62,7 @@ class AppHeader extends Component {
                                 />
                             ) : (
                                 <AppHeaderMobile
+                                    auth={this.props.isAuthed.auth}
                                     visible={this.props.sidebarVisible.visible}
                                     name={this.props.sidebarVisible.name}
                                     click={this.props.handleClick}

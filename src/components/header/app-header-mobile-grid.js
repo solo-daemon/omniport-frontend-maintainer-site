@@ -39,6 +39,16 @@ class AppHeaderMobile extends Component {
     handleNavTitle = () => {
         if (window.location.pathname === PATHNAME) {
             return ""
+        } else if (
+            this.props.name === "add member details" &&
+            !this.props.auth
+        ) {
+            return ""
+        } else if (
+            this.props.name === "add project details" &&
+            !this.props.auth
+        ) {
+            return ""
         } else {
             return this.props.name
         }
