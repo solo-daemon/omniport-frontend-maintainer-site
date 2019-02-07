@@ -76,8 +76,8 @@ class AlumniIndividualView extends Component {
             : []
 
         if (this.state.loaded) {
-            let temp = this.state.memberDetails.technicalSkills[0]
-            let tempArr = temp.split(",")
+            let techSkills = this.state.memberDetails.technicalSkills
+            let techSkillsArray = techSkills === "" ? [] : techSkills.split(",")
             return (
                 <div>
                     <Container styleName="common.margin">
@@ -189,42 +189,13 @@ class AlumniIndividualView extends Component {
                         <Header as="h2" textAlign="center">
                             Hobbies
                         </Header>
-                        <Card.Group itemsPerRow={3} doubling>
-                            <HobbiesCard
-                                coverIcon="music"
-                                array={this.state.memberDetails.favouriteMusic}
-                                message="Favourite Music"
-                            />
-                            <HobbiesCard
-                                coverIcon="book"
-                                array={
-                                    this.state.memberDetails.favouriteLiterature
-                                }
-                                message="Favourite Literature"
-                            />
-                            <HobbiesCard
-                                coverIcon="film"
-                                array={this.state.memberDetails.favouriteVideo}
-                                message="Movies/TV Series"
-                            />
-                            <HobbiesCard
-                                coverIcon="paint brush"
-                                array={
-                                    this.state.memberDetails.favouriteHobbies
-                                }
-                                message="Hobbies"
-                            />
+                        {techSkillsArray.length > 0 && (
                             <TechSkillsCard
                                 coverIcon="laptop"
-                                array={tempArr}
+                                array={techSkillsArray}
                                 message="Tech skills"
                             />
-                            <HobbiesCard
-                                coverIcon="game"
-                                array={this.state.memberDetails.favouriteGames}
-                                message="Favourite Games"
-                            />
-                        </Card.Group>
+                        )}
 
                         <Segment padded basic />
                     </Container>

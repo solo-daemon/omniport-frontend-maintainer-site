@@ -30,7 +30,7 @@ class Team extends Component {
             return (
                 <React.Fragment>
                     <Container textAlign="center" styleName="common.margin">
-                        <Card.Group itemsPerRow={3} stackable>
+                        <Card.Group itemsPerRow={4} stackable>
                             {this.props.apiTeamData.data.map(info => (
                                 <TeamMember
                                     info={info}

@@ -1,5 +1,6 @@
 import {
     RECEIVE_ALUMNI_DATA,
+    UPDATE_ALUMNI_DATA,
     ALUMNI_ERROR_OCCURED,
 } from "../actions/apiAlumniCall"
 
@@ -14,6 +15,13 @@ const apiAlumniData = (
                 data: action.data,
                 url: action.url,
                 loaded: true,
+                options: action.options,
+                count: action.count,
+            }
+        case UPDATE_ALUMNI_DATA:
+            return {
+                ...state,
+                data: [...state.data, ...action.data],
                 options: action.options,
             }
         case ALUMNI_ERROR_OCCURED:

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Card, Container, Loader, Segment } from "semantic-ui-react"
+import { Card, Container, Loader, Segment, Visibility } from "semantic-ui-react"
 
 import AlumniMember from "./alumni-card"
 
@@ -7,9 +7,32 @@ import styles from "../../css/team/team.css"
 import common from "../../css/page-common-styles.css"
 
 class Alumni extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            page: 1,
+        }
+    }
+
     componentDidMount() {
         const URL = "inactive_maintainer_info"
-        this.props.requestAlumniData(URL)
+        this.props.requestAlumniData(URL, this.state.page, true)
+    }
+
+    handleUpdate = () => {
+        const URL = "inactive_maintainer_info"
+        const { count } = this.props.apiAlumniData
+        const { page } = this.state
+        if (count > page * 12) {
+            this.setState(
+                {
+                    page: this.state.page + 1,
+                },
+                () => {
+                    this.props.requestAlumniData(URL, this.state.page, false)
+                }
+            )
+        }
     }
 
     render() {
@@ -27,19 +50,30 @@ class Alumni extends Component {
             : []
 
         if (this.props.apiAlumniData.loaded) {
+            console.log(this.props.apiAlumniData)
             return (
                 <React.Fragment>
                     <Container textAlign="center" styleName="common.margin">
-                        <Card.Group itemsPerRow={3} stackable>
-                            {this.props.apiAlumniData.data.map(info => (
-                                <AlumniMember
-                                    info={info}
-                                    key={info.handle}
-                                    roleOptions={roleOptions}
-                                    designationOptions={designationOptions}
-                                    linkOptions={linkOptions}
-                                />
-                            ))}
+                        <Card.Group itemsPerRow={4} stackable>
+                            {this.props.apiAlumniData.data.length > 0 ? (
+                                <React.Fragment>
+                                    {this.props.apiAlumniData.data.map(info => (
+                                        <AlumniMember
+                                            info={info}
+                                            key={info.handle}
+                                            roleOptions={roleOptions}
+                                            designationOptions={
+                                                designationOptions
+                                            }
+                                            linkOptions={linkOptions}
+                                        />
+                                    ))}
+                                </React.Fragment>
+                            ) : null}
+                            <Visibility
+                                once={false}
+                                onBottomVisible={this.handleUpdate}
+                            />
                         </Card.Group>
                     </Container>
                     <Segment padded basic />

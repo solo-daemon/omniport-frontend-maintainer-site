@@ -10,23 +10,22 @@ class Projects extends Component {
         this.state = {
             current: 1,
         }
-        this.paginating = this.paginating.bind(this)
     }
 
     componentDidMount() {
         this.paginating(1)
     }
 
-    paginating(a) {
-        const URL = "projects/?page=" + a
+    paginating = page => {
+        const URL = "projects/?page=" + page
         this.props.requestProjectData(URL)
         this.setState({
-            current: a,
+            current: page,
         })
         window.scrollTo(0, 0)
     }
 
-    leftClick = () => {
+    leftButtonClick = () => {
         if (this.state.current > 1) {
             let change = this.state.current
             this.setState({ current: change - 1 }, () => {
@@ -34,7 +33,8 @@ class Projects extends Component {
             })
         }
     }
-    rightClick = () => {
+
+    rightButtonClick = () => {
         if (this.state.current < this.props.apiProjectData.count) {
             let change = this.state.current
             this.setState({ current: change + 1 }, () => {
@@ -64,7 +64,7 @@ class Projects extends Component {
                     styleName="common.margin styles.project-container"
                 >
                     <div styleName="styles.project-group-container">
-                        <Card.Group itemsPerRow={3} stackable doubling>
+                        <Card.Group itemsPerRow={4} stackable doubling>
                             {this.props.apiProjectData.data.results.map(
                                 info => (
                                     <ProjectDetail
@@ -78,21 +78,11 @@ class Projects extends Component {
                     {this.props.apiProjectData.count > 1 && (
                         <Segment padded basic textAlign="center">
                             <Menu pagination>
-                                <Menu.Item
-                                    onClick={() => {
-                                        this.leftClick()
-                                    }}
-                                    icon
-                                >
+                                <Menu.Item onClick={this.leftButtonClick} icon>
                                     <Icon name="chevron left" />
                                 </Menu.Item>
                                 {menu}
-                                <Menu.Item
-                                    onClick={() => {
-                                        this.rightClick()
-                                    }}
-                                    icon
-                                >
+                                <Menu.Item onClick={this.rightButtonClick} icon>
                                     <Icon name="chevron right" />
                                 </Menu.Item>
                             </Menu>

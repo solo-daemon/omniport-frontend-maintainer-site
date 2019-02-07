@@ -1,18 +1,27 @@
 import axios from "axios"
 
 export const RECEIVE_ALUMNI_DATA = "RECEIVE_ALUMNI_DATA"
+export const UPDATE_ALUMNI_DATA = "UPDATE_ALUMNI_DATA"
 export const ALUMNI_ERROR_OCCURED = "ALUMNI_ERROR_OCCURED"
 
-const requestAlumniData = url => {
+const requestAlumniData = (url, page, replace = false) => {
     return dispatch => {
         axios
             .all([
-                axios.get(`/api/maintainer_site/${url}`),
+                axios.get(`/api/maintainer_site/${url}`, {
+                    params: {
+                        page: page,
+                    },
+                }),
                 axios.options(`/api/maintainer_site/${url}`),
             ])
             .then(
                 axios.spread((memberRes, optionsRes) => {
-                    dispatch(receiveAlumniData(url, memberRes, optionsRes))
+                    if (replace) {
+                        dispatch(receiveAlumniData(url, memberRes, optionsRes))
+                    } else {
+                        dispatch(updateInfoData(url, memberRes, optionsRes))
+                    }
                 })
             )
             .catch(error => {
@@ -21,10 +30,18 @@ const requestAlumniData = url => {
     }
 }
 
-const receiveAlumniData = (url, json1, json2) => ({
+const receiveAlumniData = (url, memberRes, optionsRes) => ({
     type: RECEIVE_ALUMNI_DATA,
-    data: json1.data,
-    options: json2.data,
+    data: memberRes.data.results,
+    options: optionsRes.data,
+    count: memberRes.data.count,
+    url,
+})
+
+const updateInfoData = (url, memberRes, optionsRes) => ({
+    type: UPDATE_ALUMNI_DATA,
+    data: memberRes.data.results,
+    options: optionsRes.data,
     url,
 })
 

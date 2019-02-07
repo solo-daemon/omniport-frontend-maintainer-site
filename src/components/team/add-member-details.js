@@ -267,7 +267,7 @@ class AddMemberDetails extends Component {
     }
     addLinkSkills = () => {
         var arr = this.state.skills.array
-        arr.push(this.state.skills.entry)
+        this.state.skills.entry && arr.push(this.state.skills.entry)
         this.setState({
             skills: { array: arr, entry: "" },
         })
@@ -664,7 +664,7 @@ class AddMemberDetails extends Component {
                                 </Form.Field>
                             </Form>
 
-                            {this.state.links === [] && (
+                            {this.state.links.length > 0 && (
                                 <LinkList
                                     data={this.state.links}
                                     handleUpdateDelete={this.handleUpdateDelete}
@@ -927,7 +927,8 @@ class AddMemberDetails extends Component {
                                     </Button>
                                 </Form.Field>
                             </Form>
-                            {!this.state.skills.array === [] && (
+                            {console.log(this.state.skills.array)}
+                            {this.state.skills.array.length > 0 && (
                                 <LinkList
                                     data={this.state.skills.array}
                                     handleUpdateDelete={

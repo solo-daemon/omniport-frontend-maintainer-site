@@ -11,8 +11,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        requestAlumniData: url => {
-            dispatch(requestAlumniData(url))
+        requestAlumniData: (url, page, replace) => {
+            dispatch(requestAlumniData(url, page, replace))
         },
     }
 }
