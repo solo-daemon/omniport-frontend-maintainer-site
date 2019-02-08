@@ -14,12 +14,11 @@ import {
     Loader,
 } from "semantic-ui-react"
 
-import styles from "../../css/team/team-individual-view.css"
-import ProjectDetail from "../projects/project-card"
+import styles from "../css/team/team-individual-view.css"
+import ProjectDetail from "./projects/project-card"
 
-//import HobbiesCard from "./hobbies-card"
-import TechSkillsCard from "./tech-skills-card"
-import NoMatch from "../404/404"
+import TechSkillsCard from "./team/tech-skills-card"
+import NoMatch from "./404/404"
 
 class TeamIndividualView extends Component {
     constructor(props) {
@@ -37,7 +36,8 @@ class TeamIndividualView extends Component {
     }
     componentDidMount() {
         const { handle } = this.props.match.params
-        const URL = `/api/maintainer_site/active_maintainer_info/${handle}`
+        let activeUrl = this.props.isActive ? "active" : "inactive"
+        const URL = `/api/maintainer_site/${activeUrl}_maintainer_info/${handle}`
         axios
             .all([axios.get(URL), axios.options(URL)])
             .then(
@@ -67,7 +67,6 @@ class TeamIndividualView extends Component {
     }
 
     render() {
-        console.log(this.state.memberDetails)
         const roleOptions = this.state.loaded
             ? this.state.options.actions.PUT.maintainer.children.role.choices
             : []
@@ -80,7 +79,7 @@ class TeamIndividualView extends Component {
             let temp = this.state.memberDetails.technicalSkills
             let technicalSkills = temp ? temp : ""
             let tempArr = technicalSkills ? technicalSkills.split(",") : []
-            console.log(tempArr)
+
             return (
                 <div>
                     <Container styleName="styles.margin">

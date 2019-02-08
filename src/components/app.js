@@ -12,8 +12,8 @@ import ScrollToTop from "./scroll-to-top"
 import AppHeader from "../containers/header/appHeader"
 import MainPage from "../components/main/main-page"
 import Team from "../containers/team/teamPageLoader"
-import TeamIndividualView from "./team/team-individual-view"
-import AlumniIndividualView from "./alumni/alumni-individual-view"
+import TeamIndividualView from "./team-individual-view"
+
 import Alumni from "../containers/alumni/alumniPageLoader"
 import AddMemberDetails from "./team/add-member-details"
 import AddProjectDetails from "./projects/add-project-details"
@@ -96,12 +96,16 @@ class App extends Component {
                     <Route
                         exact
                         path={`${match.path}team/:handle`}
-                        component={TeamIndividualView}
+                        render={props => (
+                            <TeamIndividualView {...props} isActive={true} />
+                        )}
                     />
                     <Route
                         exact
                         path={`${match.path}alumni/:handle`}
-                        component={AlumniIndividualView}
+                        render={props => (
+                            <TeamIndividualView {...props} isActive={false} />
+                        )}
                     />
                     {this.props.isAuthed.loaded && (
                         <Switch>
