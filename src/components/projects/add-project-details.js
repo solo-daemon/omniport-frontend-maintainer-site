@@ -88,6 +88,16 @@ class AddProjectDetails extends Component {
         this.setState({ croppedImage: file })
     }
 
+    handleChange = e => {
+        let name = e.target.name
+        this.setState({
+            data: {
+                ...this.state.data,
+                [name]: e.target.value,
+            },
+        })
+    }
+
     handlePost = () => {
         const { data, croppedImage } = this.state
         let image
@@ -107,8 +117,6 @@ class AddProjectDetails extends Component {
             croppedImage
         ) {
             var formData = new FormData()
-            console.log(233)
-            console.log(croppedImage)
             formData.append("slug", data.slug)
             formData.append("title", data.title)
             formData.append("short_description", data.shortDescription)
@@ -186,7 +194,7 @@ class AddProjectDetails extends Component {
                                 placeholder="Title for the project"
                                 name="title"
                                 onChange={event => {
-                                    this.state.data.title = event.target.value
+                                    this.handleChange(event)
                                 }}
                             />
                             {this.state.title && (
@@ -199,8 +207,9 @@ class AddProjectDetails extends Component {
                             <label>Slug:</label>
                             <input
                                 placeholder="Slug for the project"
+                                name="slug"
                                 onChange={event => {
-                                    this.state.data.slug = event.target.value
+                                    this.handleChange(event)
                                 }}
                             />
                             {this.state.slug && (
@@ -210,19 +219,14 @@ class AddProjectDetails extends Component {
                             )}
                         </Form.Field>
 
-                        <Form.Field error label="Short Description:" required />
+                        <Form.Field label="Short Description:" required />
 
                         <Form.Field
                             control={TextArea}
-                            error
                             placeholder="Short Description for the project..."
+                            name="shortDescription"
                             onChange={event => {
-                                this.setState({
-                                    data: {
-                                        ...this.state.data,
-                                        shortDescription: event.target.value,
-                                    },
-                                })
+                                this.handleChange(event)
                             }}
                         />
 
