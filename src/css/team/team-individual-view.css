@@ -1,8 +1,16 @@
+.margin {
+    margin-top: 10em;
+}
+
 .pro-image {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 15rem;
+}
+
+.image {
+    width: 250px;
 }
 
 .role-designation {

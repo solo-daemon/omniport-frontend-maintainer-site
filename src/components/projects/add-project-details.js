@@ -209,16 +209,29 @@ class AddProjectDetails extends Component {
                                 </Label>
                             )}
                         </Form.Field>
+
+                        <Form.Field error label="Short Description:" required />
+
                         <Form.Field
                             control={TextArea}
-                            label="Short Description:"
-                            required
+                            error
                             placeholder="Short Description for the project..."
                             onChange={event => {
-                                this.state.data.shortDescription =
-                                    event.target.value
+                                this.setState({
+                                    data: {
+                                        ...this.state.data,
+                                        shortDescription: event.target.value,
+                                    },
+                                })
                             }}
                         />
+
+                        {this.state.data.shortDescription.length > 255 && (
+                            <Label color="red" pointing>
+                                ShortDescription cannot be more than 255
+                            </Label>
+                        )}
+
                         <Form.Field label="Content:" required />
                         <Editor
                             init={{

@@ -15,7 +15,6 @@ import {
 } from "semantic-ui-react"
 
 import styles from "../../css/team/team-individual-view.css"
-import common from "../../css/page-common-styles.css"
 import ProjectDetail from "../projects/project-card"
 
 //import HobbiesCard from "./hobbies-card"
@@ -68,6 +67,7 @@ class TeamIndividualView extends Component {
     }
 
     render() {
+        console.log(this.state.memberDetails)
         const roleOptions = this.state.loaded
             ? this.state.options.actions.PUT.maintainer.children.role.choices
             : []
@@ -78,10 +78,12 @@ class TeamIndividualView extends Component {
 
         if (this.state.loaded) {
             let temp = this.state.memberDetails.technicalSkills
-            let tempArr = temp.split(",")
+            let technicalSkills = temp ? temp : ""
+            let tempArr = technicalSkills ? technicalSkills.split(",") : []
+            console.log(tempArr)
             return (
                 <div>
-                    <Container styleName="common.margin">
+                    <Container styleName="styles.margin">
                         <Grid columns={2} stackable>
                             <Grid.Column textAlign="center">
                                 <div styleName="styles.pro-image">
@@ -92,8 +94,7 @@ class TeamIndividualView extends Component {
                                                     this.state.memberDetails
                                                         .normieImage
                                                 }
-                                                size="small"
-                                                circular
+                                                styleName="styles.image"
                                             />
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
@@ -102,8 +103,7 @@ class TeamIndividualView extends Component {
                                                     this.state.memberDetails
                                                         .dankImage
                                                 }
-                                                size="small"
-                                                circular
+                                                styleName="styles.image"
                                             />
                                         </Reveal.Content>
                                     </Reveal>
@@ -173,7 +173,7 @@ class TeamIndividualView extends Component {
                                 <Header as="h2" textAlign="center">
                                     Projects
                                 </Header>
-                                <Card.Group itemsPerRow={3} doubling stackable>
+                                <Card.Group itemsPerRow={4} doubling stackable>
                                     {this.state.memberProjects.map(
                                         (info, index) => (
                                             <ProjectDetail
@@ -186,46 +186,11 @@ class TeamIndividualView extends Component {
                                 </Card.Group>
                             </React.Fragment>
                         )}
-
-                        {/* <Header as="h2" textAlign="center">
-                            Hobbies
-                        </Header>
-                        <Card.Group itemsPerRow={6} doubling>
-                            <HobbiesCard
-                                coverIcon="music"
-                                array={this.state.memberDetails.favouriteMusic}
-                                message="Favourite Music"
-                            />
-                            <HobbiesCard
-                                coverIcon="book"
-                                array={
-                                    this.state.memberDetails.favouriteLiterature
-                                }
-                                message="Favourite Literature"
-                            />
-                            <HobbiesCard
-                                coverIcon="film"
-                                array={this.state.memberDetails.favouriteVideo}
-                                message="Movies/TV Series"
-                            />
-                            <HobbiesCard
-                                coverIcon="paint brush"
-                                array={
-                                    this.state.memberDetails.favouriteHobbies
-                                }
-                                message="Hobbies"
-                            /> */}
                         <TechSkillsCard
                             coverIcon="laptop"
                             array={tempArr}
                             message="Tech skills"
                         />
-                        {/* <HobbiesCard
-                                coverIcon="game"
-                                array={this.state.memberDetails.favouriteGames}
-                                message="Favourite Games"
-                            /> */}
-                        {/* </Card.Group> */}
 
                         <Segment padded basic />
                     </Container>

@@ -37,13 +37,7 @@ class AddMemberDetails extends Component {
             handle: "",
             shortBio: "",
             links: [],
-            //skills: [],
             skills: { array: [], entry: "" },
-            // music: { array: [], entry: "" },
-            // book: { array: [], entry: "" },
-            // film: { array: [], entry: "" },
-            // game: { array: [], entry: "" },
-            // hobbies: { array: [], entry: "" },
             linksId: [],
             errors: {
                 music: "",
@@ -108,9 +102,11 @@ class AddMemberDetails extends Component {
                                 handle: this.state.profile[0].handle,
                                 shortBio: this.state.profile[0].shortBiography,
                                 skills: {
-                                    array: this.state.profile[0].technicalSkills.split(
-                                        ","
-                                    ),
+                                    array: this.state.profile[0].technicalSkills
+                                        ? this.state.profile[0].technicalSkills.split(
+                                              ","
+                                          )
+                                        : [],
                                     entry: "",
                                 },
                                 prevUploadedFileD: this.state.profile[0]
@@ -135,91 +131,6 @@ class AddMemberDetails extends Component {
                                         links: arra,
                                     })
                                 })
-
-                            // var arr = []
-                            // for (
-                            //     let i = 0;
-                            //     i < this.state.profile[0].favouriteGames.length;
-                            //     i++
-                            // ) {
-                            //     var obj = {
-                            //         site: "game",
-                            //         url: this.state.profile[0].favouriteGames[
-                            //             i
-                            //         ],
-                            //     }
-                            //     arr.push(obj)
-                            // }
-                            // var arr1 = []
-                            // for (
-                            //     let i = 0;
-                            //     i < this.state.profile[0].favouriteMusic.length;
-                            //     i++
-                            // ) {
-                            //     var obj = {
-                            //         site: "music",
-                            //         url: this.state.profile[0].favouriteMusic[
-                            //             i
-                            //         ],
-                            //     }
-                            //     arr1.push(obj)
-                            // }
-                            // var arr2 = []
-                            // for (
-                            //     let i = 0;
-                            //     i <
-                            //     this.state.profile[0].favouriteLiterature
-                            //         .length;
-                            //     i++
-                            // ) {
-                            //     var obj = {
-                            //         site: "book",
-                            //         url: this.state.profile[0]
-                            //             .favouriteLiterature[i],
-                            //     }
-                            //     arr2.push(obj)
-                            // }
-                            // var arr3 = []
-                            // for (
-                            //     let i = 0;
-                            //     i < this.state.profile[0].favouriteVideo.length;
-                            //     i++
-                            // ) {
-                            //     var obj = {
-                            //         site: "film",
-                            //         url: this.state.profile[0].favouriteVideo[
-                            //             i
-                            //         ],
-                            //     }
-                            //     arr3.push(obj)
-                            // }
-                            // var arr4 = []
-                            // for (
-                            //     let i = 0;
-                            //     i <
-                            //     this.state.profile[0].favouriteHobbies.length;
-                            //     i++
-                            // ) {
-                            //     var obj = {
-                            //         site: "hobbies",
-                            //         url: this.state.profile[0].favouriteHobbies[
-                            //             i
-                            //         ],
-                            //     }
-                            //     arr4.push(obj)
-                            // }
-                            // this.setState(
-                            //     {
-                            //         game: { entry: "", array: arr },
-                            //         music: { entry: "", array: arr1 },
-                            //         book: { entry: "", array: arr2 },
-                            //         film: { entry: "", array: arr3 },
-                            //         hobbies: { entry: "", array: arr4 },
-                            //     },
-                            //     () => {
-                            //
-                            //     }
-                            // )
                             this.setState({ loaded: true })
                         } else {
                             axios
@@ -286,24 +197,6 @@ class AddMemberDetails extends Component {
         })
     }
 
-    // handleChange2 = e => {
-    //     const target = e.target
-    //     const name = target.name
-    //     const value = target.value
-    //     this.setState({ [name]: { ...this.state[name], entry: value } })
-    // }
-    // addLink2 = e => {
-    //     const name = e.target.name
-
-    //     if (this.state[name].entry.length <= 63) {
-    //         var arr = this.state[name].array
-    //         var temp = { site: "" + name, url: this.state[name].entry }
-    //         arr.push(temp)
-    //         this.setState({
-    //             [name]: { array: arr, entry: "" },
-    //         })
-    //     }
-    // }
     addLink = e => {
         const that = this
         that.setState({ errorUrl: false })
@@ -369,21 +262,7 @@ class AddMemberDetails extends Component {
             linksId: arr1,
         })
     }
-    // handleUpdateDelete2 = e => {
-    //     var name = e.target.getAttribute("pop")
 
-    //     var id = e.target.id
-
-    //     var arr = []
-    //     for (let i = 0; i < this.state[name].array.length; i++) {
-    //         if (i != id) {
-    //             arr.push(this.state[name].array[i])
-    //         }
-    //     }
-    //     this.setState({
-    //         [name]: { array: arr, entry: "" },
-    //     })
-    // }
     fileChange = async e => {
         const name = e.target.name
         const imageDataUrl = await readFile(e.target.files[0])
@@ -430,39 +309,11 @@ class AddMemberDetails extends Component {
             : null
         const skillsArray = skills.array
 
-        // var book = [],
-        //     music = [],
-        //     film = [],
-        //     game = [],
-        //     hobbies = []
-
-        // for (let i = 0; i < this.state.book.array.length; i++) {
-        //     book.push(this.state.book.array[i].url)
-        // }
-        // for (let i = 0; i < this.state.music.array.length; i++) {
-        //     music.push(this.state.music.array[i].url)
-        // }
-        // for (let i = 0; i < this.state.film.array.length; i++) {
-        //     film.push(this.state.film.array[i].url)
-        // }
-        // for (let i = 0; i < this.state.game.array.length; i++) {
-        //     game.push(this.state.game.array[i].url)
-        // }
-        // for (let i = 0; i < this.state.hobbies.array.length; i++) {
-        //     hobbies.push(this.state.hobbies.array[i].url)
-        // }
-
         if (
             (uploadedFileD || prevUploadedFileD) &&
             (uploadedFileN || prevUploadedFileN) &&
             handle &&
-            shortBio &&
-            // book.length &&
-            // music.length &&
-            // film.length &&
-            // game.length &&
-            // hobbies.length &&
-            skillsArray.length
+            shortBio
         ) {
             var formData = new FormData()
             formData.append("handle", handle)
@@ -470,16 +321,6 @@ class AddMemberDetails extends Component {
             formData.append("social_information", links)
 
             formData.append("technical_skills", skillsArray)
-
-            // music.map(element => formData.append("favourite_music", element))
-            // book.map(element =>
-            //     formData.append("favourite_literature", element)
-            // )
-            // film.map(element => formData.append("favourite_video", element))
-            // game.map(element => formData.append("favourite_games", element))
-            // hobbies.map(element =>
-            //     formData.append("favourite_hobbies", element)
-            // )
 
             if (uploadedFileN && uploadedFileN.type) {
                 if (uploadedFileN.type.substring(0, 5) == "image") {
@@ -569,11 +410,7 @@ class AddMemberDetails extends Component {
             })
             linkListOptions[this.state.socialLinksOptions[i].value] = icon
         }
-        // linkListOptions["music"] = "music"
-        // linkListOptions["book"] = "book"
-        // linkListOptions["film"] = "film"
-        // linkListOptions["game"] = "game"
-        // linkListOptions["hobbies"] = "paint brush"
+
         if (this.state.loaded) {
             return (
                 <div>
@@ -673,226 +510,6 @@ class AddMemberDetails extends Component {
                             )}
                         </Segment>
 
-                        {/* <Segment attached="top">
-                            <span>
-                                <h3>Music</h3>
-                            </span>
-                        </Segment>
-                        <Segment textAlign="left" attached="bottom">
-                            <Form>
-                                <Form.Field>
-                                    <Form.Input
-                                        onChange={this.handleChange2}
-                                        value={this.state.music.entry}
-                                        name="music"
-                                        placeholder="Add Music preferences ..."
-                                    />
-                                    {this.state.music.entry.length > 63 && (
-                                        <Label color="red" pointing>
-                                            Maximum 63 characters are allowed
-                                            only
-                                        </Label>
-                                    )}
-                                </Form.Field>
-
-                                <Form.Field>
-                                    <Button
-                                        color="blue"
-                                        name="music"
-                                        onClick={this.addLink2}
-                                        disabled={
-                                            this.state.music.array.length >= 5
-                                        }
-                                    >
-                                        Add
-                                    </Button>
-                                </Form.Field>
-                            </Form>
-
-                            <LinkList
-                                data={this.state.music.array}
-                                handleUpdateDelete={this.handleUpdateDelete2}
-                                name="music"
-                                linkListOptions={linkListOptions}
-                            />
-                        </Segment>
-
-                        <Segment attached="top">
-                            <span>
-                                <h3>Literature</h3>
-                            </span>
-                        </Segment>
-                        <Segment textAlign="left" attached="bottom">
-                            <Form>
-                                <Form.Field>
-                                    <Form.Input
-                                        onChange={this.handleChange2}
-                                        value={this.state.book.entry}
-                                        name="book"
-                                        placeholder="Add Books that u read/like ..."
-                                    />
-                                    {this.state.book.entry.length > 63 && (
-                                        <Label color="red" pointing>
-                                            Maximum 63 characters are allowed
-                                            only
-                                        </Label>
-                                    )}
-                                </Form.Field>
-
-                                <Form.Field>
-                                    <Button
-                                        color="blue"
-                                        name="book"
-                                        onClick={this.addLink2}
-                                        disabled={
-                                            this.state.book.array.length >= 5
-                                        }
-                                    >
-                                        Add
-                                    </Button>
-                                </Form.Field>
-                            </Form>
-
-                            <LinkList
-                                data={this.state.book.array}
-                                handleUpdateDelete={this.handleUpdateDelete2}
-                                name="book"
-                                linkListOptions={linkListOptions}
-                            />
-                        </Segment>
-
-                        <Segment attached="top">
-                            <span>
-                                <h3>Movies/TV Series</h3>
-                            </span>
-                        </Segment>
-                        <Segment textAlign="left" attached="bottom">
-                            <Form>
-                                <Form.Field>
-                                    <Form.Input
-                                        onChange={this.handleChange2}
-                                        value={this.state.film.entry}
-                                        name="film"
-                                        placeholder="Add MOvies/Tv Series preferences ..."
-                                    />
-                                    {this.state.film.entry.length > 63 && (
-                                        <Label color="red" pointing>
-                                            Maximum 63 characters are allowed
-                                            only
-                                        </Label>
-                                    )}
-                                </Form.Field>
-
-                                <Form.Field>
-                                    <Button
-                                        color="blue"
-                                        name="film"
-                                        onClick={this.addLink2}
-                                        disabled={
-                                            this.state.film.array.length >= 5
-                                        }
-                                    >
-                                        Add
-                                    </Button>
-                                </Form.Field>
-                            </Form>
-
-                            <LinkList
-                                data={this.state.film.array}
-                                handleUpdateDelete={this.handleUpdateDelete2}
-                                name="film"
-                                linkListOptions={linkListOptions}
-                            />
-                        </Segment>
-
-                        <Segment attached="top">
-                            <span>
-                                <h3>Games You Play</h3>
-                            </span>
-                        </Segment>
-                        <Segment textAlign="left" attached="bottom">
-                            <Form>
-                                <Form.Field>
-                                    <Form.Input
-                                        onChange={this.handleChange2}
-                                        value={this.state.game.entry}
-                                        name="game"
-                                        placeholder="Add Your Games that u play ..."
-                                    />
-                                    {this.state.game.entry.length > 63 && (
-                                        <Label color="red" pointing>
-                                            Maximum 63 characters are allowed
-                                            only
-                                        </Label>
-                                    )}
-                                </Form.Field>
-
-                                <Form.Field>
-                                    <Button
-                                        color="blue"
-                                        name="game"
-                                        onClick={this.addLink2}
-                                        disabled={
-                                            this.state.game.array.length >= 5
-                                        }
-                                    >
-                                        Add
-                                    </Button>
-                                </Form.Field>
-                            </Form>
-
-                            <LinkList
-                                data={this.state.game.array}
-                                handleUpdateDelete={this.handleUpdateDelete2}
-                                name="game"
-                                linkListOptions={linkListOptions}
-                            />
-                        </Segment>
-
-                        <Segment attached="top">
-                            <span>
-                                <h3>Tell Us Your Hobbies</h3>
-                            </span>
-                        </Segment>
-                        <Segment textAlign="left" attached="bottom">
-                            <Form>
-                                <Form.Field>
-                                    <Form.Input
-                                        onChange={this.handleChange2}
-                                        value={this.state.hobbies.entry}
-                                        name="hobbies"
-                                        placeholder="Add Your Hobbies..."
-                                    />
-                                    {this.state.hobbies.entry.length > 63 && (
-                                        <Label color="red" pointing>
-                                            Maximum 63 characters are allowed
-                                            only
-                                        </Label>
-                                    )}
-                                </Form.Field>
-
-                                <Form.Field>
-                                    <Button
-                                        color="blue"
-                                        name="hobbies"
-                                        onClick={this.addLink2}
-                                        disabled={
-                                            this.state.hobbies.array.length >= 5
-                                        }
-                                    >
-                                        Add
-                                    </Button>
-                                </Form.Field>
-                            </Form>
-
-                            <LinkList
-                                data={this.state.hobbies.array}
-                                handleUpdateDelete={this.handleUpdateDelete2}
-                                name="hobbies"
-                                linkListOptions={linkListOptions}
-                            />
-                        </Segment> */}
-
                         <Segment attached="top">
                             <span>
                                 <h3>Tech Skills</h3>
@@ -927,7 +544,6 @@ class AddMemberDetails extends Component {
                                     </Button>
                                 </Form.Field>
                             </Form>
-                            {console.log(this.state.skills.array)}
                             {this.state.skills.array.length > 0 && (
                                 <LinkList
                                     data={this.state.skills.array}
@@ -940,29 +556,6 @@ class AddMemberDetails extends Component {
                         </Segment>
 
                         <Form>
-                            {/* <Form.Dropdown
-                                placeholder="Select tech Skill"
-                                fluid
-                                multiple
-                                selection
-                                search
-                                required
-                                label="Tech Skills:"
-                                options={this.state.techSkillsOptions}
-                                defaultValue={this.state.skills}
-                                onChange={(e, { value }) => {
-                                    console.log(value)
-                                    this.setState({
-                                        skills: value,
-                                    })
-                                }}
-                            />
-                            {this.state.skills.length > 5 && (
-                                <Label color="red" pointing>
-                                    Maximum 5 skills are allowed only
-                                </Label>
-                            )} */}
-
                             <Form.Field required>
                                 <label>Normie Image:</label>
                                 <input
