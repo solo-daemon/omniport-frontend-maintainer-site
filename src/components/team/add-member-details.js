@@ -77,14 +77,12 @@ class AddMemberDetails extends Component {
     }
     componentDidMount() {
         const URL1 = `/api/maintainer_site/logged_maintainer`
-        const URL2 = `/api/maintainer_site/tech_skills`
 
-        axios.all([axios.get(URL1), axios.get(URL2), axios.options(URL1)]).then(
-            axios.spread((memberRes, techSkillsRes, linksRes) => {
+        axios.all([axios.get(URL1), axios.options(URL1)]).then(
+            axios.spread((memberRes, linksRes) => {
                 this.setState(
                     {
                         profile: memberRes.data,
-                        techSkillsOptions: techSkillsRes.data,
                         socialLinksOptions:
                             linksRes.data.actions.POST.socialInformation.child
                                 .children.links.child.children.site.choices,

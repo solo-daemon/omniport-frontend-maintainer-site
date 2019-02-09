@@ -25,7 +25,6 @@
     color: #ffffff;
     margin-right: 1.3em;
     font-size: 17px;
-    text-align: center;
 }
 
 .social-links:hover {
@@ -39,4 +38,7 @@ h5 {
 }
 .f-link-center {
     text-align: center !important   ;
+}
+.social-links-center {
+    text-align: center;
 }

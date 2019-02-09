@@ -40,19 +40,18 @@ const InfoSection = ({ location, contact, social, about }) => (
                             {contact.emailAddress}
                         </span>
                     </p>
-                    <div>
-                        {social.links &&
-                            social.links.map((index, profile) => (
-                                <span styleName="styles.social-links">
-                                    <Icon
-                                        key={profile.id}
-                                        title={profile.url}
-                                        name={profile.siteLogo}
-                                        onClick={() => window.open(profile.url)}
-                                        fitted
-                                    />
-                                </span>
-                            ))}
+                    <div styleName="styles.social-links-center">
+                        {social.links.map(profile => (
+                            <span styleName="styles.social-links">
+                                <Icon
+                                    key={profile.id}
+                                    title={profile.siteName}
+                                    name={profile.siteLogo}
+                                    onClick={() => window.open(profile.url)}
+                                    fitted
+                                />
+                            </span>
+                        ))}
                     </div>
                 </Grid.Column>
                 <Grid.Column>
