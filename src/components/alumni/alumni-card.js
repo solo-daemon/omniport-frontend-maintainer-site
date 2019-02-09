@@ -3,12 +3,7 @@ import { Card, Image } from "semantic-ui-react"
 
 import styles from "../../css/team/team-member.css"
 
-const AlumniMember = ({
-    info,
-    roleOptions,
-    designationOptions,
-    linkOptions,
-}) => {
+const AlumniMember = ({ info, roleOptions, designationOptions }) => {
     return (
         <Card raised>
             <a href={info.handle}>

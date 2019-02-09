@@ -4,10 +4,12 @@ import BlogDetail from "./blog-post-card"
 
 import common from "../../css/page-common-styles.css"
 
+import { urlBlogs } from "../../urls"
+
 const MEDIUM_URL = "https://medium.com/"
 class Blog extends Component {
     componentDidMount() {
-        const URL = "blogs"
+        const URL = urlBlogs()
         this.props.requestBlogData(URL)
     }
 

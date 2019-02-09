@@ -8,7 +8,7 @@ const API_URL = "/api/maintainer_site/"
 const requestBlogData = url => {
     return dispatch => {
         axios
-            .get(`/api/maintainer_site/${url}`)
+            .get(`${url}`)
             .then(
                 response => dispatch(receiveBlogData(url, response)),
                 error => dispatch(errorOccured(url, error))

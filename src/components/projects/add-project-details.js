@@ -18,6 +18,8 @@ import getCroppedImage from "../getCroppedImage"
 
 import common from "../../css/page-common-styles.css"
 
+import { urlTeam, urlProjects } from "../../urls"
+
 class AddProjectDetails extends Component {
     constructor(props) {
         super(props)
@@ -46,7 +48,7 @@ class AddProjectDetails extends Component {
     }
 
     componentDidMount() {
-        const URL = "/api/maintainer_site/active_maintainer_info"
+        const URL = urlTeam()
 
         axios.get(URL).then(res => {
             this.setState(
@@ -65,7 +67,6 @@ class AddProjectDetails extends Component {
             [e.target.name]: e.target.files[0],
         })
         const imageDataUrl = await readFile(e.target.files[0])
-        console.log(imageDataUrl)
         this.setState({
             imageSrc: imageDataUrl,
             open: true,
@@ -133,14 +134,13 @@ class AddProjectDetails extends Component {
 
             axios({
                 method: "post",
-                url: "/api/maintainer_site/projects/",
+                url: urlProjects(),
                 data: formData,
                 headers: headers,
             })
                 .then(function(response) {
                     //handle success
                     that.props.history.push("../projects/")
-                    console.log(response)
                 })
                 .catch(function(response) {
                     //handle error
@@ -160,7 +160,6 @@ class AddProjectDetails extends Component {
                     } else {
                         that.setState({ validImage: true })
                     }
-                    console.log(response)
                 })
         }
     }

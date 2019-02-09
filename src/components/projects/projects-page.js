@@ -4,6 +4,7 @@ import ProjectDetail from "./project-card"
 
 import styles from "../../css/projects/projects-page.css"
 import common from "../../css/page-common-styles.css"
+import { urlProjects } from "../../urls"
 class Projects extends Component {
     constructor(props) {
         super(props)
@@ -17,7 +18,7 @@ class Projects extends Component {
     }
 
     paginating = page => {
-        const URL = "projects/?page=" + page
+        const URL = `${urlProjects()}?page=${page}`
         this.props.requestProjectData(URL)
         this.setState({
             current: page,

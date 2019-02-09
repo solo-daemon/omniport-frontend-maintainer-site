@@ -6,10 +6,7 @@ export const TEAM_ERROR_OCCURED = "TEAM_ERROR_OCCURED"
 const requestTeamData = url => {
     return dispatch => {
         axios
-            .all([
-                axios.get(`/api/maintainer_site/${url}`),
-                axios.options(`/api/maintainer_site/${url}`),
-            ])
+            .all([axios.get(`${url}`), axios.options(`${url}`)])
             .then(
                 axios.spread((memberRes, optionsRes) => {
                     dispatch(receiveTeamData(url, memberRes, optionsRes))

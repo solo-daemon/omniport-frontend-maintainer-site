@@ -8,8 +8,6 @@ export const RECEIVE_PROJECT_SECTION_DATA = "RECEIVE_PROJECT_SECTION_DATA"
 
 export const INFO_ERROR_OCCURED = "INFO_ERROR_OCCURED"
 
-const API_URL = "/api/maintainer_site/"
-
 const requestInfoData = (
     locationUrl,
     contactUrl,
@@ -20,11 +18,11 @@ const requestInfoData = (
     return dispatch => {
         axios
             .all([
-                axios.get(`${API_URL}${locationUrl}`),
-                axios.get(`${API_URL}${contactUrl}`),
-                axios.get(`${API_URL}${socialUrl}`),
-                axios.get(`${API_URL}${footerUrl}`),
-                axios.get(`${API_URL}${projectUrl}`),
+                axios.get(`${locationUrl}`),
+                axios.get(`${contactUrl}`),
+                axios.get(`${socialUrl}`),
+                axios.get(`${footerUrl}`),
+                axios.get(`${projectUrl}`),
             ])
             .then(
                 axios.spread(

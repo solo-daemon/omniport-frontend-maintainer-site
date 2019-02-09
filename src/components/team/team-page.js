@@ -5,10 +5,11 @@ import TeamMember from "./team-member-card"
 
 import styles from "../../css/team/team.css"
 import common from "../../css/page-common-styles.css"
+import { urlTeam } from "../../urls"
 
 class Team extends Component {
     componentDidMount() {
-        const URL = "active_maintainer_info"
+        const URL = urlTeam()
         this.props.requestTeamData(URL)
     }
 

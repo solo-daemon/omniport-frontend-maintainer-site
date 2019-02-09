@@ -27,18 +27,27 @@ import AppFooter from "../components/footer/app-footer"
 
 import blocks from "../css/app.css"
 
+import {
+    urlLocation,
+    urlContact,
+    urlSocial,
+    urlMaintainerGroup,
+    urlProjects,
+    urlLoggedMaintainer,
+} from "../urls"
+
 class App extends Component {
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        const URL1 = "location"
-        const URL2 = "contact"
-        const URL3 = "social"
-        const URL4 = "maintainer_group"
-        const URL5 = "projects"
-        const AUTH_URL = "logged_maintainer"
+        const URL1 = urlLocation()
+        const URL2 = urlContact()
+        const URL3 = urlSocial()
+        const URL4 = urlMaintainerGroup()
+        const URL5 = urlProjects()
+        const AUTH_URL = urlLoggedMaintainer()
 
         this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
         this.props.requestMaintainerAccess(AUTH_URL)

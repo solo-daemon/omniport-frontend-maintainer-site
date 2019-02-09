@@ -6,7 +6,7 @@ export const PROJECT_ERROR_OCCURED = "PROJECT_ERROR_OCCURED"
 const requestProjectData = url => {
     return dispatch => {
         axios
-            .get(`/api/maintainer_site/${url}`)
+            .get(`${url}`)
             .then(
                 response => dispatch(receiveProjectData(url, response)),
                 error => dispatch(errorOccured(url, error))

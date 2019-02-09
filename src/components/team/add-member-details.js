@@ -22,6 +22,8 @@ import common from "../../css/page-common-styles.css"
 import getCroppedImg from "../getCroppedImage"
 import LinkList from "./linkList"
 
+import { urlLoggedMaintainer, urlSocialLink } from "../../urls"
+
 const initial = {
     data: { site: "git", url: "" },
 }
@@ -33,7 +35,7 @@ class AddMemberDetails extends Component {
             data: initial.data,
             disabled: false,
             method: "post",
-            URL: "/api/maintainer_site/logged_maintainer/",
+            URL: urlLoggedMaintainer(),
             handle: "",
             shortBio: "",
             links: [],
@@ -76,7 +78,7 @@ class AddMemberDetails extends Component {
         }
     }
     componentDidMount() {
-        const URL1 = `/api/maintainer_site/logged_maintainer`
+        const URL1 = urlLoggedMaintainer()
 
         axios.all([axios.get(URL1), axios.options(URL1)]).then(
             axios.spread((memberRes, linksRes) => {
@@ -92,7 +94,7 @@ class AddMemberDetails extends Component {
                             this.setState({ method: "patch" })
                             this.setState({
                                 URL:
-                                    "/api/maintainer_site/logged_maintainer/" +
+                                    urlLoggedMaintainer() +
                                     this.state.profile[0].handle +
                                     "/",
                             })
@@ -112,45 +114,41 @@ class AddMemberDetails extends Component {
                                 prevUploadedFileN: this.state.profile[0]
                                     .normieImage,
                             })
-                            axios
-                                .get(`/api/maintainer_site/social_link`)
-                                .then(res => {
-                                    var ids = []
-                                    var arra = []
-                                    for (let i = 0; i < res.data.length; i++) {
-                                        ids.push(res.data[i].id)
-                                        var obj = { site: "", url: "" }
-                                        obj.site = res.data[i].site
-                                        obj.url = res.data[i].url
-                                        arra.push(obj)
-                                    }
-                                    this.setState({
-                                        linksId: ids,
-                                        links: arra,
-                                    })
+                            axios.get(urlSocialLink()).then(res => {
+                                var ids = []
+                                var arra = []
+                                for (let i = 0; i < res.data.length; i++) {
+                                    ids.push(res.data[i].id)
+                                    var obj = { site: "", url: "" }
+                                    obj.site = res.data[i].site
+                                    obj.url = res.data[i].url
+                                    arra.push(obj)
+                                }
+                                this.setState({
+                                    linksId: ids,
+                                    links: arra,
                                 })
+                            })
                             this.setState({ loaded: true })
                         } else {
-                            axios
-                                .get(`/api/maintainer_site/social_link`)
-                                .then(res => {
-                                    var ids = []
-                                    var arra = []
-                                    for (let i = 0; i < res.data.length; i++) {
-                                        ids.push(res.data[i].id)
-                                        var obj = { site: "", url: "" }
-                                        obj.site = res.data[i].site
-                                        obj.url = res.data[i].url
-                                        arra.push(obj)
-                                    }
-                                    this.setState(
-                                        {
-                                            linksId: ids,
-                                            links: arra,
-                                        },
-                                        () => this.setState({ loaded: true })
-                                    )
-                                })
+                            axios.get(urlSocialLink()).then(res => {
+                                var ids = []
+                                var arra = []
+                                for (let i = 0; i < res.data.length; i++) {
+                                    ids.push(res.data[i].id)
+                                    var obj = { site: "", url: "" }
+                                    obj.site = res.data[i].site
+                                    obj.url = res.data[i].url
+                                    arra.push(obj)
+                                }
+                                this.setState(
+                                    {
+                                        linksId: ids,
+                                        links: arra,
+                                    },
+                                    () => this.setState({ loaded: true })
+                                )
+                            })
                         }
                     }
                 )
@@ -203,7 +201,7 @@ class AddMemberDetails extends Component {
         }
         axios({
             method: "post",
-            url: "/api/maintainer_site/social_link/",
+            url: urlSocialLink(),
             data: this.state.data,
             headers: headers,
         })
@@ -240,10 +238,7 @@ class AddMemberDetails extends Component {
 
         axios({
             method: "delete",
-            url:
-                "/api/maintainer_site/social_link/" +
-                this.state.linksId[id1] +
-                "/",
+            url: urlSocialLink() + this.state.linksId[id1] + "/",
             headers: headers,
         }).then(response => {})
 
@@ -264,7 +259,6 @@ class AddMemberDetails extends Component {
     fileChange = async e => {
         const name = e.target.name
         const imageDataUrl = await readFile(e.target.files[0])
-        console.log(this.state.uploadedFileNormie)
         this.setState({
             [name]: {
                 ...this.state[name],
@@ -364,7 +358,6 @@ class AddMemberDetails extends Component {
 
     handleClose = e => {
         let triggered = e.target.name
-        console.log(triggered)
         if (triggered === "uploadedFileNormie") {
             this.setState({
                 normieOpen: false,
@@ -378,7 +371,6 @@ class AddMemberDetails extends Component {
 
     handleOpen = e => {
         let triggered = e.target.name
-        console.log(triggered)
         if (triggered === "uploadedFileNormie") {
             this.setState({
                 normieOpen: true,

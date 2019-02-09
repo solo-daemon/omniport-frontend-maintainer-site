@@ -8,12 +8,12 @@ const requestAlumniData = (url, page, replace = false) => {
     return dispatch => {
         axios
             .all([
-                axios.get(`/api/maintainer_site/${url}`, {
+                axios.get(`${url}`, {
                     params: {
                         page: page,
                     },
                 }),
-                axios.options(`/api/maintainer_site/${url}`),
+                axios.options(`${url}`),
             ])
             .then(
                 axios.spread((memberRes, optionsRes) => {
