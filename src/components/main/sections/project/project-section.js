@@ -10,7 +10,9 @@ import common from "../../../../css/sections/common-styles.css"
 const ProjectSection = ({ project, image }) => (
     <div styleName="styles.container">
         <Container textAlign="center">
-            <h1 styleName="common.header">Projects</h1>
+            <h1 styleName="common.header" styleName="styles.header">
+                Projects
+            </h1>
             <Image
                 src={"/static/maintainer_site/project.png"}
                 size="medium"

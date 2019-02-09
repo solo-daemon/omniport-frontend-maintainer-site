@@ -6,6 +6,7 @@
 .footer-text-content {
     color: #ddd;
     line-height: 1.7;
+    text-align: center;
 }
 .footer-text {
     font-size: 1.5rem;
@@ -13,6 +14,7 @@
     font-family: "TypoPRO Bebas Neue";
     color: #fff;
     padding-top: 28px;
+    text-align: center;
 }
 .f-link {
     margin-left: 12px;
@@ -23,6 +25,7 @@
     color: #ffffff;
     margin-right: 1.3em;
     font-size: 17px;
+    text-align: center;
 }
 
 .social-links:hover {
@@ -33,4 +36,7 @@ h5 {
     font-size: 1.64rem;
     line-height: 110%;
     margin: 0.82rem 0 0.656rem 0;
+}
+.f-link-center {
+    text-align: center !important   ;
 }

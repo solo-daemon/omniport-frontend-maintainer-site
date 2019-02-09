@@ -5,3 +5,9 @@
 .image {
     margin-bottom: 2em;
 }
+.header {
+    font-size: 32px !important;
+    font-family: "Playfair" !important;
+    color: #3b3736;
+    margin: 0px auto 36px auto;
+}

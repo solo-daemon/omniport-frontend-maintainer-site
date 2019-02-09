@@ -5,7 +5,13 @@ import styles from "../../../../css/sections/info/info-section.css"
 const InfoSection = ({ location, contact, social, about }) => (
     <div styleName="styles.container">
         <Container>
-            <Grid columns={2} padded="vertically" stackable reversed="mobile">
+            <Grid
+                columns={2}
+                padded="vertically"
+                stackable
+                reversed="mobile"
+                centered
+            >
                 <Grid.Column>
                     <div>
                         <h5>
@@ -22,13 +28,13 @@ const InfoSection = ({ location, contact, social, about }) => (
                         </p>
                     </div>
                     <br />
-                    <p>
+                    <p styleName="styles.f-link-center">
                         <Icon inverted name="phone" />
                         <span styleName="styles.f-link">
                             {contact.primaryPhoneNumber}
                         </span>
                     </p>
-                    <p>
+                    <p styleName="styles.f-link-center">
                         <Icon inverted name="envelope" />
                         <span styleName="styles.f-link">
                             {contact.emailAddress}

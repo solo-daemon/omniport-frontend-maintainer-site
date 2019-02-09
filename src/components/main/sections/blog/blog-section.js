@@ -11,7 +11,9 @@ const blog2 = "Find answers to all your whats, whys and hows."
 const BlogSection = () => (
     <div styleName="styles.container">
         <Container textAlign="center">
-            <h1 styleName="common.header">Blogs</h1>
+            <h1 styleName="common.header" styleName="styles.header">
+                Blogs
+            </h1>
             <Grid verticalAlign="middle" centered stackable padded>
                 <Grid.Column width={8} textAlign="center">
                     <Image

@@ -84,11 +84,7 @@ class TeamIndividualView extends Component {
                 <div>
                     <Container styleName="styles.margin">
                         <Grid stackable styleName="styles.grid">
-                            <Grid.Column
-                                textAlign="left"
-                                width={5}
-                                styleName="styles.right-grid"
-                            >
+                            <Grid.Column textAlign="left" width={5}>
                                 <div styleName="styles.pro-image">
                                     <Reveal animated="fade">
                                         <Reveal.Content visible>
@@ -112,10 +108,7 @@ class TeamIndividualView extends Component {
                                     </Reveal>
                                 </div>
                             </Grid.Column>
-                            <Grid.Column
-                                width={11}
-                                styleName="styles.right-grid"
-                            >
+                            <Grid.Column width={11}>
                                 <Header as="h1">
                                     {
                                         this.state.memberDetails.maintainer

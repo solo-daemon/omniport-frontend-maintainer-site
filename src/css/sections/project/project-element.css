@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans");
+
 .element {
     margin-top: 2em;
 }
@@ -27,4 +29,11 @@
 
 .link-text {
     display: inline;
+    font-family: "Playfair" !important;
+    font-size: 28px !important;
+}
+.link-desc {
+    line-height: 2;
+    font-size: 18px;
+    font-family: "NunitosansR";
 }

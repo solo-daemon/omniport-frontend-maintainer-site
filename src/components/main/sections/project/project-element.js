@@ -19,7 +19,7 @@ const ProjectElement = ({ number, name, description, link }) => (
                     {name}
                 </Header>
             </Link>
-            <p>{description}</p>
+            <p styleName="styles.link-desc">{description}</p>
         </Segment>
     </Grid.Column>
 )
