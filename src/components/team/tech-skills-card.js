@@ -1,9 +1,8 @@
 import React, { Component } from "react"
-
-import { Card, Header, Icon, Segment, List, Reveal } from "semantic-ui-react"
-import styles from "../../css/team/hobbies-card.css"
-import dev from "../../css/team/tech-skills-card.css"
 import axios from "axios"
+
+import { Label, Image } from "semantic-ui-react"
+import styles from "../../css/team/tech-skills-card.css"
 
 class TechSkillsCard extends Component {
     constructor(props) {
@@ -11,43 +10,25 @@ class TechSkillsCard extends Component {
     }
 
     render() {
-        const coverIcon = this.props.coverIcon
-        const array = this.props.array
-        const message = this.props.message
-
+        const techSkills = this.props.array
+        console.log(this.props)
         return (
-            <Card raised>
-                <Reveal animated="move up" stylename="styles.revealHeight">
-                    <Reveal.Content visible styleName="styles.reveal">
-                        <Segment basic padded styleName="styles.visible">
-                            <Icon name={coverIcon} size="huge" />
-                        </Segment>
-                    </Reveal.Content>
-                    <Reveal.Content hidden>
-                        <Segment basic padded>
-                            <Header as="h1">{message}</Header>
-                            <List>
-                                {array.map((info, index) => {
-                                    var icon = info.toLowerCase()
-                                    icon = icon.replace(/\s/g, "")
-                                    return (
-                                        <List.Item key={index}>
-                                            <span>
-                                                <img
-                                                    height="20"
-                                                    width="20"
-                                                    src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
-                                                />{" "}
-                                                {info}
-                                            </span>
-                                        </List.Item>
-                                    )
-                                })}
-                            </List>
-                        </Segment>
-                    </Reveal.Content>
-                </Reveal>
-            </Card>
+            <div styleName="styles.label-container">
+                {techSkills.map((info, index) => {
+                    let icon = info.toLowerCase()
+                    icon = icon.replace(/\s/g, "")
+                    return (
+                        <div styleName="styles.label">
+                            <img
+                                height="18"
+                                src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
+                                styleName="styles.label-image"
+                            />
+                            {info}
+                        </div>
+                    )
+                })}
+            </div>
         )
     }
 }

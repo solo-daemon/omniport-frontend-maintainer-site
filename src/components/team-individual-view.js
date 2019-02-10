@@ -83,8 +83,12 @@ class TeamIndividualView extends Component {
             return (
                 <div>
                     <Container styleName="styles.margin">
-                        <Grid columns={2} stackable>
-                            <Grid.Column textAlign="center">
+                        <Grid stackable styleName="styles.grid">
+                            <Grid.Column
+                                textAlign="left"
+                                width={5}
+                                styleName="styles.right-grid"
+                            >
                                 <div styleName="styles.pro-image">
                                     <Reveal animated="fade">
                                         <Reveal.Content visible>
@@ -108,7 +112,10 @@ class TeamIndividualView extends Component {
                                     </Reveal>
                                 </div>
                             </Grid.Column>
-                            <Grid.Column verticalAlign="middle">
+                            <Grid.Column
+                                width={11}
+                                styleName="styles.right-grid"
+                            >
                                 <Header as="h1">
                                     {
                                         this.state.memberDetails.maintainer
@@ -139,7 +146,8 @@ class TeamIndividualView extends Component {
                                 <div styleName="styles.short-biography">
                                     {this.state.memberDetails.shortBiography}
                                 </div>
-                                <div>
+                                <TechSkillsCard array={tempArr} />
+                                <div styleName="styles.social-links">
                                     {this.state.memberDetails
                                         .socialInformation[0] &&
                                         this.state.memberDetails.socialInformation[0].links.map(
@@ -165,11 +173,15 @@ class TeamIndividualView extends Component {
                             </Grid.Column>
                         </Grid>
 
-                        <Divider section />
+                        <Divider section styleName="styles.divider" />
 
                         {Boolean(this.state.memberProjects.length) && (
                             <React.Fragment>
-                                <Header as="h2" textAlign="center">
+                                <Header
+                                    as="h2"
+                                    textAlign="center"
+                                    styleName="styles.header"
+                                >
                                     Projects
                                 </Header>
                                 <Card.Group itemsPerRow={4} doubling stackable>
@@ -185,11 +197,6 @@ class TeamIndividualView extends Component {
                                 </Card.Group>
                             </React.Fragment>
                         )}
-                        <TechSkillsCard
-                            coverIcon="laptop"
-                            array={tempArr}
-                            message="Tech skills"
-                        />
 
                         <Segment padded basic />
                     </Container>
