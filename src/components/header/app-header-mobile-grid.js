@@ -55,7 +55,6 @@ class AppHeaderMobile extends Component {
     }
 
     render() {
-        console.log(window.location)
         return (
             <Grid columns={3} verticalAlign="middle">
                 <Grid.Column>

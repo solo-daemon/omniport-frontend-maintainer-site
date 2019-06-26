@@ -16,7 +16,6 @@ class Link extends React.Component {
         var iconText = ""
         if (!this.props.data.url) {
             let data = this.props.data
-            console.log(data)
             data = data.toLowerCase()
             iconText = data.replace(/\s/g, "")
         }

@@ -11,7 +11,6 @@ class TechSkillsCard extends Component {
 
     render() {
         const techSkills = this.props.array
-        console.log(this.props)
         return (
             <div styleName="styles.label-container">
                 {techSkills.map((info, index) => {
