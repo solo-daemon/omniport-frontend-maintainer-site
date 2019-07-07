@@ -1,23 +1,23 @@
-import { connect } from "react-redux"
-import { requestTeamData } from "../../actions/apiTeamCall"
+import { connect } from 'react-redux'
 
-import Team from "../../components/team/team-page"
+import { requestTeamData } from '../../actions/apiTeamCall'
+import Team from '../../components/team/team-page'
 
 const mapStateToProps = state => {
-    return {
-        apiTeamData: state.apiTeamData,
-    }
+  return {
+    apiTeamData: state.apiTeamData,
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        requestTeamData: url => {
-            dispatch(requestTeamData(url))
-        },
-    }
+  return {
+    requestTeamData: url => {
+      dispatch(requestTeamData(url))
+    },
+  }
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Team)

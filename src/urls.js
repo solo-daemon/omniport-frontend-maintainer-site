@@ -1,56 +1,56 @@
-import config from "../config.json"
+import config from '../config.json'
 
 export function urlAppBase() {
-    return config.baseUrl
+  return config.baseUrl
 }
 export function urlMainApp() {
-    return "/api/maintainer_site/"
+  return '/api/maintainer_site/'
 }
 
 export function urlSocial() {
-    return `${urlMainApp()}social/`
+  return `${urlMainApp()}social/`
 }
 export function urlLocation() {
-    return `${urlMainApp()}location/`
+  return `${urlMainApp()}location/`
 }
 export function urlContact() {
-    return `${urlMainApp()}contact/`
+  return `${urlMainApp()}contact/`
 }
 export function urlMaintainerGroup() {
-    return `${urlMainApp()}maintainer_group/`
+  return `${urlMainApp()}maintainer_group/`
 }
 export function urlLoggedMaintainer() {
-    return `${urlMainApp()}logged_maintainer/`
+  return `${urlMainApp()}logged_maintainer/`
 }
 export function urlBlogs() {
-    return `${urlMainApp()}blogs/`
+  return `${urlMainApp()}blogs/`
 }
 
 export function urlProjects() {
-    return `${urlMainApp()}projects/`
+  return `${urlMainApp()}projects/`
 }
 export function urlProjectsDetails(slug) {
-    return `${urlProjects()}${slug}/`
+  return `${urlProjects()}${slug}/`
 }
 
 export function urlTeam() {
-    return `${urlMainApp()}active_maintainer_info/`
+  return `${urlMainApp()}active_maintainer_info/`
 }
 export function urlTeamDetails(slug) {
-    return `${urlTeam()}${slug}/`
+  return `${urlTeam()}${slug}/`
 }
 
 export function urlAlumni() {
-    return `${urlMainApp()}inactive_maintainer_info/`
+  return `${urlMainApp()}inactive_maintainer_info/`
 }
 export function urlAlumniDetails(slug) {
-    return `${urlAlumni()}${slug}/`
+  return `${urlAlumni()}${slug}/`
 }
 
 export function urlMaintainerProject(id) {
-    return `${urlMainApp()}maintainer_project/${id}/`
+  return `${urlMainApp()}maintainer_project/${id}/`
 }
 
 export function urlSocialLink() {
-    return `${urlMainApp()}social_link/`
+  return `${urlMainApp()}social_link/`
 }

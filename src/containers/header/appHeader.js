@@ -1,12 +1,12 @@
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 
-import AppHeader from "../../components/header/app-header"
+import AppHeader from '../../components/header/app-header'
 
 const mapStateToProps = state => {
-    return {
-        sidebarVisible: state.sidebarVisible,
-        isAuthed: state.isAuthed,
-    }
+  return {
+    sidebarVisible: state.sidebarVisible,
+    isAuthed: state.isAuthed,
+  }
 }
 
 export default connect(mapStateToProps)(AppHeader)
