@@ -31,7 +31,7 @@ const ProjectSection = ({ project }) => (
           />
         ))}
       </Grid>
-      <Segment clearing padded="very" basic>
+      <Segment basic>
         <Link to="./projects">
           <div styleName="common.button">View more</div>
         </Link>

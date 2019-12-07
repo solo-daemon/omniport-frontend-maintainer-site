@@ -6,13 +6,7 @@ import styles from '../../../../css/sections/info/info-section.css'
 const InfoSection = ({ location, contact, social, about }) => (
   <div styleName="styles.container">
     <Container>
-      <Grid
-        columns={2}
-        padded="vertically"
-        stackable
-        reversed="mobile"
-        centered
-      >
+      <Grid columns={2} padded="vertically" stackable reversed="mobile">
         <Grid.Column>
           <div>
             <h5>
@@ -28,15 +22,15 @@ const InfoSection = ({ location, contact, social, about }) => (
             </p>
           </div>
           <br />
-          <p styleName="styles.f-link-center">
+          <p>
             <Icon inverted name="phone" />
             <span styleName="styles.f-link">{contact.primaryPhoneNumber}</span>
           </p>
-          <p styleName="styles.f-link-center">
+          <p>
             <Icon inverted name="envelope" />
             <span styleName="styles.f-link">{contact.emailAddress}</span>
           </p>
-          <div styleName="styles.social-links-center">
+          <div>
             {social.links.map(profile => (
               <span styleName="styles.social-links">
                 <Icon
