@@ -23,7 +23,7 @@ export function urlLoggedMaintainer() {
   return `${urlMainApp()}logged_maintainer/`
 }
 export function urlBlogs() {
-  return `${urlMainApp()}blogs/`
+  return `${urlMainApp()}blog/`
 }
 
 export function urlProjects() {

@@ -19,8 +19,8 @@ class Blog extends Component {
       return (
         <Container styleName="common.margin">
           <Card.Group itemsPerRow={3} stackable doubling>
-            {this.props.apiBlogData.data.map(info => (
-              <BlogDetail info={info} key={info.id} pub={MEDIUM_PUBLICATION} />
+            {this.props.apiBlogData.data.map((info, id) => (
+              <BlogDetail info={info} key={id} />
             ))}
           </Card.Group>
           <Segment basic padded textAlign="center">
@@ -29,7 +29,7 @@ class Blog extends Component {
               size="large"
               link={true}
               onClick={() =>
-                window.open(MEDIUM_URL + MEDIUM_PUBLICATION, '_blank')
+                window.open(`${MEDIUM_URL}${MEDIUM_PUBLICATION}`, '_blank')
               }
             />
           </Segment>
