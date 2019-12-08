@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { isBrowser } from 'react-device-detect'
 import { Container, Icon, Label } from 'semantic-ui-react'
 
+import { GITHUB_URL } from '../../consts'
+
 import styles from '../../css/footer/app-footer.css'
 
 class FooterSection extends Component {
@@ -70,12 +72,12 @@ const Creators = () => {
     {
       name: 'Aman Sharma',
       role: 'Full-stack developer',
-      url: 'https://github.com/algomaster99',
+      url: `${GITHUB_URL}algomaster99`,
     },
     {
       name: 'Harshit Khetan',
       role: 'Full-stack developer',
-      url: 'https://github.com/promehul',
+      url: `${GITHUB_URL}promehul`,
     },
   ]
   return (
