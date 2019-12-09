@@ -16,7 +16,7 @@ const BlogSection = () => (
           <Image src="/static/maintainer_site/blog.png" size="medium" inline />
         </Grid.Column>
         <Grid.Column width={8} textAlign="center">
-          <p>
+          <p styleName="styles.description">
             {BLOG_SECTION_LINE_1}
             <br />
             {BLOG_SECTION_LINE_2}

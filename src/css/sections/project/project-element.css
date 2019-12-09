@@ -1,39 +1,30 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito+Sans");
-
 .element {
-    margin-top: 2em;
+  margin-top: 2em;
 }
 
 .background {
-    position: absolute;
-    transform: translate(40%, 50%);
-    left: 0;
-    height: 100%;
-    color: rgba(248, 209, 108, 0.5);
-    font-size: 15em;
-    font-family: "TypoPRO Bebas Neue";
-    user-select: none;
+  position: absolute;
+  transform: translate(40%, 50%);
+  left: 0;
+  height: 100%;
+  color: rgba(248, 209, 108, 0.5);
+  font-size: 15em;
+  font-family: 'TypoPRO Bebas Neue';
+  user-select: none;
 }
 
 .text {
-    transform: translateX(-5%);
-}
-
-.link {
-    color: #000000;
-}
-
-.link:hover {
-    color: #000000;
+  transform: translateX(-5%);
 }
 
 .link-text {
-    display: inline;
-    font-family: "Playfair" !important;
-    font-size: 28px !important;
+  color: #000000;
+  display: inline;
+  font-family: 'Playfair Display';
+  font-size: 24px;
 }
 .link-desc {
-    line-height: 2;
-    font-size: 18px;
-    font-family: "NunitosansR";
+  color: #000000;
+  line-height: 2;
+  font-size: 16px;
 }

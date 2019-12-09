@@ -1,10 +1,8 @@
 .container {
-    background-color: #ebebeb;
-    width: 100%;
+  background-color: #ebebeb;
+  width: 100%;
 }
-.header {
-    font-size: 32px !important;
-    font-family: "Playfair" !important;
-    color: #3b3736;
-    margin: 0px auto 36px auto;
+
+.description {
+  font-size: 16px;
 }
