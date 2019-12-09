@@ -6,16 +6,21 @@ import style from '../../css/team/add-member-details.css'
 class Link extends React.Component {
   constructor(props) {
     super(props)
+    this.deleteSkillIcon = React.createRef()
+    this.deleteSocialLinkIcon = React.createRef()
   }
 
-  handleDelete = e => {
-    this.props.handleUpdateDelete(e)
+  deleteSkill = () => {
+    this.props.deleteSkill(this.deleteSkillIcon.current.props.id)
+  }
+
+  deleteSocialLink = () => {
+    this.props.deleteSocialLink(this.deleteSocialLinkIcon.current.props.id)
   }
 
   render() {
-    const pop = this.props.name
     const ICON_OPTIONS = this.props.linkListOptions
-    var iconText = ''
+    let iconText = ''
     if (!this.props.data.url) {
       let data = this.props.data
       data = data.toLowerCase()
@@ -39,12 +44,21 @@ class Link extends React.Component {
             <p styleName="style.link">{this.props.data}</p>
           )}
         </div>
-        <Icon
-          name="delete"
-          id={this.props.id}
-          pop={this.props.name}
-          onClick={this.handleDelete}
-        />
+        {ICON_OPTIONS ? (
+          <Icon
+            id={this.props.id}
+            name="delete"
+            onClick={this.deleteSocialLink}
+            ref={this.deleteSocialLinkIcon}
+          />
+        ) : (
+          <Icon
+            id={this.props.id}
+            name="delete"
+            onClick={this.deleteSkill}
+            ref={this.deleteSkillIcon}
+          />
+        )}
       </Segment>
     )
   }

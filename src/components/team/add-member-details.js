@@ -23,23 +23,17 @@ import LinkList from './linkList'
 
 import { urlLoggedMaintainer, urlSocialLink } from '../../urls'
 
-const INITIAL = {
-  data: { site: 'git', url: '' },
-}
 class AddMemberDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
       profile: {},
-      data: INITIAL.data,
       disabled: false,
-      method: 'post',
       URL: urlLoggedMaintainer(),
       handle: '',
       shortBio: '',
-      links: [],
       skills: { array: [], entry: '' },
-      linksId: [],
+      socialLinks: { array: [], site: 'git', url: '' },
       errors: {
         music: '',
         book: '',
@@ -90,9 +84,8 @@ class AddMemberDetails extends Component {
           },
           () => {
             if (this.state.profile.length) {
-              this.setState({ method: 'patch' })
               this.setState({
-                URL: urlLoggedMaintainer() + this.state.profile[0].handle + '/',
+                URL: URL1 + this.state.profile[0].handle + '/',
               })
               this.setState({
                 handle: this.state.profile[0].handle,
@@ -107,39 +100,17 @@ class AddMemberDetails extends Component {
                 prevUploadedFileN: this.state.profile[0].normieImage,
               })
               axios.get(urlSocialLink()).then(res => {
-                var ids = []
-                var arra = []
-                for (let i = 0; i < res.data.length; i++) {
-                  ids.push(res.data[i].id)
-                  var obj = { site: '', url: '' }
-                  obj.site = res.data[i].site
-                  obj.url = res.data[i].url
-                  arra.push(obj)
-                }
                 this.setState({
-                  linksId: ids,
-                  links: arra,
+                  socialLinks: { ...this.state.socialLinks, array: res.data },
+                  loaded: true,
                 })
               })
-              this.setState({ loaded: true })
             } else {
               axios.get(urlSocialLink()).then(res => {
-                var ids = []
-                var arra = []
-                for (let i = 0; i < res.data.length; i++) {
-                  ids.push(res.data[i].id)
-                  var obj = { site: '', url: '' }
-                  obj.site = res.data[i].site
-                  obj.url = res.data[i].url
-                  arra.push(obj)
-                }
-                this.setState(
-                  {
-                    linksId: ids,
-                    links: arra,
-                  },
-                  () => this.setState({ loaded: true })
-                )
+                this.setState({
+                  socialLinks: { ...this.state.socialLinks, array: res.data },
+                  loaded: true,
+                })
               })
             }
           }
@@ -148,43 +119,33 @@ class AddMemberDetails extends Component {
     )
   }
 
-  onChange = (event, data) => {
-    const { value } = data
-
-    this.setState({ data: { ...this.state.data, site: value } })
+  inputSkillChange = e => {
+    this.setState({ skills: { ...this.state.skills, entry: e.target.value } })
   }
-
-  handleChange = e => {
-    const target = e.target
-    const value = target.value
-    const name = target.name
-    this.setState({ data: { ...this.state.data, [name]: value } })
-  }
-  handleChangeSkills = e => {
-    const value = e.target.value
-    this.setState({ skills: { ...this.state.skills, entry: value } })
-  }
-  addLinkSkills = () => {
-    var arr = this.state.skills.array
-    this.state.skills.entry && arr.push(this.state.skills.entry)
+  inputSocialLinkChange = (e, name, data = undefined) => {
     this.setState({
-      skills: { array: arr, entry: '' },
+      socialLinks: {
+        ...this.state.socialLinks,
+        [name]: e.target.value === undefined ? data.value : e.target.value,
+      },
     })
   }
-  handleUpdateDeleteSkills = e => {
-    var name = 'skills'
-    var id = e.target.id
-    var arr = []
-    for (let i = 0; i < this.state[name].array.length; i++) {
-      if (i != id) {
-        arr.push(this.state[name].array[i])
-      }
-    }
+  addSkills = () => {
+    let updatedArray = [...this.state.skills.array, this.state.skills.entry]
     this.setState({
-      [name]: { array: arr, entry: '' },
+      skills: {
+        array: [...new Set(updatedArray)],
+        entry: '',
+      },
     })
   }
-
+  deleteSkill = id => {
+    this.setState({
+      skills: {
+        array: this.state.skills.array.filter((_, index) => index !== id),
+      },
+    })
+  }
   addLink = e => {
     const that = this
     that.setState({ errorUrl: false })
@@ -194,57 +155,40 @@ class AddMemberDetails extends Component {
     axios({
       method: 'post',
       url: urlSocialLink(),
-      data: this.state.data,
+      data: {
+        site: this.state.socialLinks.site,
+        url: this.state.socialLinks.url,
+      },
       headers: headers,
     })
       .then(response => {
-        //handle success
-        var arr = this.state.links
-        arr.push(this.state.data)
-        this.setState({ links: arr, data: INITIAL.data })
-
-        var arr1 = this.state.linksId
-        arr1.push(response.data.id)
-        this.setState({ linksId: arr1 })
+        this.setState({
+          socialLinks: {
+            array: [...this.state.socialLinks.array, response.data],
+          },
+        })
       })
       .catch(function(response) {
-        //handle error
         if (response.response.data.url != null) {
           that.setState({ errorUrl: true })
         }
       })
   }
 
-  handleUpdateDelete = e => {
-    var id1 = e.target.id
-    var arr = []
-    for (let i = 0; i < this.state.links.length; i++) {
-      if (i != id1) {
-        arr.push(this.state.links[i])
-      }
-    }
-
+  deleteSocialLink = id => {
     let headers = {
       'X-CSRFToken': getCookie('csrftoken'),
     }
-
     axios({
       method: 'delete',
-      url: urlSocialLink() + this.state.linksId[id1] + '/',
+      url: urlSocialLink() + id + '/',
       headers: headers,
-    }).then(response => {})
-
-    var arr1 = []
-    for (let i = 0; i < this.state.linksId.length; i++) {
-      if (i != id1) {
-        arr1.push(this.state.linksId[i])
-      }
-    }
-
-    this.setState({
-      data: INITIAL.data,
-      links: arr,
-      linksId: arr1,
+    }).then(response => {
+      this.setState({
+        socialLinks: {
+          array: this.state.socialLinks.array.filter(link => link.id !== id),
+        },
+      })
     })
   }
 
@@ -277,7 +221,6 @@ class AddMemberDetails extends Component {
     const {
       handle,
       shortBio,
-      links,
       skills,
       uploadedFileDank,
       uploadedFileNormie,
@@ -302,7 +245,6 @@ class AddMemberDetails extends Component {
       var formData = new FormData()
       formData.append('handle', handle)
       formData.append('short_biography', shortBio)
-      formData.append('social_information', links)
 
       formData.append('technical_skills', skillsArray)
 
@@ -327,7 +269,7 @@ class AddMemberDetails extends Component {
       that.setState({ errorHandle: false })
       that.setState({ errorShortBio: false })
       axios({
-        method: this.state.method,
+        method: 'patch',
         url: this.state.URL,
         data: formData,
         headers: headers,
@@ -375,7 +317,10 @@ class AddMemberDetails extends Component {
   }
 
   render() {
-    //Computation to get all social Links from options functions and for other using globe icon
+    /**
+     * Computation to get all social Links from options functions and for other
+     * using globe icon
+     */
     const options = []
     const linkListOptions = {}
     for (let i = 0; i < this.state.socialLinksOptions.length; i++) {
@@ -384,9 +329,10 @@ class AddMemberDetails extends Component {
         icon = 'globe'
       }
       options.push({
+        key: this.state.socialLinksOptions[i].value,
+        icon: icon,
         text: this.state.socialLinksOptions[i].displayName,
         value: this.state.socialLinksOptions[i].value,
-        icon: icon,
       })
       linkListOptions[this.state.socialLinksOptions[i].value] = icon
     }
@@ -434,36 +380,36 @@ class AddMemberDetails extends Component {
               )}
             </Form>
 
-            <Segment attached="top" styleName="styles.headingBox" fluid>
-              <span>
-                <h3>Social media links</h3>
-              </span>
+            <Segment attached="top" styleName="styles.headingBox">
+              <h3>Social media links</h3>
             </Segment>
-            <Segment textAlign="left" attached="bottom" fluid>
+            <Segment textAlign="left" attached="bottom">
               <Form>
                 <Form.Field>
                   <label>Site</label>
                   <Dropdown
                     selection
                     name="site"
-                    value={this.state.data.site}
-                    onChange={this.onChange}
+                    onChange={(_, data) =>
+                      this.inputSocialLinkChange(_, 'site', data)
+                    }
                     options={options}
+                    value={this.state.socialLinks.site}
                   />
                 </Form.Field>
                 <Form.Field>
                   <Form.Input
                     label="URL"
-                    onChange={this.handleChange}
-                    value={this.state.data.url}
+                    onChange={event => this.inputSocialLinkChange(event, 'url')}
+                    value={this.state.socialLinks.url}
                     name="url"
-                    placeholder="Add URl ..."
+                    placeholder="Add URL ..."
                   />
-                  {this.state.errorUrl && (
+                  {/* {this.state.errorUrl && (
                     <Label color="red" pointing>
                       Enter a valid URL
                     </Label>
-                  )}
+                  )} */}
                 </Form.Field>
 
                 <Form.Field>
@@ -472,12 +418,11 @@ class AddMemberDetails extends Component {
                   </Button>
                 </Form.Field>
               </Form>
-
-              {this.state.links.length > 0 && (
+              {this.state.socialLinks.array.length > 0 && (
                 <LinkList
-                  data={this.state.links}
-                  handleUpdateDelete={this.handleUpdateDelete}
                   linkListOptions={linkListOptions}
+                  data={this.state.socialLinks.array}
+                  deleteSocialLink={this.deleteSocialLink}
                 />
               )}
             </Segment>
@@ -498,7 +443,7 @@ class AddMemberDetails extends Component {
               <Form>
                 <Form.Field>
                   <Form.Input
-                    onChange={this.handleChangeSkills}
+                    onChange={this.inputSkillChange}
                     value={this.state.skills.entry}
                     name="skills"
                     placeholder="Add your Skills ..."
@@ -506,11 +451,7 @@ class AddMemberDetails extends Component {
                 </Form.Field>
 
                 <Form.Field>
-                  <Button
-                    color="blue"
-                    name="skills"
-                    onClick={this.addLinkSkills}
-                  >
+                  <Button color="blue" onClick={this.addSkills}>
                     Add
                   </Button>
                 </Form.Field>
@@ -518,8 +459,8 @@ class AddMemberDetails extends Component {
               {this.state.skills.array.length > 0 && (
                 <LinkList
                   data={this.state.skills.array}
-                  handleUpdateDelete={this.handleUpdateDeleteSkills}
                   name="skills"
+                  deleteSkill={this.deleteSkill}
                 />
               )}
             </Segment>

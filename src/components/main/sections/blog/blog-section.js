@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Grid, Image, Segment } from 'semantic-ui-react'
 
-import { BLOG1, BLOG2 } from '../../../../consts'
+import { BLOG_SECTION_LINE_1, BLOG_SECTION_LINE_2 } from '../../../../consts'
 
 import styles from '../../../../css/sections/blog/blog-section.css'
 import common from '../../../../css/sections/common-styles.css'
@@ -19,9 +19,9 @@ const BlogSection = () => (
         </Grid.Column>
         <Grid.Column width={8} textAlign="center">
           <p>
-            {BLOG1}
+            {BLOG_SECTION_LINE_1}
             <br />
-            {BLOG2}
+            {BLOG_SECTION_LINE_2}
           </p>
         </Grid.Column>
       </Grid>

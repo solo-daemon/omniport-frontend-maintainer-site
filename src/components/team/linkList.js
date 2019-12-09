@@ -9,24 +9,24 @@ class LinkList extends React.Component {
   }
 
   render() {
-    const data = this.props.data
-    const name = this.props.name
-    const handleUpdateDelete = this.props.handleUpdateDelete
     const linkListOptions = this.props.linkListOptions
-      ? this.props.linkListOptions
-      : null
-    const children = Array.from(data).map(function(child, index) {
-      return (
-        <Link
-          id={index}
-          data={child}
-          name={name}
-          handleUpdateDelete={handleUpdateDelete}
-          linkListOptions={linkListOptions}
-        />
-      )
-    })
-    return <Segment.Group>{children}</Segment.Group>
+    return (
+      <Segment.Group>
+        {this.props.data.map((child, index) => {
+          return (
+            <Link
+              id={child.id ? child.id : index}
+              key={index}
+              data={child}
+              name={this.props.name}
+              deleteSkill={this.props.deleteSkill}
+              linkListOptions={linkListOptions ? linkListOptions : undefined}
+              deleteSocialLink={this.props.deleteSocialLink}
+            />
+          )
+        })}
+      </Segment.Group>
+    )
   }
 }
 export default LinkList

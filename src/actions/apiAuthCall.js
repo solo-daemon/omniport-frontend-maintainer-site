@@ -5,12 +5,10 @@ export const AUTH_ERROR_OCCURED = 'AUTH_ERROR_OCCURED'
 
 export const requestMaintainerAccess = url => {
   return dispatch => {
-    axios
-      .get(`${url}`)
-      .then(
-        response => dispatch(receivePermission(url, response)),
-        error => dispatch(errorOccured(url, error))
-      )
+    axios.get(`${url}`).then(
+      response => dispatch(receivePermission(url, response)),
+      error => dispatch(errorOccured(url, error))
+    )
   }
 }
 

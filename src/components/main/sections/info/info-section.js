@@ -32,7 +32,7 @@ const InfoSection = ({ location, contact, social, about }) => (
           </p>
           <div>
             {social.links.map(profile => (
-              <span styleName="styles.social-links">
+              <span styleName="styles.social-links" key={profile.id}>
                 <Icon
                   key={profile.id}
                   title={profile.siteName}
