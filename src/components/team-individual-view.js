@@ -158,15 +158,13 @@ class TeamIndividualView extends Component {
                 <Header as="h2" textAlign="center" styleName="styles.header">
                   Projects
                 </Header>
-                <Card.Group itemsPerRow={4} doubling stackable>
+                <Card.Group itemsPerRow={4} doubling stackable centered>
                   {this.state.memberProjects.map((info, index) => (
                     <ProjectDetail key={index} info={info} key={info.slug} />
                   ))}
                 </Card.Group>
               </React.Fragment>
             )}
-
-            <Segment padded basic />
           </Container>
         </div>
       )

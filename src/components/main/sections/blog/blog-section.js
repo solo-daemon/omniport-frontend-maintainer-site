@@ -10,9 +10,7 @@ import common from '../../../../css/sections/common-styles.css'
 const BlogSection = () => (
   <div styleName="styles.container">
     <Container textAlign="center">
-      <h1 styleName="common.header" styleName="styles.header">
-        Blogs
-      </h1>
+      <h1 styleName="common.header">Blog</h1>
       <Grid verticalAlign="middle" centered stackable padded>
         <Grid.Column width={8} textAlign="center">
           <Image src="/static/maintainer_site/blog.png" size="medium" inline />

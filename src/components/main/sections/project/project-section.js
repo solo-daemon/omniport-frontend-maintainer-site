@@ -10,9 +10,7 @@ import common from '../../../../css/sections/common-styles.css'
 const ProjectSection = ({ project }) => (
   <div styleName="styles.container">
     <Container textAlign="center">
-      <h1 styleName="common.header" styleName="styles.header">
-        Projects
-      </h1>
+      <h1 styleName="common.header">Projects</h1>
       <Image
         src={'/static/maintainer_site/project.png'}
         size="medium"
@@ -20,7 +18,7 @@ const ProjectSection = ({ project }) => (
         centered
       />
 
-      <Grid padded columns={4}>
+      <Grid padded columns={4} centered>
         {Object.keys(project).map((key, index) => (
           <ProjectElement
             key={project[key].slug}

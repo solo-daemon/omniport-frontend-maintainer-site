@@ -29,22 +29,19 @@ class Team extends Component {
 
     if (this.props.apiTeamData.loaded) {
       return (
-        <React.Fragment>
-          <Container textAlign="center" styleName="common.margin">
-            <Card.Group itemsPerRow={4} stackable>
-              {this.props.apiTeamData.data.map(info => (
-                <TeamMember
-                  info={info}
-                  key={info.handle}
-                  roleOptions={roleOptions}
-                  designationOptions={designationOptions}
-                  // linkOptions={linkOptions}
-                />
-              ))}
-            </Card.Group>
-          </Container>
-          <Segment padded basic />
-        </React.Fragment>
+        <Container textAlign="center" styleName="common.margin">
+          <Card.Group itemsPerRow={4} stackable>
+            {this.props.apiTeamData.data.map(info => (
+              <TeamMember
+                info={info}
+                key={info.handle}
+                roleOptions={roleOptions}
+                designationOptions={designationOptions}
+                // linkOptions={linkOptions}
+              />
+            ))}
+          </Card.Group>
+        </Container>
       )
     } else {
       return <Loader active size="large" />

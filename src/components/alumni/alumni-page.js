@@ -45,34 +45,31 @@ class Alumni extends Component {
       ? this.props.apiAlumniData.options.actions.POST.maintainer.children
           .designation.choices
       : []
-    const linkOptions = this.props.apiAlumniData.loaded
-      ? this.props.apiAlumniData.options.actions.POST.socialInformation.child
-          .children.links.child.children.site.choices
-      : []
+    // const linkOptions = this.props.apiAlumniData.loaded
+    //   ? this.props.apiAlumniData.options.actions.POST.socialInformation.child
+    //       .children.links.child.children.site.choices
+    //   : []
 
     if (this.props.apiAlumniData.loaded) {
       return (
-        <React.Fragment>
-          <Container textAlign="center" styleName="common.margin">
-            <Card.Group itemsPerRow={4} stackable>
-              {this.props.apiAlumniData.data.length > 0 ? (
-                <React.Fragment>
-                  {this.props.apiAlumniData.data.map(info => (
-                    <AlumniMember
-                      info={info}
-                      key={info.handle}
-                      roleOptions={roleOptions}
-                      designationOptions={designationOptions}
-                      linkOptions={linkOptions}
-                    />
-                  ))}
-                </React.Fragment>
-              ) : null}
-              <Visibility once={false} onBottomVisible={this.handleUpdate} />
-            </Card.Group>
-          </Container>
-          <Segment padded basic />
-        </React.Fragment>
+        <Container textAlign="center" styleName="common.margin">
+          <Card.Group itemsPerRow={4} stackable>
+            {this.props.apiAlumniData.data.length > 0 ? (
+              <React.Fragment>
+                {this.props.apiAlumniData.data.map(info => (
+                  <AlumniMember
+                    info={info}
+                    key={info.handle}
+                    roleOptions={roleOptions}
+                    designationOptions={designationOptions}
+                    // linkOptions={linkOptions}
+                  />
+                ))}
+              </React.Fragment>
+            ) : null}
+            <Visibility once={false} onBottomVisible={this.handleUpdate} />
+          </Card.Group>
+        </Container>
       )
     } else {
       return <Loader active size="large" />
