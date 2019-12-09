@@ -18,13 +18,17 @@ const TeamMember = ({ info, roleOptions, designationOptions, linkOptions }) => {
           {roleOptions.map(
             role =>
               info.maintainer.role === role.value && (
-                <React.Fragment>{`${role.displayName} | `}</React.Fragment>
+                <React.Fragment
+                  key={role.displayName}
+                >{`${role.displayName} | `}</React.Fragment>
               )
           )}
           {designationOptions.map(
             designation =>
               info.maintainer.designation === designation.value && (
-                <React.Fragment>{designation.displayName}</React.Fragment>
+                <React.Fragment key={designation.displayName}>
+                  {designation.displayName}
+                </React.Fragment>
               )
           )}
         </Card.Description>

@@ -17,6 +17,7 @@ class TechSkillsCard extends Component {
           return (
             <div styleName="styles.label">
               <img
+                key={index}
                 height="18"
                 src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
                 styleName="styles.label-image"

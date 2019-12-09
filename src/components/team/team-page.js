@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Container, Loader, Segment } from 'semantic-ui-react'
 
-import TeamMember from './team-member-card'
+import TeamMember from './team-member'
 import { urlTeam } from '../../urls'
 
 import styles from '../../css/team/team.css'
@@ -22,10 +22,10 @@ class Team extends Component {
       ? this.props.apiTeamData.options.actions.POST.maintainer.children
           .designation.choices
       : []
-    const linkOptions = this.props.apiTeamData.loaded
-      ? this.props.apiTeamData.options.actions.POST.socialInformation.child
-          .children.links.child.children.site.choices
-      : []
+    // const linkOptions = this.props.apiTeamData.loaded
+    //   ? this.props.apiTeamData.options.actions.POST.socialInformation.child
+    //       .children.links.child.children.site.choices
+    //   : []
 
     if (this.props.apiTeamData.loaded) {
       return (
@@ -38,7 +38,7 @@ class Team extends Component {
                   key={info.handle}
                   roleOptions={roleOptions}
                   designationOptions={designationOptions}
-                  linkOptions={linkOptions}
+                  // linkOptions={linkOptions}
                 />
               ))}
             </Card.Group>
