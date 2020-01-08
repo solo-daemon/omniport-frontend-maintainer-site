@@ -17,6 +17,7 @@ import { getCookie, CustomCropper } from 'formula_one'
 
 import getCroppedImage from '../get-cropped-image'
 import { urlTeam, urlProjects } from '../../urls'
+import { IMAGE_STYLE } from '../../consts'
 
 import common from '../../css/page-common-styles.css'
 
@@ -278,11 +279,6 @@ class AddProjectDetails extends Component {
             />
             <Form.Field required>
               <label>Image:</label>
-              {!this.state.imageCrop && (
-                <Label color="red" pointing>
-                  Please crop your image
-                </Label>
-              )}
               <input
                 type="file"
                 onChange={this.fileChange}
@@ -294,13 +290,13 @@ class AddProjectDetails extends Component {
               size="tiny"
               open={this.state.open}
               onClose={this.handleClose}
-              dimmer="blurring"
             >
               <Modal.Header>Crop project's photo</Modal.Header>
               <Modal.Content image>
                 {this.state.imageSrc && (
                   <Fragment>
                     <CustomCropper
+                      imageStyle={IMAGE_STYLE}
                       src={this.state.imageSrc}
                       crop={this.state.crop}
                       onChange={crop => {

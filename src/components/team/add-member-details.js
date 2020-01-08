@@ -22,6 +22,7 @@ import getCroppedImg from '../get-cropped-image'
 import LinkList from './linkList'
 
 import { urlLoggedMaintainer, urlSocialLink } from '../../urls'
+import { IMAGE_STYLE } from '../../consts'
 
 class AddMemberDetails extends Component {
   constructor(props) {
@@ -487,6 +488,7 @@ class AddMemberDetails extends Component {
                   {this.state.uploadedFileNormie.imageSrc && (
                     <Fragment>
                       <CustomCropper
+                        imageStyle={IMAGE_STYLE}
                         src={this.state.uploadedFileNormie.imageSrc}
                         crop={this.state.uploadedFileNormie.crop}
                         onChange={crop => {
@@ -561,6 +563,7 @@ class AddMemberDetails extends Component {
                   {this.state.uploadedFileDank.imageSrc && (
                     <Fragment>
                       <CustomCropper
+                        imageStyle={IMAGE_STYLE}
                         src={this.state.uploadedFileDank.imageSrc}
                         crop={this.state.uploadedFileDank.crop}
                         onChange={crop => {
