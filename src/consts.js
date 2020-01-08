@@ -9,6 +9,19 @@ export const BLOG_SECTION_LINE_1 =
 export const BLOG_SECTION_LINE_2 =
   'Find answers to all your whats, whys and hows.'
 
+export const CREATORS = [
+  {
+    name: 'Aman Sharma',
+    role: 'Full-stack developer',
+    url: `${GITHUB_URL}algomaster99`,
+  },
+  {
+    name: 'Harshit Khetan',
+    role: 'Full-stack developer',
+    url: `${GITHUB_URL}promehul`,
+  },
+]
+
 export const IMAGE_STYLE = {
   maxHeight: '100%',
   maxWidth: '100%',

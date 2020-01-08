@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { isBrowser } from 'react-device-detect'
-import { Container, Icon, Label } from 'semantic-ui-react'
+import { Container, Icon, Label, Popup } from 'semantic-ui-react'
 
-import { GITHUB_URL } from '../../consts'
+import { CREATORS } from '../../consts'
 
 import styles from '../../css/footer/app-footer.css'
 
@@ -53,10 +53,16 @@ class FooterSection extends Component {
         <footer styleName="styles.container" styleName="styles.center">
           <Container textAlign="center">
             {this.state.iconVisible && (
-              <Icon
-                name="heart"
-                styleName="styles.heart"
-                onClick={this.handleEasterEggDispatch}
+              <Popup
+                content="Meet the team"
+                position="top center"
+                trigger={
+                  <Icon
+                    name="heart"
+                    styleName="styles.heart"
+                    onClick={this.handleEasterEggDispatch}
+                  />
+                }
               />
             )}
             {this.state.creatorVisible && <Creators />}
@@ -68,18 +74,6 @@ class FooterSection extends Component {
 }
 
 const Creators = () => {
-  const CREATORS = [
-    {
-      name: 'Aman Sharma',
-      role: 'Full-stack developer',
-      url: `${GITHUB_URL}algomaster99`,
-    },
-    {
-      name: 'Harshit Khetan',
-      role: 'Full-stack developer',
-      url: `${GITHUB_URL}promehul`,
-    },
-  ]
   return (
     <React.Fragment>
       {CREATORS.map((creator, index) => (
