@@ -14,12 +14,13 @@ import {
   Loader,
 } from 'semantic-ui-react'
 
-import styles from '../css/team/team-individual-view.css'
 import ProjectDetail from './projects/project-card'
-
 import TechSkillsCard from './team/tech-skills-card'
 import NoMatch from './404/404'
 import { urlApiTeamDetails, urlApiAlumniDetails, urlApiMaintainerProject } from '../urls'
+
+import common from '../css/page-common-styles.css'
+import styles from '../css/team/team-individual-view.css'
 
 class TeamIndividualView extends Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class TeamIndividualView extends Component {
 
       return (
         <div>
-          <Container styleName="styles.margin">
+          <Container styleName="common.margin">
             <Grid stackable styleName="styles.grid">
               <Grid.Column textAlign="left" width={5}>
                 <div styleName="styles.pro-image">
