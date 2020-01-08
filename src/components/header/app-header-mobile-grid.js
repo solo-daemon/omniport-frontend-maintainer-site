@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Grid, Icon } from 'semantic-ui-react'
 
-import { PATHNAME } from '../../consts'
+import { urlStaticBase, urlAppBase } from '../../urls'
 
 import logoStyles from '../../css/header/app-header-logo.css'
 import mobileStyles from '../../css/header/app-header-mobile-grid.css'
@@ -16,7 +16,7 @@ class AppHeaderMobile extends Component {
     if (window.scrollY > 0) {
       return 'maintainer-logo-after-scroll-main'
     } else {
-      if (window.location.pathname === PATHNAME) {
+      if (window.location.pathname === `${urlAppBase()}/`) {
         return 'maintainer-logo-before-scroll-main'
       } else {
         return 'maintainer-logo-after-scroll-main'
@@ -28,7 +28,7 @@ class AppHeaderMobile extends Component {
     if (window.scrollY > 0) {
       return 'hamburger-after-scroll-main'
     } else {
-      if (window.location.pathname === PATHNAME) {
+      if (window.location.pathname === `${urlAppBase()}/`) {
         return 'hamburger-before-scroll-main'
       } else {
         return 'hamburger-after-scroll-main'
@@ -37,7 +37,7 @@ class AppHeaderMobile extends Component {
   }
 
   handleNavTitle = () => {
-    if (window.location.pathname === PATHNAME) {
+    if (window.location.pathname === `${urlAppBase()}/`) {
       return ''
     } else if (this.props.name === 'add member details' && !this.props.auth) {
       return ''
@@ -52,13 +52,13 @@ class AppHeaderMobile extends Component {
     return (
       <Grid columns={3} verticalAlign="middle">
         <Grid.Column>
-          <Link to={PATHNAME} styleName="logoStyles.link">
+          <Link to={`${urlAppBase()}`} styleName="logoStyles.link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               styleName={`logoStyles.${this.handleLogoStyle()}`}
               viewBox="0 0 100 100"
             >
-              <use xlinkHref="/static/maintainer_site/logo.svg#maintainer_logo" />
+              <use xlinkHref={`${urlStaticBase()}logo.svg#maintainer_logo`} />
             </svg>
           </Link>
         </Grid.Column>

@@ -16,7 +16,7 @@ import {
 import { getCookie, CustomCropper } from 'formula_one'
 
 import getCroppedImage from '../get-cropped-image'
-import { urlTeam, urlProjects } from '../../urls'
+import { urlApiTeam, urlApiProjects, urlAppProjects } from '../../urls'
 import { IMAGE_STYLE } from '../../consts'
 
 import common from '../../css/page-common-styles.css'
@@ -49,7 +49,7 @@ class AddProjectDetails extends Component {
   }
 
   componentDidMount() {
-    const URL = urlTeam()
+    const URL = urlApiTeam()
 
     axios.get(URL).then(res => {
       this.setState(
@@ -135,12 +135,12 @@ class AddProjectDetails extends Component {
 
       axios({
         method: 'post',
-        url: urlProjects(),
+        url: urlApiProjects(),
         data: formData,
         headers: headers,
       })
         .then(function(response) {
-          that.props.history.push('../projects/')
+          that.props.history.push(urlAppProjects())
         })
         .catch(function(response) {
           if (response.response.data.slug != null) {

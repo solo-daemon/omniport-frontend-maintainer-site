@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import { PATHNAME } from '../consts'
-
 import styles from '../css/sidebar.css'
+import {
+  urlAppBlog,
+  urlAppProjects,
+  urlAppTeam,
+  urlAppAlumni,
+  urlAppAddMemberDetails,
+  urlAppAddProjectDetails,
+} from '../urls'
 
 class Sidebar extends Component {
   handleHide = () => {
@@ -23,7 +29,7 @@ class Sidebar extends Component {
             <div styleName={`styles.${this.props.sidebarVisible.style}`}>
               <div styleName="styles.sidebar">
                 <Link
-                  to={`${PATHNAME}blog/`}
+                  to={`${urlAppBlog()}`}
                   styleName="styles.link-color"
                   onClick={this.handleHide}
                 >
@@ -36,7 +42,7 @@ class Sidebar extends Component {
                   </button>
                 </Link>
                 <Link
-                  to={`${PATHNAME}projects/`}
+                  to={`${urlAppProjects()}`}
                   styleName="styles.link-color"
                   onClick={this.handleHide}
                 >
@@ -49,7 +55,7 @@ class Sidebar extends Component {
                   </button>
                 </Link>
                 <Link
-                  to={`${PATHNAME}team/`}
+                  to={`${urlAppTeam()}`}
                   styleName="styles.link-color"
                   onClick={this.handleHide}
                 >
@@ -62,7 +68,7 @@ class Sidebar extends Component {
                   </button>
                 </Link>
                 <Link
-                  to={`${PATHNAME}alumni/`}
+                  to={`${urlAppAlumni()}`}
                   styleName="styles.link-color"
                   onClick={this.handleHide}
                 >
@@ -77,7 +83,7 @@ class Sidebar extends Component {
                 {this.props.isAuthed.auth && (
                   <React.Fragment>
                     <Link
-                      to={`${PATHNAME}add_member_details/`}
+                      to={`${urlAppAddMemberDetails()}`}
                       styleName="styles.link-color"
                       onClick={this.handleHide}
                     >
@@ -90,7 +96,7 @@ class Sidebar extends Component {
                       </button>
                     </Link>
                     <Link
-                      to={`${PATHNAME}add_project_details/`}
+                      to={`${urlAppAddProjectDetails()}`}
                       styleName="styles.link-color"
                       onClick={this.handleHide}
                     >

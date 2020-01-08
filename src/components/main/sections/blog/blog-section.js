@@ -4,6 +4,8 @@ import { Container, Grid, Image, Segment } from 'semantic-ui-react'
 
 import { BLOG_SECTION_LINE_1, BLOG_SECTION_LINE_2 } from '../../../../consts'
 
+import { urlStaticBase } from '../../../../urls'
+
 import styles from '../../../../css/sections/blog/blog-section.css'
 import common from '../../../../css/sections/common-styles.css'
 
@@ -13,7 +15,7 @@ const BlogSection = () => (
       <h1 styleName="common.header">Blog</h1>
       <Grid verticalAlign="middle" centered stackable padded>
         <Grid.Column width={8} textAlign="center">
-          <Image src="/static/maintainer_site/blog.png" size="medium" inline />
+          <Image src={`${urlStaticBase()}blog.png`} size="medium" inline />
         </Grid.Column>
         <Grid.Column width={8} textAlign="center">
           <p styleName="styles.description">

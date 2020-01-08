@@ -6,7 +6,7 @@ import AlumniMember from './alumni-card'
 import styles from '../../css/team/team.css'
 import common from '../../css/page-common-styles.css'
 
-import { urlAlumni } from '../../urls'
+import { urlApiAlumni } from '../../urls'
 class Alumni extends Component {
   constructor(props) {
     super(props)
@@ -16,12 +16,12 @@ class Alumni extends Component {
   }
 
   componentDidMount() {
-    const URL = urlAlumni()
+    const URL = urlApiAlumni()
     this.props.requestAlumniData(URL, this.state.page, true)
   }
 
   handleUpdate = () => {
-    const URL = urlAlumni()
+    const URL = urlApiAlumni()
     const { count } = this.props.apiAlumniData
     const { page } = this.state
     if (count > page * 12) {

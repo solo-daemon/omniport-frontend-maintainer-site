@@ -2,7 +2,16 @@ import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 import { Link, NavLink } from 'react-router-dom'
 
-import { PATHNAME } from '../../consts'
+import {
+  urlStaticBase,
+  urlAppBase,
+  urlAppBlog,
+  urlAppProjects,
+  urlAppTeam,
+  urlAppAlumni,
+  urlAppAddMemberDetails,
+  urlAppAddProjectDetails,
+} from '../../urls'
 
 import logoStyles from '../../css/header/app-header-logo.css'
 import browserStyles from '../../css/header/app-header-browser-grid.css'
@@ -20,7 +29,7 @@ class AppHeaderBrowser extends Component {
     if (window.scrollY > 0) {
       return 'maintainer-logo-after-scroll-main'
     } else {
-      if (window.location.pathname === PATHNAME) {
+      if (window.location.pathname === `${urlAppBase()}/`) {
         return 'maintainer-logo-before-scroll-main'
       } else {
         return 'maintainer-logo-after-scroll-main'
@@ -32,7 +41,7 @@ class AppHeaderBrowser extends Component {
     if (window.scrollY > 0) {
       return 'link-after-scroll-main'
     } else {
-      if (window.location.pathname === PATHNAME) {
+      if (window.location.pathname === `${urlAppBase()}/`) {
         return 'link-before-scroll-main'
       } else {
         return 'link-after-scroll-main'
@@ -45,20 +54,20 @@ class AppHeaderBrowser extends Component {
       <Grid columns={2} verticalAlign="middle">
         {' '}
         <Grid.Column>
-          <Link to={PATHNAME} styleName="logoStyles.link">
+          <Link to={`${urlAppBase()}`} styleName="logoStyles.link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               styleName={`logoStyles.${this.handleLogoStyle()}`}
               viewBox="0 0 100 100"
             >
-              <use xlinkHref="/static/maintainer_site/logo.svg#maintainer_logo" />
+              <use xlinkHref={`${urlStaticBase()}logo.svg#maintainer_logo`} />
             </svg>
           </Link>
         </Grid.Column>
         <Grid.Column>
           <div styleName="browserStyles.button">
             <NavLink
-              to={`${PATHNAME}blog/`}
+              to={`${urlAppBlog()}`}
               styleName="browserStyles.link-color"
               activeStyle={ACTIVE_NAV_STYLE}
             >
@@ -70,7 +79,7 @@ class AppHeaderBrowser extends Component {
               </button>
             </NavLink>
             <NavLink
-              to={`${PATHNAME}projects/`}
+              to={`${urlAppProjects()}`}
               styleName="browserStyles.link-color"
               activeStyle={ACTIVE_NAV_STYLE}
             >
@@ -82,7 +91,7 @@ class AppHeaderBrowser extends Component {
               </button>
             </NavLink>
             <NavLink
-              to={`${PATHNAME}team/`}
+              to={`${urlAppTeam()}`}
               styleName="browserStyles.link-color"
               activeStyle={ACTIVE_NAV_STYLE}
             >
@@ -94,7 +103,7 @@ class AppHeaderBrowser extends Component {
               </button>
             </NavLink>
             <NavLink
-              to={`${PATHNAME}alumni/`}
+              to={`${urlAppAlumni()}`}
               styleName="browserStyles.link-color"
               activeStyle={ACTIVE_NAV_STYLE}
             >
@@ -108,7 +117,7 @@ class AppHeaderBrowser extends Component {
             {this.props.auth && (
               <React.Fragment>
                 <NavLink
-                  to={`${PATHNAME}add_member_details/`}
+                  to={`${urlAppAddMemberDetails()}`}
                   styleName="browserStyles.link-color"
                   activeStyle={ACTIVE_NAV_STYLE}
                 >
@@ -120,7 +129,7 @@ class AppHeaderBrowser extends Component {
                   </button>
                 </NavLink>
                 <NavLink
-                  to={`${PATHNAME}add_project_details/`}
+                  to={`${urlAppAddProjectDetails()}`}
                   styleName="browserStyles.link-color"
                   activeStyle={ACTIVE_NAV_STYLE}
                 >

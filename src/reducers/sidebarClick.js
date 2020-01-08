@@ -1,5 +1,13 @@
 import { TOGGLE_SIDEBAR, NAV_MOBILE_TITLE } from '../actions/sidebarClick'
-import { PATHNAME } from '../consts'
+import {
+  urlAppBase,
+  urlAppBlog,
+  urlAppProjects,
+  urlAppTeam,
+  urlAppAlumni,
+  urlAppAddMemberDetails,
+  urlAppAddProjectDetails,
+} from '../urls'
 
 const sidebarVisible = (
   state = { visible: false, style: 'sidebar-container', name: '' },
@@ -20,22 +28,22 @@ const sidebarVisible = (
     default:
       let name = action.name
 
-      if (window.location.pathname === `${PATHNAME}`) {
+      if (window.location.pathname === `${urlAppBase()}/`) {
         name = ''
-      } else if (window.location.pathname === `${PATHNAME}blog/`) {
+      } else if (window.location.pathname === `${urlAppBlog()}/`) {
         name = 'blog'
-      } else if (window.location.pathname === `${PATHNAME}projects/`) {
+      } else if (window.location.pathname === `${urlAppProjects()}/`) {
         name = 'projects'
-      } else if (window.location.pathname === `${PATHNAME}team/`) {
+      } else if (window.location.pathname === `${urlAppTeam()}/`) {
         name = 'team'
-      } else if (window.location.pathname === `${PATHNAME}alumni/`) {
+      } else if (window.location.pathname === `${urlAppAlumni()}/`) {
         name = 'alumni'
       } else if (
-        window.location.pathname === `${PATHNAME}add_member_details/`
+        window.location.pathname === `${urlAppAddMemberDetails()}/`
       ) {
         name = 'add member details'
       } else if (
-        window.location.pathname === `${PATHNAME}add_project_details/`
+        window.location.pathname === `${urlAppAddProjectDetails()}/`
       ) {
         name = 'add project details'
       }

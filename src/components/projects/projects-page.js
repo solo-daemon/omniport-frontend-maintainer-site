@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Container, Segment, Menu, Icon, Loader } from 'semantic-ui-react'
 
 import ProjectDetail from './project-card'
-import { urlProjects } from '../../urls'
+import { urlApiProjects } from '../../urls'
 
 import styles from '../../css/projects/projects-page.css'
 import common from '../../css/page-common-styles.css'
@@ -19,7 +19,7 @@ class Projects extends Component {
   }
 
   paginating = page => {
-    const URL = `${urlProjects()}?page=${page}`
+    const URL = `${urlApiProjects()}?page=${page}`
     this.props.requestProjectData(URL)
     this.setState({
       current: page,

@@ -19,7 +19,8 @@ import ProjectDetail from './projects/project-card'
 
 import TechSkillsCard from './team/tech-skills-card'
 import NoMatch from './404/404'
-import { urlTeamDetails, urlAlumniDetails, urlMaintainerProject } from '../urls'
+import { urlApiTeamDetails, urlApiAlumniDetails, urlApiMaintainerProject } from '../urls'
+
 class TeamIndividualView extends Component {
   constructor(props) {
     super(props)
@@ -38,8 +39,8 @@ class TeamIndividualView extends Component {
   componentDidMount() {
     const { handle } = this.props.match.params
     let activeUrl = this.props.isActive
-      ? urlTeamDetails(handle)
-      : urlAlumniDetails(handle)
+      ? urlApiTeamDetails(handle)
+      : urlApiAlumniDetails(handle)
     const URL = `${activeUrl}`
     axios
       .all([axios.get(URL), axios.options(URL)])
@@ -61,7 +62,7 @@ class TeamIndividualView extends Component {
   }
 
   requestForProjects(id) {
-    URL = urlMaintainerProject(id)
+    URL = urlApiMaintainerProject(id)
     axios.get(URL).then(res => {
       this.setState({
         memberProjects: res.data,

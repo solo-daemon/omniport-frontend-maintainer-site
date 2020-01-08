@@ -21,7 +21,7 @@ import common from '../../css/page-common-styles.css'
 import getCroppedImg from '../get-cropped-image'
 import LinkList from './linkList'
 
-import { urlLoggedMaintainer, urlSocialLink } from '../../urls'
+import { urlApiLoggedMaintainer, urlApiSocialLink, urlAppTeam } from '../../urls'
 import { IMAGE_STYLE } from '../../consts'
 
 class AddMemberDetails extends Component {
@@ -31,7 +31,7 @@ class AddMemberDetails extends Component {
       method: 'post',
       profile: {},
       disabled: false,
-      URL: urlLoggedMaintainer(),
+      URL: urlApiLoggedMaintainer(),
       handle: '',
       shortBio: '',
       skills: { array: [], entry: '' },
@@ -73,7 +73,7 @@ class AddMemberDetails extends Component {
     }
   }
   componentDidMount() {
-    const URL1 = urlLoggedMaintainer()
+    const URL1 = urlApiLoggedMaintainer()
 
     axios.all([axios.get(URL1), axios.options(URL1)]).then(
       axios.spread((memberRes, linksRes) => {
@@ -102,14 +102,14 @@ class AddMemberDetails extends Component {
                 prevUploadedFileD: this.state.profile[0].dankImage,
                 prevUploadedFileN: this.state.profile[0].normieImage,
               })
-              axios.get(urlSocialLink()).then(res => {
+              axios.get(urlApiSocialLink()).then(res => {
                 this.setState({
                   socialLinks: { ...this.state.socialLinks, array: res.data },
                   loaded: true,
                 })
               })
             } else {
-              axios.get(urlSocialLink()).then(res => {
+              axios.get(urlApiSocialLink()).then(res => {
                 this.setState({
                   socialLinks: { ...this.state.socialLinks, array: res.data },
                   loaded: true,
@@ -157,7 +157,7 @@ class AddMemberDetails extends Component {
     }
     axios({
       method: 'post',
-      url: urlSocialLink(),
+      url: urlApiSocialLink(),
       data: {
         site: this.state.socialLinks.site,
         url: this.state.socialLinks.url,
@@ -184,7 +184,7 @@ class AddMemberDetails extends Component {
     }
     axios({
       method: 'delete',
-      url: urlSocialLink() + id + '/',
+      url: urlApiSocialLink() + id + '/',
       headers: headers,
     }).then(response => {
       this.setState({
@@ -279,7 +279,7 @@ class AddMemberDetails extends Component {
       })
         .then(function(response) {
           // handle success
-          that.props.history.push('../team/')
+          that.props.history.push(urlAppTeam())
         })
         .catch(function(response) {
           //handle error

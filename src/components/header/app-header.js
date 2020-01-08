@@ -5,6 +5,7 @@ import { isBrowser } from 'react-device-detect'
 
 import AppHeaderBrowser from './app-header-browser-grid'
 import AppHeaderMobile from './app-header-mobile-grid'
+import { urlStaticBase } from '../../urls'
 
 import styles from '../../css/header/app-header.css'
 
@@ -48,7 +49,7 @@ class AppHeader extends Component {
       <React.Fragment>
         <Helmet>
           <title>{this.pageHead()}</title>
-          <link rel="icon" href="/static/maintainer_site/favicon/favicon.ico" />
+          <link rel="icon" href={`${urlStaticBase()}favicon/favicon.ico`} />
         </Helmet>
         <div styleName="styles.position">
           <div styleName={`styles.${this.handleContainerStyle()}`}>

@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Card, Container, Segment, Icon, Loader } from 'semantic-ui-react'
 
 import BlogDetail from './blog-post-card'
-import { urlBlogs } from '../../urls'
+import { urlApiBlog } from '../../urls'
 import { MEDIUM_URL } from '../../consts'
 
 import common from '../../css/page-common-styles.css'
 
 class Blog extends Component {
   componentDidMount() {
-    const URL = urlBlogs()
+    const URL = urlApiBlog()
     this.props.requestBlogData(URL)
   }
 

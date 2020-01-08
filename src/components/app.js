@@ -26,12 +26,21 @@ import NoMatch from './404/404'
 import AppFooter from '../components/footer/app-footer'
 
 import {
-  urlLocation,
-  urlContact,
-  urlSocial,
-  urlMaintainerGroup,
-  urlProjects,
-  urlLoggedMaintainer,
+  // Back-end routes
+  urlApiLocation,
+  urlApiContact,
+  urlApiSocial,
+  urlApiMaintainerGroup,
+  urlApiProjects,
+  urlApiLoggedMaintainer,
+  // Front-end routes
+  urlAppAddMemberDetails,
+  urlAppAddProjectDetails,
+  urlAppAlumni,
+  urlAppBase,
+  urlAppBlog,
+  urlAppProjects,
+  urlAppTeam,
 } from '../urls'
 
 import blocks from '../css/app.css'
@@ -42,14 +51,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const URL1 = urlLocation()
-    const URL2 = urlContact()
-    const URL3 = urlSocial()
-    const URL4 = urlMaintainerGroup()
-    const URL5 = urlProjects()
-    const AUTH_URL = urlLoggedMaintainer()
+    const URL_LOCATION = urlApiLocation()
+    const URL_CONTACT = urlApiContact()
+    const URL_SOCIAL = urlApiSocial()
+    const URL_MAINTAINER_GROUP = urlApiMaintainerGroup()
+    const URL_PROJECTS = urlApiProjects()
+    const AUTH_URL = urlApiLoggedMaintainer()
 
-    this.props.requestInfoData(URL1, URL2, URL3, URL4, URL5)
+    this.props.requestInfoData(
+      URL_LOCATION,
+      URL_CONTACT,
+      URL_SOCIAL,
+      URL_MAINTAINER_GROUP,
+      URL_PROJECTS,
+    )
     this.props.requestMaintainerAccess(AUTH_URL)
   }
 
@@ -62,10 +77,7 @@ class App extends Component {
   }
 
   render() {
-    const { match } = this.props
-
     const { apiInfoData } = this.props
-
     const Switcher = () => (
       <ScrollToTop>
         <Switch>
@@ -78,28 +90,28 @@ class App extends Component {
 
           <Route
             exact
-            path={`${match.path}`}
+            path={`${urlAppBase()}/`}
             component={routeProps => (
               <MainPage {...routeProps} {...this.props} />
             )}
           />
-          <Route exact path={`${match.path}blog`} component={Blog} />
-          <Route exact path={`${match.path}projects`} component={Projects} />
-          <Route exact path={`${match.path}team`} component={Team} />
-          <Route exact path={`${match.path}alumni`} component={Alumni} />
+          <Route exact path={urlAppBlog()} component={Blog} />
+          <Route exact path={urlAppProjects()} component={Projects} />
+          <Route exact path={urlAppTeam()} component={Team} />
+          <Route exact path={urlAppAlumni()} component={Alumni} />
           <Route
             exact
-            path={`${match.path}projects/:slug`}
+            path={`${urlAppProjects()}/:slug`}
             component={ProjectDetailView}
           />
           <Route
             exact
-            path={`${match.path}team/:handle`}
+            path={`${urlAppTeam()}/:handle`}
             render={props => <TeamIndividualView {...props} isActive={true} />}
           />
           <Route
             exact
-            path={`${match.path}alumni/:handle`}
+            path={`${urlAppAlumni()}/:handle`}
             render={props => <TeamIndividualView {...props} isActive={false} />}
           />
           {this.props.isAuthed.loaded && (
@@ -108,12 +120,12 @@ class App extends Component {
                 <Switch>
                   <Route
                     exact
-                    path={`${match.path}add_project_details`}
+                    path={urlAppAddProjectDetails()}
                     component={AddProjectDetails}
                   />
                   <Route
                     exact
-                    path={`${match.path}add_member_details`}
+                    path={urlAppAddMemberDetails()}
                     component={AddMemberDetails}
                   />
                   <Route component={NoMatch} />

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Header, Segment, Container, Loader } from 'semantic-ui-react'
 
 import NoMatch from '../404/404'
+import { urlApiProjects } from '../../urls'
 
 import common from '../../css/page-common-styles.css'
 import styles from '../../css/projects/project-detail.css'
@@ -19,7 +20,7 @@ class ProjectDetailView extends Component {
   }
   componentDidMount() {
     const { slug } = this.props.match.params
-    const URL = `/api/maintainer_site/projects/${slug}`
+    const URL = `${urlApiProjects()}${slug}`
 
     axios
       .get(URL)

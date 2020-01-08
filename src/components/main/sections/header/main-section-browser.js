@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Grid, Image } from 'semantic-ui-react'
 
+import { urlStaticBase } from '../../../../urls'
+
 import styles from '../../../../css/sections/main/main-section-browser.css'
 
 class MainBrowser extends Component {
@@ -21,7 +23,7 @@ class MainBrowser extends Component {
             <Grid.Column>
               <div styleName="styles.image">
                 <Image
-                  src="/static/maintainer_site/computer.png"
+                  src={`${urlStaticBase()}computer.png`}
                   size="large"
                 />
               </div>

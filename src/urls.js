@@ -1,56 +1,91 @@
 import config from '../config.json'
 
+// Front-end routes
+
 export function urlAppBase() {
   return config.baseUrl
 }
-export function urlMainApp() {
+
+export function urlAppBlog() {
+  return `${urlAppBase()}/blog`
+}
+
+export function urlAppProjects() {
+  return `${urlAppBase()}/projects`
+}
+
+export function urlAppTeam() {
+  return `${urlAppBase()}/team`
+}
+
+export function urlAppAlumni() {
+  return `${urlAppBase()}/alumni`
+}
+
+export function urlAppAddMemberDetails() {
+  return `${urlAppBase()}/add_member_details`
+}
+
+export function urlAppAddProjectDetails() {
+  return `${urlAppBase()}/add_project_details`
+}
+
+// Back-end routes
+
+export function urlApiBase() {
   return '/api/maintainer_site/'
 }
 
-export function urlSocial() {
-  return `${urlMainApp()}social/`
+export function urlApiSocial() {
+  return `${urlApiBase()}social/`
 }
-export function urlLocation() {
-  return `${urlMainApp()}location/`
+export function urlApiLocation() {
+  return `${urlApiBase()}location/`
 }
-export function urlContact() {
-  return `${urlMainApp()}contact/`
+export function urlApiContact() {
+  return `${urlApiBase()}contact/`
 }
-export function urlMaintainerGroup() {
-  return `${urlMainApp()}maintainer_group/`
+export function urlApiMaintainerGroup() {
+  return `${urlApiBase()}maintainer_group/`
 }
-export function urlLoggedMaintainer() {
-  return `${urlMainApp()}logged_maintainer/`
+export function urlApiLoggedMaintainer() {
+  return `${urlApiBase()}logged_maintainer/`
 }
-export function urlBlogs() {
-  return `${urlMainApp()}blog/`
-}
-
-export function urlProjects() {
-  return `${urlMainApp()}projects/`
-}
-export function urlProjectsDetails(slug) {
-  return `${urlProjects()}${slug}/`
+export function urlApiBlog() {
+  return `${urlApiBase()}blog/`
 }
 
-export function urlTeam() {
-  return `${urlMainApp()}active_maintainer_info/`
+export function urlApiProjects() {
+  return `${urlApiBase()}projects/`
 }
-export function urlTeamDetails(slug) {
-  return `${urlTeam()}${slug}/`
-}
-
-export function urlAlumni() {
-  return `${urlMainApp()}inactive_maintainer_info/`
-}
-export function urlAlumniDetails(slug) {
-  return `${urlAlumni()}${slug}/`
+export function urlApiProjectsDetails(slug) {
+  return `${urlApiProjects()}${slug}/`
 }
 
-export function urlMaintainerProject(id) {
-  return `${urlMainApp()}maintainer_project/${id}/`
+export function urlApiTeam() {
+  return `${urlApiBase()}active_maintainer_info/`
+}
+export function urlApiTeamDetails(slug) {
+  return `${urlApiTeam()}${slug}/`
 }
 
-export function urlSocialLink() {
-  return `${urlMainApp()}social_link/`
+export function urlApiAlumni() {
+  return `${urlApiBase()}inactive_maintainer_info/`
+}
+export function urlApiAlumniDetails(slug) {
+  return `${urlApiAlumni()}${slug}/`
+}
+
+export function urlApiMaintainerProject(id) {
+  return `${urlApiBase()}maintainer_project/${id}/`
+}
+
+export function urlApiSocialLink() {
+  return `${urlApiBase()}social_link/`
+}
+
+// Static files route
+
+export function urlStaticBase() {
+  return `/static/maintainer_site/`
 }

@@ -3,8 +3,6 @@ import axios from 'axios'
 export const RECEIVE_BLOG_DATA = 'RECEIVE_BLOG_DATA'
 export const BLOG_ERROR_OCCURED = 'BLOG_ERROR_OCCURED'
 
-const API_URL = '/api/maintainer_site/'
-
 const requestBlogData = url => {
   return dispatch => {
     axios

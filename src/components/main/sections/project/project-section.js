@@ -4,6 +4,8 @@ import { Container, Image, Grid, Segment } from 'semantic-ui-react'
 
 import ProjectElement from './project-element'
 
+import { urlStaticBase } from '../../../../urls'
+
 import styles from '../../../../css/sections/project/project-main.css'
 import common from '../../../../css/sections/common-styles.css'
 
@@ -12,7 +14,7 @@ const ProjectSection = ({ project }) => (
     <Container textAlign="center">
       <h1 styleName="common.header">Projects</h1>
       <Image
-        src={'/static/maintainer_site/project.png'}
+        src={`${urlStaticBase()}project.png`}
         size="medium"
         styleName="styles.image"
         centered
@@ -25,7 +27,7 @@ const ProjectSection = ({ project }) => (
             name={project[key].title}
             number={index + 1}
             description={project[key].shortDescription}
-            link={`/maintainer_site/projects/${project[key].slug}`}
+            link={`${urlStaticBase()}${project[key].slug}`}
           />
         ))}
       </Grid>

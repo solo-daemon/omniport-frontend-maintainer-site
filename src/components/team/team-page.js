@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Card, Container, Loader, Segment } from 'semantic-ui-react'
 
 import TeamMember from './team-member'
-import { urlTeam } from '../../urls'
+import { urlApiTeam } from '../../urls'
 
 import styles from '../../css/team/team.css'
 import common from '../../css/page-common-styles.css'
 
 class Team extends Component {
   componentDidMount() {
-    const URL = urlTeam()
+    const URL = urlApiTeam()
     this.props.requestTeamData(URL)
   }
 
