@@ -28,6 +28,7 @@ class AddMemberDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      method: 'post',
       profile: {},
       disabled: false,
       URL: urlLoggedMaintainer(),
@@ -85,6 +86,7 @@ class AddMemberDetails extends Component {
           },
           () => {
             if (this.state.profile.length) {
+              this.setState({ method: 'patch' })
               this.setState({
                 URL: URL1 + this.state.profile[0].handle + '/',
               })
@@ -270,7 +272,7 @@ class AddMemberDetails extends Component {
       that.setState({ errorHandle: false })
       that.setState({ errorShortBio: false })
       axios({
-        method: 'patch',
+        method: this.state.method,
         url: this.state.URL,
         data: formData,
         headers: headers,
@@ -622,7 +624,8 @@ class AddMemberDetails extends Component {
                 positive
                 styleName="styles.submit-button"
               >
-                Add Member
+                {this.state.method === 'patch' ? 
+                  'Update Member' : 'Add Member'}
               </Button>
             </Form>
             <Segment basic />
