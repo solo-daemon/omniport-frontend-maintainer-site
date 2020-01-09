@@ -287,6 +287,7 @@ class AddProjectDetails extends Component {
               />
             </Form.Field>
             <Modal
+              dimmer="blurring"
               size="tiny"
               open={this.state.open}
               onClose={this.handleClose}
