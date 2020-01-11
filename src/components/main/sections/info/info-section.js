@@ -17,7 +17,7 @@ const InfoSection = ({ location, contact, social, about }) => (
               <br />
               {location.city},
               <br />
-              {location.state}, {location.country && location.country.name}-{' '}
+              {location.state}, {location.country} - {' '}
               {location.postalCode}
             </p>
           </div>
