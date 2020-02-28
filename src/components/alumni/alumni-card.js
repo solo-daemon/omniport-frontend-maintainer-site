@@ -1,5 +1,7 @@
 import React from 'react'
-import { Card, Image } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
+
+import { backgroundImageStyle } from '../../consts'
 
 import styles from '../../css/team/team-member.css'
 
@@ -7,7 +9,7 @@ const AlumniMember = ({ info, roleOptions, designationOptions }) => {
   return (
     <Card raised>
       <a href={info.handle}>
-        <Image src={info.normieImage} />
+        <div style={backgroundImageStyle(info.normieImage)} />
       </a>
       <Card.Content href={info.handle}>
         <Card.Header styleName="styles.text-break">

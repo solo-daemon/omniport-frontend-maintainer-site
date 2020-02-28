@@ -53,7 +53,7 @@ class Alumni extends Component {
     if (this.props.apiAlumniData.loaded) {
       return (
         <Container textAlign="center" styleName="common.margin">
-          <Card.Group itemsPerRow={4} stackable>
+          <Card.Group itemsPerRow={4} stackable doubling>
             {this.props.apiAlumniData.data.length > 0 ? (
               <React.Fragment>
                 {this.props.apiAlumniData.data.map(info => (

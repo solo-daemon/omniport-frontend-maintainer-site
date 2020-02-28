@@ -2,22 +2,15 @@ import React from 'react'
 import moment from 'moment'
 import { Card } from 'semantic-ui-react'
 
+import { backgroundImageStyle } from '../../consts'
+
 import styles from '../../css/blog/blog.css'
 
-const imageStyle = thumbnail => {
-  return {
-    width: '100%',
-    height: '200px',
-    backgroundImage: `url('${thumbnail}')`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-  }
-}
 
 const BlogDetail = ({ info }) => {
   return (
     <Card target="_blank" href={info.link}>
-      <div style={imageStyle(info.thumbnail)} />
+      <div style={backgroundImageStyle(info.thumbnail)} />
       <Card.Content>
         <Card.Header>{info.title}</Card.Header>
       </Card.Content>

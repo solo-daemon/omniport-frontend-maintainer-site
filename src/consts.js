@@ -26,3 +26,13 @@ export const IMAGE_STYLE = {
   maxHeight: '100%',
   maxWidth: '100%',
 }
+
+export const backgroundImageStyle = image => {
+  return {
+    width: '100%',
+    height: '200px',
+    backgroundImage: `url('${image}')`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  }
+}
