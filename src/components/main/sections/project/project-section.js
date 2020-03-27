@@ -4,7 +4,7 @@ import { Container, Image, Grid, Segment } from 'semantic-ui-react'
 
 import ProjectElement from './project-element'
 
-import { urlStaticBase } from '../../../../urls'
+import { urlStaticBase, urlAppProjects } from '../../../../urls'
 
 import styles from '../../../../css/sections/project/project-main.css'
 import common from '../../../../css/sections/common-styles.css'
@@ -27,12 +27,12 @@ const ProjectSection = ({ project }) => (
             name={project[key].title}
             number={index + 1}
             description={project[key].shortDescription}
-            link={`${urlStaticBase()}${project[key].slug}`}
+            link={`${urlAppProjects()}/${project[key].slug}`}
           />
         ))}
       </Grid>
       <Segment basic>
-        <Link to="./projects">
+        <Link to={urlAppProjects()}>
           <div styleName="common.button">View more</div>
         </Link>
       </Segment>
