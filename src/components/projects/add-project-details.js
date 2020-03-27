@@ -123,7 +123,9 @@ class AddProjectDetails extends Component {
       formData.append('title', data.title)
       formData.append('short_description', data.shortDescription)
       formData.append('long_description', data.longDescription)
-      formData.append('members', data.members)
+      for(let member=0;member<data.members.length;++member) {
+        formData.append('members', Number(data.members[member]));
+      }
       formData.append('image', croppedImage)
 
       let headers = {
@@ -273,8 +275,12 @@ class AddProjectDetails extends Component {
               label="Maintainers:"
               options={maintainers}
               onChange={(event, { value }) => {
-                const temp = { value }
-                this.state.data.members = Number(temp.value)
+                this.setState({
+                  data: {
+                    ...this.state.data,
+                    members: value,
+                  },
+                })
               }}
             />
             <Form.Field required>
