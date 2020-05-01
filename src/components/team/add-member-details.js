@@ -344,7 +344,11 @@ class AddMemberDetails extends Component {
       return (
         <div>
           <Container styleName="common.margin">
-            <Header as="h1">Add Member Details</Header>
+            <Header as="h1">
+              {this.state.method === 'post'
+                ? 'Add Member Details'
+                : 'Modify Member Details'}
+            </Header>
             <Form>
               <Form.Field required>
                 <label>Handle Name</label>
