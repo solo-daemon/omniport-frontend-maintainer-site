@@ -529,7 +529,7 @@ class AddMemberDetails extends Component {
                 <Modal
                   trigger={
                     <Button
-                      styleName="styles.previous-upload-button"
+                      styleName="common.previous-upload-button"
                       basic
                       color="blue"
                     >
@@ -604,7 +604,7 @@ class AddMemberDetails extends Component {
                 <Modal
                   trigger={
                     <Button
-                      styleName="styles.previous-upload-button"
+                      styleName="common.previous-upload-button"
                       basic
                       color="blue"
                     >
@@ -626,7 +626,7 @@ class AddMemberDetails extends Component {
               <Button
                 onClick={this.handlePost}
                 positive
-                styleName="styles.submit-button"
+                styleName="common.submit-button"
               >
                 {this.state.method === 'patch' ? 
                   'Update Member' : 'Add Member'}

@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet'
 import { Route } from 'react-router-dom'
 import axios from 'axios'
-import { Header, Segment, Container, Loader } from 'semantic-ui-react'
+import { Segment, Container, Loader, Icon } from 'semantic-ui-react'
 
 import NoMatch from '../404/404'
-import { urlApiProjects } from '../../urls'
+import {
+  urlApiProjects,
+  urlStaticBase,
+  urlAppAddProjectDetails,
+} from '../../urls'
 
 import common from '../../css/page-common-styles.css'
 import styles from '../../css/projects/project-detail.css'
@@ -16,22 +21,23 @@ class ProjectDetailView extends Component {
       loaded: false,
       projects: [],
       error: false,
+      slug: '',
     }
   }
   componentDidMount() {
     const { slug } = this.props.match.params
     const URL = `${urlApiProjects()}${slug}`
+    this.setState({
+      slug: slug,
+    })
 
     axios
       .get(URL)
       .then(res => {
-        this.setState(
-          {
-            loaded: true,
-            projects: res.data,
-          },
-          () => {}
-        )
+        this.setState({
+          loaded: true,
+          projects: res.data,
+        })
       })
       .catch(error => {
         this.setState({
@@ -40,14 +46,34 @@ class ProjectDetailView extends Component {
       })
   }
 
+  editProject = () => {
+    this.props.history.push(`${urlAppAddProjectDetails()}/${this.state.slug}`)
+  }
+
   render() {
     if (this.state.loaded) {
       return (
-        <div>
+        <React.Fragment>
+          <Helmet>
+            <link rel="stylesheet" href={`${urlStaticBase()}prism/prism.css`} />
+            <script src={`${urlStaticBase()}prism/prism.js`} />
+          </Helmet>
           <Container styleName="common.margin">
-            <Header as="h2">
-              {this.state.projects.title}
-            </Header>
+            <div styleName="styles.project-header-container">
+              <div styleName="styles.project-header">
+                {this.state.projects.title}
+              </div>
+              {this.props.isAuthed.auth && (
+                <span styleName="styles.edit-project" onClick={this.editProject}>
+                  <Icon
+                    name="edit"
+                    size="large"
+                    styleName="styles.edit-project"
+                  />
+                  EDIT
+                </span>
+              )}
+            </div>
               <div
                 align="left"
                 dangerouslySetInnerHTML={{
@@ -56,7 +82,7 @@ class ProjectDetailView extends Component {
               />
             <Segment basic />
           </Container>
-        </div>
+        </React.Fragment>
       )
     } else if (this.state.error) {
       return this.state.error

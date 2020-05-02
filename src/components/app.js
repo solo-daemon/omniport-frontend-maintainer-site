@@ -19,7 +19,7 @@ import AddMemberDetails from './team/add-member-details'
 import AddProjectDetails from './projects/add-project-details'
 import Blog from '../containers/blog/blogPageLoader'
 import Projects from '../containers/project/projectPageLoader'
-import ProjectDetailView from './projects/project-detail-view'
+import ProjectDetailView from '../containers/project/projectIndividualLoader'
 import Sidebar from '../containers/sidebar'
 import NoMatch from './404/404'
 
@@ -127,6 +127,11 @@ class App extends Component {
                     exact
                     path={urlAppAddMemberDetails()}
                     component={AddMemberDetails}
+                  />
+                  <Route
+                    exact
+                    path={`${urlAppAddProjectDetails()}/:slug`}
+                    component={AddProjectDetails}
                   />
                   <Route component={NoMatch} />
                 </Switch>

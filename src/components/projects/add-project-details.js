@@ -11,6 +11,7 @@ import {
   Segment,
   Label,
   Modal,
+  Image,
 } from 'semantic-ui-react'
 
 import { getCookie, CustomCropper } from 'formula_one'
@@ -31,6 +32,8 @@ class AddProjectDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      method: 'post',
+      url: '',
       profile: [],
       data: {
         slug: '',
@@ -51,22 +54,46 @@ class AddProjectDetails extends Component {
         aspect: 1,
       },
       open: false,
+      prevUploadedImage: null,
     }
   }
 
   componentDidMount() {
-    const URL = urlApiTeam()
-
-    axios.get(URL).then(res => {
-      this.setState(
-        {
+    const slug = this.props.match.params.slug
+    if (slug !== undefined) {
+      axios.all([
+        axios.get(`${urlApiProjects()}${slug}/`),
+        axios.get(urlApiTeam()),
+      ])
+      .then(axios.spread((initialData, teamMembers) => {
+        initialData = initialData.data
+        this.setState({
+          method: 'patch',
+          profile: teamMembers.data,
+          loaded: true,
+          url: `${urlApiProjects()}${slug}/`,
+          data: {
+            ...this.state.data,
+            members: initialData.members,
+            title: initialData.title,
+            slug: initialData.slug,
+            longDescription: initialData.longDescription,
+            shortDescription: initialData.shortDescription,
+          },
+          prevUploadedImage: initialData.image,
+        })
+      }))
+    }
+    else {
+      axios.get(urlApiTeam()).then(res => {
+        this.setState({
+          method: 'post',
+          url: `${urlApiProjects()}`,
           profile: res.data,
-        },
-        () => {
-          this.setState({ loaded: true })
-        }
-      )
-    })
+          loaded: true,
+        })
+      })
+    }
   }
 
   fileChange = async e => {
@@ -107,7 +134,7 @@ class AddProjectDetails extends Component {
   }
 
   handlePost = () => {
-    const { data, croppedImage } = this.state
+    const { data, croppedImage, prevUploadedImage } = this.state
     let image
 
     !croppedImage ? (image = false) : (image = true)
@@ -122,7 +149,7 @@ class AddProjectDetails extends Component {
       data.slug &&
       data.title &&
       data.members &&
-      croppedImage
+      (croppedImage || prevUploadedImage)
     ) {
       var formData = new FormData()
       formData.append('slug', data.slug)
@@ -132,7 +159,9 @@ class AddProjectDetails extends Component {
       for(let member=0;member<data.members.length;++member) {
         formData.append('members', Number(data.members[member]));
       }
-      formData.append('image', croppedImage)
+      if(croppedImage) {
+        formData.append('image', croppedImage)
+      }
 
       let headers = {
         'Content-Type': 'multipart/form-data',
@@ -142,8 +171,8 @@ class AddProjectDetails extends Component {
       let that = this
 
       axios({
-        method: 'post',
-        url: urlApiProjects(),
+        method: this.state.method,
+        url: this.state.url,
         data: formData,
         headers: headers,
       })
@@ -218,13 +247,19 @@ class AddProjectDetails extends Component {
     if (this.state.loaded) {
       return (
         <Container styleName="common.margin">
-          <Header as="h1">Add Project Details</Header>
+          <Header as="h1">
+            {this.state.method === 'post' ? 
+              'Add Project Details' :
+              'Modify Project Details'
+            }
+          </Header>
           <Form>
             <Form.Field required>
               <label>Title:</label>
               <input
                 placeholder="Title for the project"
                 name="title"
+                value={this.state.data.title}
                 onChange={event => {
                   this.handleChange(event)
                 }}
@@ -240,6 +275,7 @@ class AddProjectDetails extends Component {
               <input
                 placeholder="Slug for the project"
                 name="slug"
+                value={this.state.data.slug}
                 onChange={event => {
                   this.handleChange(event)
                 }}
@@ -257,6 +293,7 @@ class AddProjectDetails extends Component {
               control={TextArea}
               placeholder="Short Description for the project..."
               name="shortDescription"
+              value={this.state.data.shortDescription}
               onChange={event => {
                 this.handleChange(event)
               }}
@@ -270,6 +307,7 @@ class AddProjectDetails extends Component {
 
             <Form.Field label="Content:" required />
             <Editor
+              initialValue={this.state.data.longDescription}
               init={{
                 plugins:
                   'contextmenu ' +
@@ -290,11 +328,13 @@ class AddProjectDetails extends Component {
                   'link unlink | ' +
                   'table image codesample charmap | ' +
                   'fullscreen',
+                toolbar3:
+                  'fontselect fontsizeselect',
                 relative_urls : false,
                 theme: 'modern',
-                height: 512,
+                height: 300,
                 width: 'auto',
-                menubar: false,
+                menubar: true,
                 branding: false,
                 file_picker_callback: (callback, value, meta) => {
                   this.handleUpload(callback, value, meta)
@@ -310,6 +350,7 @@ class AddProjectDetails extends Component {
               multiple
               selection
               label="Maintainers:"
+              value={this.state.data.members}
               options={maintainers}
               onChange={(event, { value }) => {
                 this.setState({
@@ -361,8 +402,37 @@ class AddProjectDetails extends Component {
                 </Button>
               </Modal.Actions>
             </Modal>
-            <Button onClick={this.handlePost} positive>
-              Add project
+            {this.state.prevUploadedImage && (
+                <Modal
+                  trigger={
+                    <Button
+                      styleName="common.previous-upload-button"
+                      basic
+                      color="blue"
+                    >
+                      See previous upload
+                    </Button>
+                  }
+                  dimmer="blurring"
+                  size="tiny"
+                >
+                  <Modal.Header>
+                    Previous Project Image
+                  </Modal.Header>
+                  <Modal.Content image>
+                    <Image src={this.state.prevUploadedImage} />
+                  </Modal.Content>
+                </Modal>
+              )}
+            <Button
+              onClick={this.handlePost}
+              positive
+              styleName="common.submit-button"
+            >
+              {this.state.method === 'post' ? 
+                'Add Project' :
+                'Update Project'
+              }
             </Button>
           </Form>
           <Segment basic />
