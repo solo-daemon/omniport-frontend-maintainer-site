@@ -30,7 +30,7 @@ class Team extends Component {
     if (this.props.apiTeamData.loaded) {
       return (
         <Container textAlign="center" styleName="common.margin">
-          <Card.Group itemsPerRow={4} stackable>
+          <Card.Group itemsPerRow={4} stackable doubling>
             {this.props.apiTeamData.data.map(info => (
               <TeamMember
                 info={info}
