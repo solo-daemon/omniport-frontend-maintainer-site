@@ -14,7 +14,7 @@ const ProjectElement = ({ number, name, description, link }) => (
   >
     <div styleName="styles.background">{number}</div>
     <Segment basic textAlign="right" styleName="styles.text">
-      <h2 styleName="styles.link-text">{name}</h2>
+      <div styleName="styles.link-text">{name}</div>
       <p styleName="styles.link-desc">{description}</p>
     </Segment>
   </Grid.Column>
