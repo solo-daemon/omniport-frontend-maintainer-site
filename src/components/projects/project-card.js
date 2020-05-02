@@ -10,7 +10,7 @@ const ProjectDetail = ({ info }) => {
   return (
     <Card href={`${urlAppProjects()}/${info.slug}`}>
       <div style={backgroundImageStyle(info.image)} />
-      <Card.Content>
+      <Card.Content textAlign="center">
         <Card.Header styleName="styles.text-break">{info.title}</Card.Header>
         <Card.Description styleName="styles.text-break">
           {info.shortDescription}

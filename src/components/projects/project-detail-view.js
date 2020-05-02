@@ -45,19 +45,16 @@ class ProjectDetailView extends Component {
       return (
         <div>
           <Container styleName="common.margin">
-            <Header as="h1" styleName="styles.fonts">
+            <Header as="h2">
               {this.state.projects.title}
             </Header>
-
-            <Segment basic compact>
               <div
                 align="left"
                 dangerouslySetInnerHTML={{
                   __html: this.state.projects.longDescription,
                 }}
               />
-            </Segment>
-            <Segment basic padded />
+            <Segment basic />
           </Container>
         </div>
       )

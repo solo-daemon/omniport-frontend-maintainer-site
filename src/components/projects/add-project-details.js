@@ -16,7 +16,13 @@ import {
 import { getCookie, CustomCropper } from 'formula_one'
 
 import getCroppedImage from '../get-cropped-image'
-import { urlApiTeam, urlApiProjects, urlAppProjects } from '../../urls'
+import {
+  urlApiTeam,
+  urlApiProjects,
+  urlAppProjects,
+  urlFileManager,
+  urlApiPersonalToMedia,
+} from '../../urls'
 import { IMAGE_STYLE } from '../../consts'
 
 import common from '../../css/page-common-styles.css'
@@ -176,6 +182,33 @@ class AddProjectDetails extends Component {
     })
   }
 
+  handleUpload = (callback, value, meta) => {
+    let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+        width=1000px,height=500px,left=100px,top=100px`
+    window.open(urlFileManager(), 'title', params)
+    window.addEventListener('message', (event) => {
+      const { path } = event.data
+      const data = {
+        path,
+      }
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+      }
+      if(path) {
+        axios({
+          method: 'post',
+          url: urlApiPersonalToMedia(),
+          data: data,
+          headers: headers,
+        }).then(response => {
+          const { path } = response.data
+          callback(path)
+        })
+      }
+    })    
+  }
+
   render() {
     const maintainers = this.state.profile.map(user => ({
       image: { avatar: true, src: user.normieImage },
@@ -257,11 +290,15 @@ class AddProjectDetails extends Component {
                   'link unlink | ' +
                   'table image codesample charmap | ' +
                   'fullscreen',
+                relative_urls : false,
                 theme: 'modern',
                 height: 512,
                 width: 'auto',
                 menubar: false,
                 branding: false,
+                file_picker_callback: (callback, value, meta) => {
+                  this.handleUpload(callback, value, meta)
+                },
               }}
               onEditorChange={this.handleEditorChange}
             />

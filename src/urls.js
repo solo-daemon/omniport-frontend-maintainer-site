@@ -30,6 +30,10 @@ export function urlAppAddProjectDetails() {
   return `${urlAppBase()}/add_project_details`
 }
 
+export function urlFileManager() {
+  return '/file-manager'
+}
+
 // Back-end routes
 
 export function urlApiBase() {
@@ -82,6 +86,10 @@ export function urlApiMaintainerProject(id) {
 
 export function urlApiSocialLink() {
   return `${urlApiBase()}social_link/`
+}
+
+export function urlApiPersonalToMedia() {
+  return `${urlApiBase()}personal_to_media/`
 }
 
 // Static files route
