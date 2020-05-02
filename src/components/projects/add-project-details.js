@@ -311,7 +311,7 @@ class AddProjectDetails extends Component {
               init={{
                 plugins:
                   'contextmenu ' +
-                  ' lists link table image codesample charmap ' +
+                  ' lists link table image codesample emoticons code charmap ' +
                   ' fullscreen ' +
                   ' wordcount',
                 contextmenu:
@@ -329,12 +329,26 @@ class AddProjectDetails extends Component {
                   'table image codesample charmap | ' +
                   'fullscreen',
                 toolbar3:
-                  'fontselect fontsizeselect',
+                  'fontselect fontsizeselect | emoticons',
                 relative_urls : false,
                 theme: 'modern',
                 height: 300,
                 width: 'auto',
                 menubar: true,
+                codesample_languages: [
+                  {text: 'HTML/XML', value: 'markup'},
+                  {text: 'JavaScript', value: 'javascript'},
+                  {text: 'CSS', value: 'css'},
+                  {text: 'PHP', value: 'php'},
+                  {text: 'Ruby', value: 'ruby'},
+                  {text: 'Python', value: 'python'},
+                  {text: 'Java', value: 'java'},
+                  {text: 'C', value: 'c'},
+                  {text: 'C#', value: 'csharp'},
+                  {text: 'C++', value: 'cpp'},
+                  {text: 'Dart', value: 'dart'},
+                  {text: 'Go', value: 'go'},
+              ],
                 branding: false,
                 file_picker_callback: (callback, value, meta) => {
                   this.handleUpload(callback, value, meta)
