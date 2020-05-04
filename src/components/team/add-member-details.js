@@ -56,6 +56,7 @@ class AddMemberDetails extends Component {
         crop: {
           aspect: 1,
         },
+        didYouCrop: false,
       },
       uploadedFileNormie: {
         imageSrc: null,
@@ -63,6 +64,7 @@ class AddMemberDetails extends Component {
         crop: {
           aspect: 1,
         },
+        didYouCrop: false,
       },
 
       prevUploadedFileD: null,
@@ -517,8 +519,15 @@ class AddMemberDetails extends Component {
                           })
                         }}
                         onComplete={(crop, pixelCrop) => {
-                          this.state.uploadedFileNormie.pixelCrop = pixelCrop
-                          this.showCroppedImage('uploadedFileNormie')
+                          this.setState({
+                            uploadedFileNormie: {
+                              ...this.state.uploadedFileNormie,
+                              pixelCrop: pixelCrop,
+                              didYouCrop: crop.height && crop.width,
+                            },
+                          }, () => {
+                            this.showCroppedImage('uploadedFileNormie')
+                          })
                         }}
                       />
                     </Fragment>
@@ -527,6 +536,7 @@ class AddMemberDetails extends Component {
                 <Modal.Actions>
                   <Button
                     positive
+                    disabled={!this.state.uploadedFileNormie.didYouCrop}
                     type="submit"
                     onClick={this.handleClose}
                     name="uploadedFileNormie"
@@ -592,8 +602,15 @@ class AddMemberDetails extends Component {
                           })
                         }}
                         onComplete={(crop, pixelCrop) => {
-                          this.state.uploadedFileDank.pixelCrop = pixelCrop
-                          this.showCroppedImage('uploadedFileDank')
+                          this.setState({
+                            uploadedFileDank: {
+                              ...this.state.uploadedFileDank,
+                              pixelCrop: pixelCrop,
+                              didYouCrop: crop.width && crop.height,
+                            }
+                          }, () => {
+                            this.showCroppedImage('uploadedFileDank')
+                          })
                         }}
                       />
                     </Fragment>
@@ -602,6 +619,7 @@ class AddMemberDetails extends Component {
                 <Modal.Actions>
                   <Button
                     positive
+                    disabled={!this.state.uploadedFileDank.didYouCrop}
                     type="submit"
                     name="uploadedFileDank"
                     onClick={this.handleClose}

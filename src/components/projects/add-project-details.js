@@ -53,6 +53,7 @@ class AddProjectDetails extends Component {
       crop: {
         aspect: 1,
       },
+      didYouCrop: false,
       open: false,
       prevUploadedImage: null,
     }
@@ -402,7 +403,10 @@ class AddProjectDetails extends Component {
                         this.setState({ crop })
                       }}
                       onComplete={(crop, pixelCrop) => {
-                        this.setState({ pixelCrop }, () =>
+                        this.setState({
+                          pixelCrop: pixelCrop,
+                          didYouCrop: crop.height && crop.width,
+                        }, () =>
                           this.showCroppedImage()
                         )
                       }}
@@ -411,7 +415,12 @@ class AddProjectDetails extends Component {
                 )}
               </Modal.Content>
               <Modal.Actions>
-                <Button positive type="submit" onClick={this.handleClose}>
+                <Button
+                  positive
+                  disabled={!this.state.didYouCrop}
+                  type="submit"
+                  onClick={this.handleClose}
+                >
                   Done
                 </Button>
               </Modal.Actions>
