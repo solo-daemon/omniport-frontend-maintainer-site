@@ -50,6 +50,28 @@ class AppHeader extends Component {
         <Helmet>
           <title>{this.pageHead()}</title>
           <link rel="icon" href={`${urlStaticBase()}favicon/favicon.ico`} />
+          {/* Open graph */}
+          <meta property="og:title" content={this.pageHead()} />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:description"
+            content="We are a student group, which cultivates technical innovation and drives the development of software systems and niche applications which empathize with the residents of IIT Roorkee."
+          />
+          <meta
+            property="og:image"
+            content={`${urlStaticBase()}logo.svg#maintainer_logo`}
+          />
+          {/* SEO */}
+          <meta name="author" content="Information Management Group" />
+          <meta
+            name="description"
+            content="We are a student group, which cultivates technical innovation and drives the development of software systems and niche applications which empathize with the residents of IIT Roorkee."
+          />
+          <meta
+            name="keywords"
+            content="img, information management group, img iit roorkee,"
+          />
+          <meta name="robots" content="index,follow" />
         </Helmet>
         <div styleName="styles.position">
           <div styleName={`styles.${this.handleContainerStyle()}`}>
