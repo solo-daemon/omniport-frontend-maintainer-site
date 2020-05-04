@@ -21,7 +21,12 @@ import common from '../../css/page-common-styles.css'
 import getCroppedImg from '../get-cropped-image'
 import LinkList from './linkList'
 
-import { urlApiLoggedMaintainer, urlApiSocialLink, urlAppTeam } from '../../urls'
+import {
+  urlApiLoggedMaintainer,
+  urlApiSocialLink,
+  urlAppTeam,
+  urlAppAlumni,
+} from '../../urls'
 import { IMAGE_STYLE } from '../../consts'
 
 class AddMemberDetails extends Component {
@@ -279,7 +284,13 @@ class AddMemberDetails extends Component {
       })
         .then(function(response) {
           // handle success
-          that.props.history.push(urlAppTeam())
+          const isAlumni = response.data.isAlumni
+          if (isAlumni) {
+            that.props.history.push(`${urlAppAlumni()}/${handle}`)
+          }
+          else {
+            that.props.history.push(`${urlAppTeam()}/${handle}`)
+          }
         })
         .catch(function(response) {
           //handle error
