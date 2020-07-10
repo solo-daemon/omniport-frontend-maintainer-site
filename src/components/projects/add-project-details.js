@@ -24,7 +24,7 @@ import {
   urlFileManager,
   urlApiPersonalToMedia,
 } from '../../urls'
-import { IMAGE_STYLE } from '../../consts'
+import { IMAGE_STYLE, headers } from '../../consts'
 
 import common from '../../css/page-common-styles.css'
 
@@ -164,18 +164,13 @@ class AddProjectDetails extends Component {
         formData.append('image', croppedImage)
       }
 
-      let headers = {
-        'Content-Type': 'multipart/form-data',
-        'X-CSRFToken': getCookie('csrftoken'),
-      }
-
       let that = this
 
       axios({
         method: this.state.method,
         url: this.state.url,
         data: formData,
-        headers: headers,
+        headers: { ...headers, 'Content-Type': 'multipart/form-data' },
       })
         .then(function(response) {
           that.props.history.push(urlAppProjects())
@@ -221,16 +216,12 @@ class AddProjectDetails extends Component {
       const data = {
         path,
       }
-      const headers = {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken'),
-      }
       if(path) {
         axios({
           method: 'post',
           url: urlApiPersonalToMedia(),
           data: data,
-          headers: headers,
+          headers: { ...headers, 'Content-Type': 'application/json' },
         }).then(response => {
           const { path } = response.data
           callback(path)

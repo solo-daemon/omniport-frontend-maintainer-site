@@ -92,6 +92,10 @@ export function urlApiPersonalToMedia() {
   return `${urlApiBase()}personal_to_media/`
 }
 
+export function urlApiHit() {
+  return `${urlApiBase()}hit/`
+}
+
 // Static files route
 
 export function urlStaticBase() {

@@ -17,7 +17,13 @@ import {
 import ProjectDetail from './projects/project-card'
 import TechSkillsCard from './team/tech-skills-card'
 import NoMatch from './404/404'
-import { urlApiTeamDetails, urlApiAlumniDetails, urlApiMaintainerProject } from '../urls'
+import {
+  urlApiTeamDetails,
+  urlApiAlumniDetails,
+  urlApiMaintainerProject,
+  urlApiHit,
+} from '../urls'
+import { headers } from '../consts'
 
 import common from '../css/page-common-styles.css'
 import styles from '../css/team/team-individual-view.css'
@@ -37,8 +43,24 @@ class TeamIndividualView extends Component {
     this.requestForProjects = this.requestForProjects.bind(this)
   }
 
+  youChoseMe = handle => {
+    const user = localStorage.getItem(handle)
+    const dateTime = new Date().getTime()
+    if (user) {
+      if (parseInt(user) + 1000*5 < dateTime) {
+        axios.put(`${urlApiHit()}${handle}/`, null, { headers: headers })
+        localStorage.setItem(handle, dateTime)
+      }
+    }
+    else {
+      axios.put(`${urlApiHit()}${handle}/`, null, { headers: headers })
+      localStorage.setItem(handle, dateTime)
+    }
+  }
+
   componentDidMount() {
     const { handle } = this.props.match.params
+    this.youChoseMe(handle)
     let activeUrl = this.props.isActive
       ? urlApiTeamDetails(handle)
       : urlApiAlumniDetails(handle)

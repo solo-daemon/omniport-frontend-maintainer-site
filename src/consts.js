@@ -1,3 +1,5 @@
+import { getCookie } from 'formula_one'
+
 export const PATHNAME = '/maintainer_site/'
 
 export const MEDIUM_URL = 'https://medium.com/'
@@ -35,4 +37,8 @@ export const backgroundImageStyle = image => {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
   }
+}
+
+export const headers = {
+  'X-CSRFToken': getCookie('csrftoken'),
 }

@@ -27,7 +27,7 @@ import {
   urlAppTeam,
   urlAppAlumni,
 } from '../../urls'
-import { IMAGE_STYLE } from '../../consts'
+import { IMAGE_STYLE, headers } from '../../consts'
 
 class AddMemberDetails extends Component {
   constructor(props) {
@@ -159,9 +159,6 @@ class AddMemberDetails extends Component {
   addLink = e => {
     const that = this
     that.setState({ errorUrl: false })
-    let headers = {
-      'X-CSRFToken': getCookie('csrftoken'),
-    }
     axios({
       method: 'post',
       url: urlApiSocialLink(),
@@ -186,9 +183,6 @@ class AddMemberDetails extends Component {
   }
 
   deleteSocialLink = id => {
-    let headers = {
-      'X-CSRFToken': getCookie('csrftoken'),
-    }
     axios({
       method: 'delete',
       url: urlApiSocialLink() + id + '/',
@@ -270,11 +264,6 @@ class AddMemberDetails extends Component {
         }
       }
 
-      let headers = {
-        'Content-Type': 'multipart/form-data',
-        'X-CSRFToken': getCookie('csrftoken'),
-      }
-
       const that = this
       that.setState({ errorHandle: false })
       that.setState({ errorShortBio: false })
@@ -282,7 +271,7 @@ class AddMemberDetails extends Component {
         method: this.state.method,
         url: this.state.URL,
         data: formData,
-        headers: headers,
+        headers: { ...headers, 'Content-Type': 'multipart/form-data' },
       })
         .then(function(response) {
           // handle success
