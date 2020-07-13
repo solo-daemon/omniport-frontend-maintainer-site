@@ -323,7 +323,6 @@ class AddProjectDetails extends Component {
                 toolbar3:
                   'fontselect fontsizeselect | emoticons',
                 relative_urls : false,
-                theme: 'modern',
                 height: 300,
                 width: 'auto',
                 menubar: true,
