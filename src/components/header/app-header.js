@@ -59,7 +59,7 @@ class AppHeader extends Component {
           />
           <meta
             property="og:image"
-            content={`${urlStaticBase()}logo.svg#maintainer_logo`}
+            content={`${urlStaticBase()}thumbnail.png`}
           />
           {/* SEO */}
           <meta name="author" content="Information Management Group" />
@@ -69,7 +69,7 @@ class AppHeader extends Component {
           />
           <meta
             name="keywords"
-            content="img, information management group, img iit roorkee,"
+            content="img, information management group, img iit roorkee, imgiitr"
           />
           <meta name="robots" content="index,follow" />
         </Helmet>
